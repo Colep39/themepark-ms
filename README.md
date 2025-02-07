@@ -6,11 +6,14 @@ Use Datagrip for to show triggers for when a condition is met
 Deploy with Vercel
 
 Proposed technologies:
-Html, CSS, JavaScript, React
+HTML, CSS, JavaScript, React
 C#, mySQL
 
 Front-end:
 Cole
+Kiriti
 
 Back-end:
 Alyssa
+Arsalan
+Erik
