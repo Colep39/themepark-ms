@@ -14,6 +14,6 @@ Cole
 Kiriti
 
 Back-end:
-Alyssa
+Alyssa (Nah I'd Win - Alyssa)
 Arsalan
 Erik (Nah I'd Win - Erik_Lopez)
