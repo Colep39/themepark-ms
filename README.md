@@ -1,7 +1,7 @@
 # themepark-ms
 Group 14 Database Project for a Theme park Management System
 
-Use Datagrip for to show triggers for when a condition is met
+Use Datagrip to show triggers for when a condition is met
 
 Deploy with Vercel
 
