@@ -1,42 +1,69 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+* {
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+  background-color: rgb(23, 74, 129);
+  color: white;
+}
+.container{
+  margin: 1rem;
   text-align: center;
+  font-size: 2rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Style the Nav Bar */
+.nav{
+  background-color: rgb(151, 125, 113);
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.nav a, button{
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.nav ul{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  font-size: 2.5rem;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.site-title{
+  font-size: 4rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav li.active {
+  color: white;
 }
-
-.card {
-  padding: 2em;
+.nav li:hover{
+  color: white;
+  border-radius: 10px;
 }
-
-.read-the-docs {
-  color: #888;
+button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 10px;
+  border: 3px solid black;
+}
+button:hover{
+  background-color: rgb(6, 5, 9);
+  color: white;
+}
+.cart a:hover{
+  background-color: rgb(151, 125, 113);
+  color: black;
 }
