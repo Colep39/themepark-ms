@@ -7,6 +7,9 @@ import Visit from './pages/Visit'
 import Cart from './pages/Cart'
 import Home from './pages/Home'
 import { Route, Routes} from "react-router-dom"
+import BuyTickets from './pages/buy-tickets'
+import MyTickets from './pages/My-Tickets'
+import Profile from './pages/Profile'
 
 function App() {
   
@@ -20,6 +23,9 @@ function App() {
           <Route path="/shops" element={<Shops />} />
           <Route path="/visit" element={<Visit />} />
           <Route path="/information" element={<EmpInfo />} />
+          <Route path="/buytickets" element={<BuyTickets />} />
+          <Route path="/mytickets" element={<MyTickets />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>

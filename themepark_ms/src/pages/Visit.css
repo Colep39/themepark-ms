@@ -1,0 +1,93 @@
+.visit-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.img-container{
+    width: 100%; /* Makes image responsive */
+    display: block;
+    
+}
+.img-container img{
+    width: 100%; /* Makes image responsive */
+    display: block;
+}
+.text-overlay {
+    position: absolute;
+    top: 50%; /* Moves text to the middle */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers text */
+    background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent background */
+    color: white;
+    padding: 10px 20px;
+    font-size: 5rem;
+    text-align: center;
+    border-radius: 5px;
+}
+.visit-info{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 3 px white;
+    margin: 1rem;
+    text-align: center; /* Centers text inside */
+    padding: 20px;
+    max-width: 800px; /* Controls width */
+    margin: 0 auto; /* Centers the whole section */
+}
+.hours-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+    padding: 10px;
+}
+.hours{
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+    border: solid 1px white;
+    border-radius: 10px;
+}
+.admission-info{
+    text-align: center; /* Centers text inside */
+    padding: 20px;
+    max-width: 800px; /* Controls width */
+    margin: 0 auto; /* Centers the whole section */
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(85, 85, 146);
+}
+#season-pass-info{
+    background-color: rgb(45, 26, 47);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.price-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.btn-container{
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8em;
+}
+footer{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}

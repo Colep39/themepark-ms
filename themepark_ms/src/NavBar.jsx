@@ -11,17 +11,13 @@ export default function NavBar() {
                 <CustomLink to="/rides">Rides</CustomLink>
                 <CustomLink to="/shops">Shops</CustomLink>
                 <CustomLink to="/information">Emp Info</CustomLink>
+                <CustomLink to="/buytickets">Buy Tickets</CustomLink>
+                <CustomLink to="/mytickets">My Tickets</CustomLink>
+                <CustomLink to="/profile">Profile</CustomLink>
                 <li>
-                    <button>Buy Tickets</button>
-                </li>
-                <li>
-                    <button>My Tickets</button>
-                </li>
-                <li>
-                    <button>Profile</button>
-                </li>
-                <li>
-                    <button>Logout</button>
+                    <div className="logout-btn">
+                        <button>LOGOUT</button>
+                    </div>
                 </li>
                 <CustomLink to="/cart"><i className="fa fa-shopping-cart"></i></CustomLink>
             </ul>
