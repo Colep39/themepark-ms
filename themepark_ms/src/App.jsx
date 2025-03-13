@@ -10,8 +10,8 @@ import { Route, Routes} from "react-router-dom"
 import BuyTickets from './pages/buy-tickets'
 import MyTickets from './pages/My-Tickets'
 import Profile from './pages/Profile'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Login from './pages/register-login/Login'
+import Register from './pages/register-login/Register'
 
 function App() {
   

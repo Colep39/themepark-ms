@@ -1,0 +1,24 @@
+#create-account-btn{
+    cursor: pointer;
+}
+#register-container{
+    display: flex;
+    margin-top: 150px;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    background: url('src/images/oceanblue.jpg');
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+    min-height: 20px; /* Adjust as needed */
+    display: block; /* Ensures space is always reserved */
+    padding: 5px;
+}
+#register-heading{
+    color: white;
+}
+#already-registered{
+    color: white;
+}
