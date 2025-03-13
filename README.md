@@ -10,10 +10,10 @@ HTML, CSS, JavaScript, React,
 C#, mySQL
 
 Front-end:
-Cole
+Cole,
 Kiriti
 
 Back-end:
-Alyssa (Nah I'd Win - Alyssa)
-Arsalan
+Alyssa (Nah I'd Win - Alyssa),
+Arsalan,
 Erik (Nah I'd Win - Erik_Lopez)
