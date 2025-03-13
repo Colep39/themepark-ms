@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Hero Section */
+.hero {
+  background-image: url("/src/images/main-rides-img.jpeg");
+  background-position: center;
+  color: white;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+/* Section Styles */
+.section {
+  margin-top: 50px;
+}
+
+.section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Scrollable Containers */
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px;
+  white-space: nowrap;
+}
+
+.card {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 250px;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.card p {
+  color: black;
+  font-size: 18px;
+}
+
+/* Buttons */
+.button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Location & Hours Section */
+.location-section {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+.location-section h2 {
+  color: black;
+}
+.location-section p {
+  color: black;
+}
