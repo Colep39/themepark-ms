@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export default function NavBar() {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        navigate('/');
+    }
   return (
     <>
         <nav className="nav">
@@ -15,9 +20,9 @@ export default function NavBar() {
                 <CustomLink to="/mytickets">My Tickets</CustomLink>
                 <CustomLink to="/profile">Profile</CustomLink>
                 <li>
-                    <div className="logout-btn">
-                        <button>LOGOUT</button>
-                    </div>
+                    <button className="beautiful-button" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </li>
                 <CustomLink to="/cart"><i className="fa fa-shopping-cart"></i></CustomLink>
             </ul>

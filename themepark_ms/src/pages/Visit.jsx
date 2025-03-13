@@ -1,6 +1,11 @@
 import './Visit.css';
+import {useNavigate} from 'react-router-dom';
 
 export default function Visit(){
+    const navigate = useNavigate();
+    const handleBuyTickets = () => {
+        navigate('/buytickets');
+    }
     return (
         <>
             <div className="img-container">
@@ -52,7 +57,7 @@ export default function Visit(){
                     <div className="price">Student</div>
                     <div className="price">FREE</div>
                 </div>
-                <div className="btn-container"> <button className="buy-tickets-btn">Buy Tickets</button></div>
+                <div className="btn-container"> <button className="buy-tickets-btn" onClick={handleBuyTickets}>Buy Tickets</button></div>
             </div>
 
             <footer>

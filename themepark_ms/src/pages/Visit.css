@@ -91,3 +91,19 @@ footer{
     width: 100%;
     left: 0;
 }
+.location-info{
+    text-align: center;
+}
+.buy-tickets-btn{
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    cursor: pointer;
+    height: 60px;
+    width: 150px;
+    font-size: 1rem;
+}
