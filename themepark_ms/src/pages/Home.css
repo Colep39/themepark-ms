@@ -41,6 +41,8 @@ body {
   gap: 20px;
   padding: 20px;
   white-space: nowrap;
+  align-content: center;
+  justify-content: center;
 }
 
 .card {
