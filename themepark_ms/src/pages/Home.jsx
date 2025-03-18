@@ -44,7 +44,7 @@ export default function Home() {
           </div>
           <div className="card">
             <h3>Adventure Gear</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/nah-id-win-shirt.jpeg"/>
             <p>Get your favorite UmaZooma merch!</p>
           </div>
           <div className="card">
