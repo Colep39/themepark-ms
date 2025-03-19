@@ -17,3 +17,6 @@ Back-end:
 Alyssa (Nah I'd Win - Alyssa),
 Arsalan,
 Erik (Nah I'd Win - Erik_Lopez)
+
+Dependencies:
+npm install react-datepicker
