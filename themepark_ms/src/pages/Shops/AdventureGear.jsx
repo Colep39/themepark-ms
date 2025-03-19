@@ -17,9 +17,9 @@ export default function AdventureGear(){
                     <ShopItem src="src/images/sunscreen.jpg" shopItemName="Uma Screen" price="8.00"/>
                     <ShopItem src="src/images/water noodle.jpg" shopItemName="Water Noodle" price="6.00"/>
                     <ShopItem src="src/images/swim-trunks.webp" shopItemName="Swim Trunks" price="18.00"/>
-                    <ShopItem src="src/images/water-gun1.jpg" shopItemName="Umas Glock" price="30.00"/>
+                    <ShopItem src="src/images/water-gun1.jpg" shopItemName="Water Glock" price="30.00"/>
                     <ShopItem src="src/images/umabrella.webp" shopItemName="UmaBrella" price="20.00"/>
-                    <ShopItem src="src/images/water-gun2.jpg" shopItemName="Dual Umas" price="19.00"/>
+                    <ShopItem src="src/images/water-gun2.jpg" shopItemName="Dual Blasters" price="19.00"/>
                 </div>
             </div>
         </>

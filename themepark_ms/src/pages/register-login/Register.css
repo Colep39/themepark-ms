@@ -3,11 +3,10 @@
 }
 #register-container{
     display: flex;
-    margin-top: 150px;
+    margin-top: 200px;
     justify-content: center;
     flex-direction: column;
     width: 400px;
-    background: url('src/images/oceanblue.jpg');
 }
 .error-message {
     color: red;
@@ -17,8 +16,15 @@
     padding: 5px;
 }
 #register-heading{
-    color: white;
+    color: rgb(12, 1, 1);
 }
 #already-registered{
-    color: white;
+    color: black;
+}
+#register-text{
+    color: black;
+    text-decoration: underline;
+}
+.no-account{
+    font-size: 15px;
 }

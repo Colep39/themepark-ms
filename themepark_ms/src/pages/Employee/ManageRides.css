@@ -1,0 +1,20 @@
+#add-ride-btn{
+    background-color: #e3e71c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+}
+#add-ride-btn:hover{
+    background-color: #b2af12;
+}
+.ManageRidesContainer h1{
+    font-size: 3rem;
+    font-weight: bold;
+}

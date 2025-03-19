@@ -39,17 +39,17 @@ export default function Home() {
         <div className="scroll-container">
           <div className="card">
             <h3>Candy Kingdom</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/cookies-n-cream.webp"/>
             <p>Sweet treats for all ages!</p>
           </div>
           <div className="card">
             <h3>Adventure Gear</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/uma-zooma-hat.webp"/>
             <p>Get your favorite UmaZooma merch!</p>
           </div>
           <div className="card">
             <h3>Gourmet Bites</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/chili-dog.webp"/>
             <p>Delicious food from around the world!</p>
           </div>
         </div>

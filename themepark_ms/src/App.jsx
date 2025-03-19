@@ -15,6 +15,16 @@ import Register from './pages/register-login/Register'
 import GourmetBites from './pages/Shops/GourmetBites.jsx'
 import CandyKingdom from './pages/Shops/CandyKingdom.jsx'
 import AdventureGear from './pages/Shops/AdventureGear.jsx'
+import MaintenanceReport from './pages/Employee/MaintenanceReport.jsx'
+import WeatherReport from './pages/Employee/WeatherReport.jsx'
+import RideLogs from './pages/Employee/RideLogs.jsx'
+import Admin from './pages/Employee/Admin.jsx'
+import ManageRides from './pages/Employee/ManageRides.jsx'
+import ManageShops from './pages/Employee/ManageShops.jsx'
+import ManageUsers from './pages/Employee/ManageUsers.jsx'
+import TicketReport from './pages/Employee/TicketReport.jsx'
+import ManageBreakdowns from './pages/Employee/ManageBreakdowns.jsx'
+
 
 function App() {
   
@@ -37,6 +47,16 @@ function App() {
           <Route path="/candykingdom" element={<CandyKingdom />} />
           <Route path="/gourmetbites" element={<GourmetBites />} />
           <Route path="/adventuregear" element={<AdventureGear />} />
+          <Route path="/maintenancereport" element={<MaintenanceReport />} />
+          <Route path="/weatherreport" element={<WeatherReport />} />
+          <Route path="/ridelogs" element={<RideLogs />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/managerides" element={<ManageRides />} />
+          <Route path="/manageshops" element={<ManageShops />} />
+          <Route path="/manageusers" element={<ManageUsers />} />
+          <Route path="/ticketreport" element={<TicketReport />} />
+          <Route path="/managebreakdowns" element={<ManageBreakdowns />} />
+
         </Routes>
       </div>
     </>
