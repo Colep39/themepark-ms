@@ -18,10 +18,10 @@ Alyssa (Nah I'd Win - Alyssa),
 Arsalan,
 Erik (Nah I'd Win - Erik_Lopez)
 
-Dependencies:
+Dependencies (Frontend):
 npm install react-datepicker
 
-Dependencies:
+Dependencies (Backend):
 
 dotnet add package Microsoft.EntityFrameworkCore --version 8.0.2
 
