@@ -16,11 +16,15 @@ namespace BackendGroup.Controllers
             _context = context;
         }
 
-        //GET
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ride>>> GetRides()
         {
-            return await _context.Rides.ToListAsync();
+            var rides = await _context.Rides.ToListAsync();
+            if (rides == null || rides.Count == 0)
+            {
+                return NotFound("No rides found.");
+            }
+            return Ok(rides);
         }
 
         //GET id
@@ -47,7 +51,6 @@ namespace BackendGroup.Controllers
             return CreatedAtAction(nameof(GetRide), new { id = ride.ride_id }, ride);
         }
 
-        //PUT -- essentially update
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRide(int id, Ride ride)
         {
@@ -56,7 +59,42 @@ namespace BackendGroup.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(ride).State = EntityState.Modified;
+            var existingRide = await _context.Rides.FindAsync(id);
+            if (existingRide == null)
+            {
+                return NotFound();
+            }
+
+            // Only update fields if they are provided (non-null)
+            if (!string.IsNullOrEmpty(ride.ride_name))
+            {
+                existingRide.ride_name = ride.ride_name;
+            }
+
+            if (ride.capacity != 0)
+            {
+                existingRide.capacity = ride.capacity;
+            }
+
+            if (ride.status >= 0) // Assuming status can be 0 or 1
+            {
+                existingRide.status = ride.status;
+            }
+
+            if (ride.last_maintenance_date != default)
+            {
+                existingRide.last_maintenance_date = ride.last_maintenance_date;
+            }
+
+            if (ride.maintenance_count >= 0)
+            {
+                existingRide.maintenance_count = ride.maintenance_count;
+            }
+
+            if (ride.type >= 0) // Assuming type is an integer with valid types
+            {
+                existingRide.type = ride.type;
+            }
 
             try
             {
@@ -70,9 +108,10 @@ namespace BackendGroup.Controllers
                 }
                 throw;
             }
-            return NoContent();
 
+            return NoContent();
         }
+
 
         //DELETE
         [HttpDelete("{id}")]
