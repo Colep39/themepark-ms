@@ -5,6 +5,8 @@ Use Datagrip to show triggers for when a condition is met
 
 Deploy with Vercel
 
+entity framework core, entity migration is good for database and backened connection, courtesy of Franklin (goat)
+
 Proposed technologies:
 HTML, CSS, JavaScript, React,
 C#, mySQL
