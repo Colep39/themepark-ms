@@ -9,6 +9,9 @@ export default function NavBar() {
     const handleLogout = () => {
         navigate('/');
     }
+    const toggleDropDown = (dropdown) => {
+        setDropdownOpen(dropdownOpen === dropdown ? null : dropdown);
+    }
   return (
     <>
         <nav className="nav">
@@ -16,14 +19,14 @@ export default function NavBar() {
             <ul>
                 <CustomLink to="/visit">Visit</CustomLink>
                 <CustomLink to="/rides">Rides</CustomLink>
-                {/*<CustomLink to="/shops">Shops</CustomLink> */}
+                {/*Shop Dropdown */}
                 <div className="dropdown">
                     <CustomLink to="/shops" className="dropdown-anchor" 
                     onClick={(e) => 
                         {e.preventDefault(); 
-                        setDropdownOpen(!dropdownOpen) 
+                        toggleDropDown("shop"); 
                     }}>Shop⏷</CustomLink>
-                    {dropdownOpen && (
+                    {dropdownOpen === "shop" && (
                     <div className="dropdown-menu">
                         <Link to="/adventuregear" className="dropdown-item">Adventure Gear</Link>
                         <Link to="/gourmetbites" className="dropdown-item">Gourmet Bites</Link>
@@ -31,14 +34,36 @@ export default function NavBar() {
                     </div>
                     )}
                 </div>
-                <CustomLink to="/information">Emp Info</CustomLink>
+                {/*Employee Dropdown */}
+                <div className="dropdown">
+                    <CustomLink to="/information" className="dropdown-anchor2" 
+                    onClick={(e) => 
+                        {e.preventDefault(); 
+                        toggleDropDown("employee"); 
+                    }}>Employee⏷</CustomLink>
+                    {dropdownOpen === "employee" && (
+                    <div className="dropdown-menu2">
+                        <Link to="/managerides" className="dropdown-item">Manage Rides</Link>
+                        <Link to="/manageshops" className="dropdown-item">Manage Shops</Link>
+                        <Link to="/manageusers" className="dropdown-item">Manage Users</Link>
+                        <Link to="/managebreakdowns" className="dropdown-item">Manage Breakdowns</Link>
+                        <Link to="/ridelogs" className="dropdown-item">Ride Logs</Link>
+                        <Link to="/ticketreport" className="dropdown-item">Ticket Report</Link>
+                        <Link to="/weatherreport" className="dropdown-item">Weather Report</Link>
+                        <Link to="/maintenancereport" className="dropdown-item">Maintenance Report</Link>
+                        <Link to="/admin" className="dropdown-item">Admin</Link>
+                    </div>
+                    )}
+                </div>
                 <CustomLink to="/buytickets">Buy Tickets</CustomLink>
                 <CustomLink to="/mytickets">My Tickets</CustomLink>
                 <CustomLink to="/profile">Profile</CustomLink>
                 <li>
-                    <button className="beautiful-button" onClick={handleLogout}>
-                        Logout
-                    </button>
+                    <div className="logout-btn-container">
+                        <button className="beautiful-button" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
                 </li>
                 <CustomLink to="/cart"><i className="fa fa-shopping-cart"></i></CustomLink>
             </ul>

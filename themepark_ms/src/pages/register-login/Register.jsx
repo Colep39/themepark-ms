@@ -9,6 +9,7 @@ const Register = () => {
         username: '',
         password: '',
         confirmPassword: '',
+        b_date: '',
     });
     const [errors, setErrors] = useState({
         firstname: '',
@@ -17,10 +18,11 @@ const Register = () => {
         username: '',
         password: '',
         confirmPassword: '',
+        b_date: '',
     });
-     // Handle input field changes
+  // Handle input field changes
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value} = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -29,7 +31,7 @@ const Register = () => {
 
   // Validate the form fields
   const validate = () => {
-    let tempErrors = { firstname: '', lastname:'', email: '', username: '', password: '', confirmPassword: '' };
+    let tempErrors = { firstname: '', lastname:'', email: '', username: '', password: '', confirmPassword: '', b_date: '' };
     let isValid = true;
 
     if (!formData.firstname) {
@@ -106,7 +108,8 @@ const Register = () => {
                     <input required="" className="input" type="password" name="confirmPassword" id="register-confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} />
                     <div className="error-message">{errors.email && <span style={{color: 'red', fontSize:'14px'}}>{errors.email}</span>}</div> 
                     <input required="" className="input" type="email" name="email" id="register-email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
-              
+                    <div className="error-message">{errors.b_date && <span style={{color: 'red', fontSize:'14px'}}>{errors.b_date}</span>}</div>
+                    <input required="" className="input" type="date" name="b_date" id="b_date" placeholder="Date of Birth" value={formData.b_date} onChange={handleInputChange} />
                     <span className="no-account" id="already-registered">Already Registered? <a href="/" id="register-text">Log In</a></span>
                     <input className="login-button" type="submit" value="Create Account" id="create-account-btn" onClick={handleSubmit}></input>
                 </div>

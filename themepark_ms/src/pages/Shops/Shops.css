@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 #shop-header{
     font-size: 40px;
+    font-family: 'Luckiest Guy', cursive;
 }
 button{
     cursor: pointer;

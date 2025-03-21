@@ -39,7 +39,7 @@ export default function Home() {
         <div className="scroll-container">
           <div className="card">
             <h3>Candy Kingdom</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/cookies-n-cream.webp"/>
             <p>Sweet treats for all ages!</p>
           </div>
           <div className="card">
@@ -49,7 +49,7 @@ export default function Home() {
           </div>
           <div className="card">
             <h3>Gourmet Bites</h3>
-            <img src="src/images/kid-ride2.jpeg"/>
+            <img src="src/images/chili-dog.webp"/>
             <p>Delicious food from around the world!</p>
           </div>
         </div>
