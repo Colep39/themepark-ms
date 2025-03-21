@@ -41,19 +41,21 @@ export default function Home() {
             <h3>Candy Kingdom</h3>
             <img src="src/images/cookies-n-cream.webp"/>
             <p>Sweet treats for all ages!</p>
+            <button onClick={() => navigate('/candykingdom')}className="button">All Candy!</button>
           </div>
           <div className="card">
             <h3>Adventure Gear</h3>
             <img src="src/images/nah-id-win-shirt.jpeg"/>
             <p>Get your favorite UmaZooma merch!</p>
+            <button onClick={() => navigate('/adventuregear')}className="button">All Gear!</button>
           </div>
           <div className="card">
             <h3>Gourmet Bites</h3>
             <img src="src/images/chili-dog.webp"/>
             <p>Delicious food from around the world!</p>
+            <button onClick={() => navigate('/gourmetbites')}className="button">All Gourmet Bites!</button>
           </div>
         </div>
-        <button onClick={() => navigate('/shops')}className="button">Explore Shops!</button>
       </section>
 
       {/* Location & Hours */}
