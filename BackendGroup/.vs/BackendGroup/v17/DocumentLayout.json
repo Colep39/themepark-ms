@@ -1,30 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\",
+  "WorkspaceRootPath": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\models\\themeparkcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\models\\themeparkcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\models\\ride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\models\\ride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\controllers\\ridecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\controllers\\ridecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\controllers\\ridecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\models\\shop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\models\\shop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\models\\themeparkcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\models\\themeparkcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\alyss\\source\\repos\\backendgroup\\backendgroup\\backendgroup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\backendgroup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\backendgroup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\models\\ride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\models\\ride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|c:\\users\\arsal\\desktop\\themepark_project\\backendgroup\\backendgroup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2516DEFE-93BD-4D4E-90A5-47534BCE085E}|BackendGroup\\BackendGroup.csproj|solutionrelative:backendgroup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,39 +46,39 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RideController.cs",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Controllers\\RideController.cs",
-              "RelativeDocumentMoniker": "BackendGroup\\Controllers\\RideController.cs",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Controllers\\RideController.cs",
-              "RelativeToolTip": "BackendGroup\\Controllers\\RideController.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAowF8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "ShopController.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Controllers\\ShopController.cs",
+              "RelativeDocumentMoniker": "BackendGroup\\Controllers\\ShopController.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Controllers\\ShopController.cs",
+              "RelativeToolTip": "BackendGroup\\Controllers\\ShopController.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAAAIMAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T05:01:30.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Program.cs",
-              "RelativeDocumentMoniker": "BackendGroup\\Program.cs",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Program.cs",
-              "RelativeToolTip": "BackendGroup\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T23:58:05.969Z",
+              "WhenOpened": "2025-03-20T21:33:00.376Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Shop.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\Shop.cs",
+              "RelativeDocumentMoniker": "BackendGroup\\Models\\Shop.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\Shop.cs",
+              "RelativeToolTip": "BackendGroup\\Models\\Shop.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T21:30:38.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Ride.cs",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Models\\Ride.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\Ride.cs",
               "RelativeDocumentMoniker": "BackendGroup\\Models\\Ride.cs",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Models\\Ride.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\Ride.cs",
               "RelativeToolTip": "BackendGroup\\Models\\Ride.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T04:35:43.744Z",
               "EditorCaption": ""
@@ -78,44 +86,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "RideController.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Controllers\\RideController.cs",
+              "RelativeDocumentMoniker": "BackendGroup\\Controllers\\RideController.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Controllers\\RideController.cs",
+              "RelativeToolTip": "BackendGroup\\Controllers\\RideController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T05:01:30.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Program.cs",
+              "RelativeDocumentMoniker": "BackendGroup\\Program.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Program.cs",
+              "RelativeToolTip": "BackendGroup\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T23:58:05.969Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ThemeParkContext.cs",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Models\\ThemeParkContext.cs",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\ThemeParkContext.cs",
               "RelativeDocumentMoniker": "BackendGroup\\Models\\ThemeParkContext.cs",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\Models\\ThemeParkContext.cs",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\Models\\ThemeParkContext.cs",
               "RelativeToolTip": "BackendGroup\\Models\\ThemeParkContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAwDEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T00:32:53.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\appsettings.json",
               "RelativeDocumentMoniker": "BackendGroup\\appsettings.json",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\appsettings.json",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\appsettings.json",
               "RelativeToolTip": "BackendGroup\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-28T00:37:12.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "BackendGroup.csproj",
-              "DocumentMoniker": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+              "DocumentMoniker": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
               "RelativeDocumentMoniker": "BackendGroup\\BackendGroup.csproj",
-              "ToolTip": "C:\\Users\\alyss\\source\\repos\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+              "ToolTip": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
               "RelativeToolTip": "BackendGroup\\BackendGroup.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-28T00:30:19.694Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2025-02-28T00:30:19.694Z",
+              "EditorCaption": ""
             }
           ]
         }
