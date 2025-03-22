@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Buy-tickets.css";
 
 const ticketOptions = [
-  { label: "Season Pass Holders", price: 89 },
+  { label: "Season Pass", price: 89 },
   { label: "Adult (18+)", price: 12 },
   { label: "Youth (11-17)", price: 10 },
   { label: "Child (10 & younger)", price: 8 },
   { label: "Senior (65+)", price: 8 },
-  { label: "Fun Friday Pass", price: 0 },
-  { label: "Student", price: 0 },
+  { label: "Uma Student", price: 0 },
 ];
 
 export default function BuyTickets() {

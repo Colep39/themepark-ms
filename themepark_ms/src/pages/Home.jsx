@@ -53,7 +53,7 @@ export default function Home() {
             <p>Delicious food from around the world!</p>
           </div>
         </div>
-        <button onClick={() => navigate('/shops')}className="button">Explore Shops!</button>
+        <button onClick={() => navigate('/adventuregear')}className="button">Explore Shops!</button>
       </section>
 
       {/* Location & Hours */}

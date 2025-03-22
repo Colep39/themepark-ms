@@ -6,6 +6,18 @@
 #login-wrapper{
     width: 100%; /* Makes image responsive */
     display: block;
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: url(./src/images/login-image.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin-top: -74px;
+    color: black;
 }
 #login-wrapper img{
     width: 100%; /* Makes image responsive */
@@ -116,6 +128,8 @@
     align-items: center;
     height: 40vh;
     margin-top: 150px;
+    height: auto;
+    margin-top: 0;
   }
   #register-text{
     font-size: 14px;
