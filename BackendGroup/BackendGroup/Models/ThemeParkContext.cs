@@ -12,15 +12,15 @@ namespace BackendGroup.Models
 
         public DbSet<Weather> Weather { get; set;}
 
-        public DbSet<Visitor> Visitors { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<Ticket> Tickets { get; set; } 
 
        // public DbSet<User_Account> User_Accounts { get; set; }  
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Visitor>()
-                .Property(v => v.membership_status)
+            modelBuilder.Entity<User>()
+                .Property(v => v.role)
                 .HasConversion<string>();
 
             modelBuilder.Entity<Ride>()

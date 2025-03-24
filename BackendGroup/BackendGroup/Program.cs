@@ -21,10 +21,10 @@ builder.Services.AddDbContext<ThemeParkContext>(options =>
 // Configure Swagger to use string enums
 builder.Services.AddSwaggerGen(c =>
 {
-    c.MapType<Visitor.MembershipStatus>(() => new OpenApiSchema
+    c.MapType<User.RoleType>(() => new OpenApiSchema
     {
         Type = "string",
-        Enum = Enum.GetNames(typeof(Visitor.MembershipStatus))
+        Enum = Enum.GetNames(typeof(User.RoleType))
              .Select(name => new OpenApiString(name))
              .Cast<IOpenApiAny>()
              .ToList()

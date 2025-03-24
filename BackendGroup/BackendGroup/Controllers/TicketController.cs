@@ -1,9 +1,6 @@
 ﻿using BackendGroup.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BackendGroup.Controllers
 {
@@ -22,9 +19,8 @@ namespace BackendGroup.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            // Include related entities
             var tickets = await _context.Tickets
-                .Include(t => t.Visitor)
+                .Include(t => t.User)  // Fixed casing
                 .Include(t => t.Ride)
                 .ToListAsync();
 
@@ -36,7 +32,7 @@ namespace BackendGroup.Controllers
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
             var ticket = await _context.Tickets
-                .Include(t => t.Visitor)
+                .Include(t => t.User)  // Fixed casing
                 .Include(t => t.Ride)
                 .FirstOrDefaultAsync(t => t.ticket_id == id);
 
@@ -57,10 +53,9 @@ namespace BackendGroup.Controllers
                 return BadRequest("Invalid ticket data.");
             }
 
-            // Check if Visitor and Ride exist before associating them
-            if (ticket.visitor_id.HasValue && !_context.Visitors.Any(v => v.customer_id == ticket.visitor_id))
+            if (ticket.user_id.HasValue && !_context.Users.Any(u => u.user_id == ticket.user_id))
             {
-                return BadRequest($"Visitor with ID {ticket.visitor_id} does not exist.");
+                return BadRequest($"User with ID {ticket.user_id} does not exist.");
             }
 
             if (!_context.Rides.Any(r => r.ride_id == ticket.ride_id))
@@ -89,23 +84,11 @@ namespace BackendGroup.Controllers
                 return NotFound();
             }
 
-            // Update only provided fields
-            existingTicket.visitor_id = updatedTicket.visitor_id ?? existingTicket.visitor_id;
+            existingTicket.user_id = updatedTicket.user_id ?? existingTicket.user_id;
             existingTicket.ride_id = updatedTicket.ride_id;
             existingTicket.Purchase_date = updatedTicket.Purchase_date ?? existingTicket.Purchase_date;
             existingTicket.ticket_type = updatedTicket.ticket_type ?? existingTicket.ticket_type;
             existingTicket.Price = updatedTicket.Price ?? existingTicket.Price;
-
-            // Ensure foreign keys exist
-            if (updatedTicket.visitor_id.HasValue && !_context.Visitors.Any(v => v.customer_id == updatedTicket.visitor_id))
-            {
-                return BadRequest($"Visitor with ID {updatedTicket.visitor_id} does not exist.");
-            }
-
-            if (!_context.Rides.Any(r => r.ride_id == updatedTicket.ride_id))
-            {
-                return BadRequest($"Ride with ID {updatedTicket.ride_id} does not exist.");
-            }
 
             await _context.SaveChangesAsync();
 
@@ -125,7 +108,9 @@ namespace BackendGroup.Controllers
             _context.Tickets.Remove(ticket);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return NoContent(); // Status 204 to indicate the resource was successfully deleted
         }
+
     }
 }
+
