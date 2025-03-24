@@ -18,15 +18,15 @@ namespace BackendGroup.Models
 
         public enum RideType
         {
-            rollerCoaster,  // Corrected syntax
-            waterRide,
-            show
+            standard,  // Corrected syntax
+            water,
+            kid
         }
 
         [Key]
         public int ride_id { get; set; }
 
-        public string? ride_name { get; set; }
+        public string ride_name { get; set; }
 
         public int capacity { get; set; }
 
@@ -37,5 +37,10 @@ namespace BackendGroup.Models
         public int maintenance_count { get; set; }
 
         public RideType type { get; set; }
+
+        [JsonIgnore]
+        public Byte[]? ride_img { get; set; }
+
+        public int thrill_level { get; set; }
     }
 }

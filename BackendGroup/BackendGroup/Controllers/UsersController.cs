@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendGroup.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace BackendGroup.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly ThemeParkContext _context;
@@ -85,6 +88,7 @@ namespace BackendGroup.Controllers
 
         // DELETE: api/users/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);

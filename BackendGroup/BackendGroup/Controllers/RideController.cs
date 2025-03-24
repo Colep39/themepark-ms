@@ -16,11 +16,15 @@ namespace BackendGroup.Controllers
             _context = context;
         }
 
-        //GET
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ride>>> GetRides()
         {
-            return await _context.Rides.ToListAsync();
+            var rides = await _context.Rides.ToListAsync();
+            if (rides == null || rides.Count == 0)
+            {
+                return NotFound("No rides found.");
+            }
+            return Ok(rides);
         }
 
         //GET id
@@ -46,8 +50,6 @@ namespace BackendGroup.Controllers
 
             return CreatedAtAction(nameof(GetRide), new { id = ride.ride_id }, ride);
         }
-
-        //PUT -- essentially update
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRide(int id, Ride ride)
         {
@@ -56,23 +58,57 @@ namespace BackendGroup.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(ride).State = EntityState.Modified;
+            var existingRide = await _context.Rides.FindAsync(id);
+            if (existingRide == null)
+            {
+                return NotFound();
+            }
 
-            try
+            if (!string.IsNullOrEmpty(ride.ride_name))
             {
-                await _context.SaveChangesAsync();
+                existingRide.ride_name = ride.ride_name;
             }
-            catch (DbUpdateConcurrencyException)
+
+            if (ride.capacity > 0)
             {
-                if (!_context.Rides.Any(r => r.ride_id == id))
-                {
-                    return NotFound();
-                }
-                throw;
+                existingRide.capacity = ride.capacity;
             }
+
+            if (ride.status >= 0)
+            {
+                existingRide.status = ride.status;
+            }
+
+            if (ride.last_maintenance_date.HasValue)
+            {
+                existingRide.last_maintenance_date = ride.last_maintenance_date;
+            }
+
+            if (ride.maintenance_count >= 0)
+            {
+                existingRide.maintenance_count = ride.maintenance_count;
+            }
+
+            if (ride.type >= 0)
+            {
+                existingRide.type = ride.type;
+            }
+
+            if (ride.ride_img != null)
+            {
+                existingRide.ride_img = ride.ride_img;
+            }
+
+            if (ride.thrill_level > 0)
+            {
+                existingRide.thrill_level = ride.thrill_level;
+            }
+
+            await _context.SaveChangesAsync();
             return NoContent();
-
         }
+
+
 
         //DELETE
         [HttpDelete("{id}")]
