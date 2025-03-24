@@ -298,3 +298,4 @@ C:\Users\lopez\Source\Repos\Colep39\themepark-ms\BackendGroup\BackendGroup\bin\D
 C:\Users\lopez\Source\Repos\Colep39\themepark-ms\BackendGroup\BackendGroup\bin\Debug\net9.0\runtimes\win-x64\native\krb5_64.dll
 C:\Users\lopez\Source\Repos\Colep39\themepark-ms\BackendGroup\BackendGroup\bin\Debug\net9.0\runtimes\win-x64\native\krbcc64.dll
 C:\Users\lopez\Source\Repos\Colep39\themepark-ms\BackendGroup\BackendGroup\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+C:\Users\lopez\Source\Repos\Colep39\themepark-ms\BackendGroup\BackendGroup\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
