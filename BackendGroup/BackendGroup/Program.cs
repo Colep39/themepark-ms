@@ -22,19 +22,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Build service provider to access configuration
-/*
 var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetRequiredService<IConfiguration>();
+
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    var frontendURL = configuration.GetValue<string>("frontend_url");
+    var frontendURL = configuration.GetValue<string>("frontend_url") ?? "http://localhost:5173"; // Default to localhost
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+        builder.WithOrigins(frontendURL)
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
-*/
 
 var app = builder.Build();
 
