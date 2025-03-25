@@ -9,7 +9,7 @@ export default function Visit(){
     return (
         <>
             <div className="img-container">
-                <img src="src/images/main.jpg" alt="Themepark Image" className="visit-img"></img>
+                <img src="public/images/main.jpg" alt="Themepark Image" className="visit-img"></img>
                 <div className="text-overlay">Book Your Visit</div>
             </div>
             

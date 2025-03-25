@@ -71,7 +71,7 @@ export default function Admin(){
 
                 {/*
                 <div className="id-win-container">
-                    <img src="./src/images/gojo-win.gif"></img>
+                    <img src="public/images/gojo-win.gif"></img>
                 </div>
                 */}
 
