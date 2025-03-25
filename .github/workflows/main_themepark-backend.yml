@@ -64,5 +64,5 @@ jobs:
         with:
           app-name: 'themepark-backend'
           slot-name: 'Production'
-          package: ./publish
+          package: ${{env.DOTNET_ROOT}}/myapp
           
