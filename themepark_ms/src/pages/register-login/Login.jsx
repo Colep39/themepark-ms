@@ -1,5 +1,7 @@
 import "./Login.css";
 import { useState } from 'react';
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -115,7 +117,7 @@ const Login = () => {
             {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
 
             <span className="no-account">
-              No account? <a href="/register" id="register-text">Register</a>
+              No account? <Link to="/register" id="register-text">Register</Link>
             </span>
 
             <input className="login-button" type="submit" value="Sign In" />
