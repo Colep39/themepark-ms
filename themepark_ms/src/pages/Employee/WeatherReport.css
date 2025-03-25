@@ -1,0 +1,91 @@
+/* Weather Report Page Styles */
+.weather-report-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #3d85bb;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.weather-report-container h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+/* Date Filter Section */
+.weather-filter-section {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.weather-filter-section input[type="date"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.weather-filter-section button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.weather-filter-section button:hover {
+  background-color: #0056b3;
+}
+
+.weather-filter-section button:active {
+  background-color: #007bff;
+}
+
+/* Error Message */
+.weather-error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+/* Table Styles */
+.weather-report-table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.weather-report-table th,
+.weather-report-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.weather-report-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.weather-report-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.weather-report-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.weather-report-table strong {
+  font-weight: bold;
+  color: #333;
+}

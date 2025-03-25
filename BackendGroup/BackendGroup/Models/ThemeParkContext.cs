@@ -14,6 +14,7 @@ namespace BackendGroup.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Ride_log> Ride_logs { get; set; }
         public DbSet<Shop> Shops { get; set; }
+        public DbSet<Weather> Weather { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +42,11 @@ namespace BackendGroup.Models
             modelBuilder.Entity<Shop>()
                 .Property(s => s.status)
                 .HasConversion<int>();  // Changed from byte to int
+
+            // Configure Weather entity (if needed)
+            modelBuilder.Entity<Weather>()
+                .Property(w => w.rainOut)
+                .HasConversion<int>(); // Store bool as int (0/1)
         }
 
 
