@@ -1,6 +1,7 @@
 import "./Login.css";
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -12,6 +13,8 @@ const Login = () => {
         username: '',
         password: '',
     });
+    const navigate = useNavigate();
+
      // Handle input field changes
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -69,16 +72,16 @@ const Login = () => {
           // Navigate to the correct dashboard
           switch (data.role) {
             case 'Admin':
-              window.location.href = '/adminpage';
+              navigate('/adminpage');
               break;
             case 'Staff':
-              window.location.href = '/managerides';
+              navigate('/managerides');
               break;
             case 'Visitor':
-              window.location.href = '/home';
+              navigate('/home');
               break;
             default:
-              window.location.href = '/';
+              navigate('/');
           }
     
         } catch (error) {
