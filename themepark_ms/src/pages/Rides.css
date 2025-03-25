@@ -20,3 +20,6 @@ img{
     padding: 20px;
     text-align: center;
 }
+.img-container{
+    height: 95vh;
+}

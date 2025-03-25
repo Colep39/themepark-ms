@@ -38,13 +38,54 @@ const Login = () => {
     };
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       if (validate()) {
         // Handle form submission (e.g., API call)
+        try {
+          /*
+          const res = await fetch("http://localhost:5000", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+          });
+    
+          if (!res.ok) {
+            throw new Error("Invalid credentials");
+          }
+    
+          const data = await res.json();
+          */
+          const data = {
+            role: 'Admin'
+          }
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("role", data.role);
+    
+          // Navigate to the correct dashboard
+          switch (data.role) {
+            case 'Admin':
+              window.location.href = '/adminpage';
+              break;
+            case 'Staff':
+              window.location.href = '/managerides';
+              break;
+            case 'Visitor':
+              window.location.href = '/home';
+              break;
+            default:
+              window.location.href = '/';
+          }
+    
+        } catch (error) {
+          alert(error.message);
+        }
         console.log('Form submitted:', formData);
       }
     };
+
     return ( 
     <div id="login-wrapper">
       <form onSubmit={handleSubmit} className="login-page" id="loginform">

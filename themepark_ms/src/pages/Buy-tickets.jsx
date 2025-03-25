@@ -5,11 +5,11 @@ import "./Buy-tickets.css";
 
 const ticketOptions = [
   { label: "Season Pass", price: 89 },
-  { label: "Adult (18+)", price: 12 },
-  { label: "Youth (11-17)", price: 10 },
-  { label: "Child (10 & younger)", price: 8 },
-  { label: "Senior (65+)", price: 8 },
-  { label: "Uma Student", price: 0 },
+  { label: "Adult", price: 12 },
+  { label: "Youth", price: 10 },
+  { label: "Child", price: 8 },
+  { label: "Senior", price: 8 },
+  { label: "Student", price: 0 },
 ];
 
 export default function BuyTickets() {
@@ -22,15 +22,42 @@ export default function BuyTickets() {
     setQuantities((prev) => ({ ...prev, [label]: value }));
   };
 
+  const saveCartToLocalStorage = (cartItems) => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  };
+  
+  const loadCartFromLocalStorage = () => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : [];
+  };
+
+
   const handleAddToCart = () => {
-    const selectedTickets = ticketOptions.filter(
-      (ticket) => quantities[ticket.label] > 0
-    );
-    console.log("Added to cart:", selectedTickets.map(t => ({
-      type: t.label,
-      quantity: quantities[t.label],
-      price: t.price,
-    })));
+    const selectedTickets = ticketOptions
+      .filter((ticket) => quantities[ticket.label] > 0)
+      .map((t) => ({
+        type: t.label,                         
+        quantity: quantities[t.label],       
+        price: t.price,
+        date: selectedDate                    
+      }));
+
+    if (selectedTickets.length === 0) {
+      alert("Please select at least one ticket.");
+      return;
+    }
+
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const updatedCart = [...existingCart, ...selectedTickets];
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    alert("Tickets added to cart!");
+    
+    console.log(localStorage.getItem("cart"));
+    // reset quantities after addding to cart
+    setQuantities(ticketOptions.reduce((acc, ticket) => ({ ...acc, [ticket.label]: 0 }), {}));
   };
 
   // Calculate total price
@@ -45,7 +72,7 @@ export default function BuyTickets() {
       <h2 className="buy-tickets-title">Buy Tickets</h2>
       <DatePicker 
         selected={selectedDate} 
-        onChange={(date) => setSelectedDate(date)} 
+        onChange={(date) => setSelectedDate(date)}
         className="buy-tickets-datePicker" 
         placeholderText="Select a date"
       />

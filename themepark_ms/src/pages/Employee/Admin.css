@@ -1,0 +1,19 @@
+.AdminContainer h1{
+    font-size: 3rem;
+    font-weight: bold;
+}
+.AdminContainer{
+    font-size: 20px;
+}
+.admin-info{
+    border: solid 2px black;
+    background-color: rgb(8, 11, 28);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.id-win-container{
+    margin-top: 100px;
+}
+.id-win-container img{
+    width: 500px;
+}

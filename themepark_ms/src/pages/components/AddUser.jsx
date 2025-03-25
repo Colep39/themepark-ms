@@ -9,7 +9,7 @@ export default function AddUser(props){
                 <td>{props.username}</td>
                 <td>{props.email}</td>
                 <td>{props.role}</td>
-                <td>{props.status}</td>
+                <td>{props.birth}</td>
                 <td>
                     <button id="edit-user-btn">Edit</button>
                     <button id="delete-user-btn">Delete</button>
@@ -25,5 +25,5 @@ AddUser.propTypes = {
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired
+    birth: PropTypes.string.isRequired
 }
