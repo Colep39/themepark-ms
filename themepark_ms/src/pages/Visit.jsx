@@ -52,8 +52,6 @@ export default function Visit(){
                     <div className="price">$8</div>
                     <div className="price">Senior (65+)</div>
                     <div className="price">$8</div>
-                    <div className="price">Fun Friday Pass</div>
-                    <div className="price">FREE</div>
                     <div className="price">Student</div>
                     <div className="price">FREE</div>
                 </div>

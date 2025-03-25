@@ -1,121 +1,103 @@
-import "./Register.css";
 import { useState } from 'react';
+import './Register.css';
 
 const Register = () => {
-    const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        b_date: '',
-    });
-    const [errors, setErrors] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        b_date: '',
-    });
-  // Handle input field changes
-  const handleInputChange = (e) => {
-    const { name, value} = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    dob: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Validate the form fields
   const validate = () => {
-    let tempErrors = { firstname: '', lastname:'', email: '', username: '', password: '', confirmPassword: '', b_date: '' };
-    let isValid = true;
-
-    if (!formData.firstname) {
-      tempErrors.firstname = 'First Name is required';
-      isValid = false;
-    }
-    if (!formData.lastname){
-        tempErrors.lastname = 'Last Name is required';
-        isValid = false;
-    }
-
-    if (!formData.email) {
-      tempErrors.email = 'Email is required';
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = 'Email is invalid';
-      isValid = false;
-    }
-    if(!formData.username){
-      tempErrors.username = 'Username is required';
-      isValid = false;
-    } else if(formData.username.length <= 6){
-      tempErrors.username = 'Username must be at least 7 characters';
-      isValid = false;
-    }
-    
-    if(!formData.password){
-      tempErrors.password = 'Password is required';
-      isValid = false;
-    } else if(formData.password.length < 8){
-      tempErrors.password = 'Password must be at least 8 characters';
-      isValid = false;
-    }
-
-    if(!formData.confirmPassword){
-      tempErrors.confirmPassword = 'You must confirm your password';
-      isValid = false;
-    } 
-    if(formData.confirmPassword === formData.password && formData.confirmPassword){
-      console.log('passwords match')
-    }
-    else{
-      tempErrors.confirmPassword = 'The entered passwords must match';
-      isValid = false;
-    }
-
-    setErrors(tempErrors);
-    return isValid;
+    const newErrors = {};
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.username.trim()) newErrors.username = 'Username is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+    if (!formData.email.includes('@')) newErrors.email = 'Invalid email address';
+    if (!formData.dob) newErrors.dob = 'Date of birth is required';
+    return newErrors;
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      // Handle form submission (e.g., API call)
-      console.log('Form submitted:', formData);
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length === 0) {
+      alert('Registration successful!');
+      // Handle submission (e.g., send to server)
+    } else {
+      setErrors(validationErrors);
     }
   };
-    return ( 
-    <form onSubmit={handleSubmit} className="login-page" id="register-page">
-            {/*<!-- From Uiverse.io by Smit-Prajapati --> */}
-            <div className="login-container" id="register-container">
-                <div className="heading" id="register-heading">Register</div>
-                <div className="form">
-                    <div className="error-message">{errors.firstname && <span style={{ color: 'red', fontSize:'14px' }}>{errors.firstname}</span>}</div>
-                    <input required="" className="input" type="text" name="firstname" id="register-firstname" placeholder="John" value={formData.firstname} onChange={handleInputChange}/>
-                    <div className="error-message">{errors.lastname && <span style={{ color: 'red', fontSize:'14px' }}>{errors.lastname}</span>}</div> 
-                    <input required="" className="input" type="text" name="lastname" id="register-lastname" placeholder="Barnes" value={formData.lastname} onChange={handleInputChange}/>
-                    <div className="error-message">{errors.username && <span style={{ color: 'red', fontSize:'14px' }}>{errors.username}</span>}</div> 
-                    <input required="" className="input" type="text" name="username" id="username" placeholder="Username" value={formData.username} onChange={handleInputChange}/>
-                    <div className="error-message">{errors.password && <span style={{ color: 'red', fontSize:'14px'}}>{errors.password}</span>}</div> 
-                    <input required="" className="input" type="password" name="password" id="password" placeholder="Password" value={formData.password} onChange={handleInputChange}/>
-                    <div className="error-message">{errors.confirmPassword && <span style={{color: 'red', fontSize:'14px'}}>{errors.confirmPassword}</span>}</div> 
-                    <input required="" className="input" type="password" name="confirmPassword" id="register-confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} />
-                    <div className="error-message">{errors.email && <span style={{color: 'red', fontSize:'14px'}}>{errors.email}</span>}</div> 
-                    <input required="" className="input" type="email" name="email" id="register-email" placeholder="Email" value={formData.email} onChange={handleInputChange} />
-                    <div className="error-message">{errors.b_date && <span style={{color: 'red', fontSize:'14px'}}>{errors.b_date}</span>}</div>
-                    <input required="" className="input" type="date" name="b_date" id="b_date" placeholder="Date of Birth" value={formData.b_date} onChange={handleInputChange} />
-                    <span className="no-account" id="already-registered">Already Registered? <a href="/" id="register-text">Log In</a></span>
-                    <input className="login-button" type="submit" value="Create Account" id="create-account-btn" onClick={handleSubmit}></input>
-                </div>
-            </div>
-    </form>
-    )
-}
+
+  return (
+    <div className="register-container">
+      <form onSubmit={handleSubmit} className="register-form">
+        <h2>Register</h2>
+
+        <div className="input-group">
+        <label htmlFor="firstName">First Name</label>
+        <input name="firstName" type="text" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="lastName">Last Name</label>
+        <input name="lastName" type="text" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
+        {errors.lastName && <span className="error">{errors.lastName}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="username">Username</label>
+        <input name="username" type="text" placeholder="Username" value={formData.username} onChange={handleChange} />
+        {errors.username && <span className="error">{errors.username}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="password">Password</label>
+        <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+        {errors.password && <span className="error">{errors.password}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input name="confirmPassword" type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} />
+        {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="email">Email</label>
+        <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        {errors.email && <span className="error">{errors.email}</span>}
+        </div>
+
+        <div className="input-group">
+        <label htmlFor="dob">Date of Birth</label>
+        <input name="dob" type="date" value={formData.dob} onChange={handleChange} />
+        {errors.dob && <span className="error">{errors.dob}</span>}
+        </div>
+
+        <p className="login-prompt">
+          Already have an account? <a href="/">Log in</a>
+        </p>
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
 
 export default Register;

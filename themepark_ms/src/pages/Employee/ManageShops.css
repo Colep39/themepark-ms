@@ -1,4 +1,7 @@
-#add-ride-btn{
+.ManageShopsContainer h1{
+    font-size: 3rem;
+}
+#add-shop-btn{
     background-color: #e3e71c;
     color: white;
     border: none;
@@ -11,24 +14,10 @@
     cursor: pointer;
     color: black;
 }
-#add-ride-btn:hover{
+#add-shop-btn:hover{
     background-color: #b2af12;
 }
-.ManageRidesContainer h1{
-    font-size: 3rem;
-    font-weight: bold;
-}
-#rides-table{
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    color: black;
-    border: solid 1px black;
-    border-radius: 8px; /* optional: adds rounded corners */
-    overflow: hidden; /* ensures rounded corners don't get cut off */
-    margin-bottom: 20px;
-}
-#rides-table-container{
+#shops-table-container{
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -36,20 +25,30 @@
     overflow-x: auto;
     width: 100%;
 }
-#rides-table th{
-    padding: 10px;
+#shops-table{
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    
 }
-#rides-table td{
-    padding: 10px;
+#shops-table th, #shops-table td {
+    padding: 10px 20px; /* smaller than default, feel free to tweak */
+    min-width: 120px;
+    border: 1px solid #d3d3d3; /* light grey */
 }
-#rides-table thead{
+#shops-table thead{
     background-color: #e3e71c;
     color: black;
 }
-#rides-table tbody tr:hover{
+#shops-table tbody tr:hover{
     background-color: #f5f5f5;
 }
-#edit-ride-btn, #delete-ride-btn{
+
+#edit-shop-btn, #delete-shop-btn{
     background-color: #e3e71c;
     color: white;
     border: none;
@@ -62,8 +61,7 @@
     cursor: pointer;
     color: black;
     margin: 5px;
-
 }
-#edit-ride-btn:hover, #delete-ride-btn:hover{
+#edit-shop-btn:hover, #delete-shop-btn:hover{
     background-color: #b2af12;
 }

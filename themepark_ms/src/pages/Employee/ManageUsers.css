@@ -1,4 +1,9 @@
-#add-ride-btn{
+.ManageUsersContainer h1{
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+#add-user-btn{
     background-color: #e3e71c;
     color: white;
     border: none;
@@ -11,14 +16,19 @@
     cursor: pointer;
     color: black;
 }
-#add-ride-btn:hover{
+#add-user-btn:hover{
     background-color: #b2af12;
 }
-.ManageRidesContainer h1{
-    font-size: 3rem;
-    font-weight: bold;
+
+#users-table-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+    width: 100%;
 }
-#rides-table{
+#users-table{
     border-collapse: collapse;
     margin-top: 20px;
     background-color: white;
@@ -28,28 +38,22 @@
     overflow: hidden; /* ensures rounded corners don't get cut off */
     margin-bottom: 20px;
 }
-#rides-table-container{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-    overflow-x: auto;
-    width: 100%;
-}
-#rides-table th{
+#users-table th{
     padding: 10px;
+    color: black;
 }
-#rides-table td{
+#users-table td{
     padding: 10px;
+    color: black;
 }
-#rides-table thead{
+#users-table thead{
     background-color: #e3e71c;
     color: black;
 }
-#rides-table tbody tr:hover{
+#users-table tbody tr:hover{
     background-color: #f5f5f5;
 }
-#edit-ride-btn, #delete-ride-btn{
+#edit-user-btn, #delete-user-btn{
     background-color: #e3e71c;
     color: white;
     border: none;
@@ -64,6 +68,6 @@
     margin: 5px;
 
 }
-#edit-ride-btn:hover, #delete-ride-btn:hover{
+#edit-user-btn:hover, #delete-user-btn:hover{
     background-color: #b2af12;
 }
