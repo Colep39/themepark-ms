@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {}
+    "C:\\Users\\arsal\\Desktop\\Themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {
+    "C:\\Users\\arsal\\Desktop\\Themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+        "projectUniqueName": "C:\\Users\\arsal\\Desktop\\Themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
         "projectName": "BackendGroup",
-        "projectPath": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+        "projectPath": "C:\\Users\\arsal\\Desktop\\Themepark_project\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
         "packagesPath": "C:\\Users\\arsal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arsal\\Desktop\\themepark_project\\BackendGroup\\BackendGroup\\obj\\",
+        "outputPath": "C:\\Users\\arsal\\Desktop\\Themepark_project\\BackendGroup\\BackendGroup\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

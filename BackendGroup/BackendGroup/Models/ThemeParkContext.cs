@@ -14,6 +14,7 @@ namespace BackendGroup.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Ride_log> Ride_logs { get; set; }
         public DbSet<Shop> Shops { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,9 +42,11 @@ namespace BackendGroup.Models
             modelBuilder.Entity<Shop>()
                 .Property(s => s.status)
                 .HasConversion<int>();  // Changed from byte to int
+
+            // Configure Event status enum conversion
+            modelBuilder.Entity<Event>()
+                .Property(e => e.status)
+                .HasConversion<string>();
         }
-
-
     }
-
 }
