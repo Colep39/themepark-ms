@@ -8,7 +8,7 @@ body {
 
 /* Hero Section */
 .hero {
-  background-image: url("/src/images/main-rides-img.jpeg");
+  background-image: url("/images/main-rides-img.jpeg");
   background-position: center;
   color: white;
   padding: 100px 20px;
