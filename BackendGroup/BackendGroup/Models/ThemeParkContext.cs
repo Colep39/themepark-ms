@@ -14,9 +14,14 @@ namespace BackendGroup.Models
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Ticket> Tickets { get; set; } 
+        public DbSet<Ticket> Tickets { get; set; }
 
-       // public DbSet<User_Account> User_Accounts { get; set; }  
+        public DbSet<Maintenance> Maintenances { get; set; }
+
+        public DbSet<Ride_log> Ride_logs { get; set; }
+
+
+        // public DbSet<User_Account> User_Accounts { get; set; }  
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -34,6 +39,12 @@ namespace BackendGroup.Models
             modelBuilder.Entity<Ticket>()
             .Property(v => v.ticket_type)
             .HasConversion<string>();
+
+            modelBuilder.Entity<Maintenance>()
+            .Property(v => v.status)
+            .HasConversion<string>();
+
+
         }
 
     }

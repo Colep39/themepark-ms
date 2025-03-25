@@ -70,6 +70,18 @@ builder.Services.AddSwaggerGen(c =>
              .ToList()
     });
 
+    c.MapType<Maintenance.mStatus>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Enum = Enum.GetNames(typeof(Maintenance.mStatus))
+             .Select(name => new OpenApiString(name))
+             .Cast<IOpenApiAny>()
+             .ToList()
+    }
+
+
+    );
+
     // Add Bearer token authorization to Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lopez\\Source\\Repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {}
+    "C:\\Users\\lopez\\source\\repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lopez\\Source\\Repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {
+    "C:\\Users\\lopez\\source\\repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lopez\\Source\\Repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+        "projectUniqueName": "C:\\Users\\lopez\\source\\repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
         "projectName": "BackendGroup",
-        "projectPath": "C:\\Users\\lopez\\Source\\Repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+        "projectPath": "C:\\Users\\lopez\\source\\repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
         "packagesPath": "C:\\Users\\lopez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lopez\\Source\\Repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\obj\\",
+        "outputPath": "C:\\Users\\lopez\\source\\repos\\Colep39\\themepark-ms\\BackendGroup\\BackendGroup\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lopez\\AppData\\Roaming\\NuGet\\NuGet.Config",
