@@ -2,9 +2,14 @@ import "./Login.css";
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../UserContext'; // adjust path as needed
 
 
 const Login = () => {
+
+  const { setRole } = useContext(UserContext);
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -64,10 +69,12 @@ const Login = () => {
           const data = await res.json();
           */
           const data = {
-            role: 'Admin'
+            role: 'Admin',
+            token: 'fakeToken123'
           }
           localStorage.setItem("token", data.token);
           localStorage.setItem("role", data.role);
+          setRole(data.role);
     
           // Navigate to the correct dashboard
           switch (data.role) {

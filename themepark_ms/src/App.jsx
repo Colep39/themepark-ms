@@ -48,6 +48,7 @@ function App() {
             <Route path="/candykingdom" element={<CandyKingdom />} />
             <Route path="/gourmetbites" element={<GourmetBites />} />
             <Route path="/adventuregear" element={<AdventureGear />} />
+            <Route path="/adminpage"  element={<Admin />} />
 
             {/*These will be the privatized pages*/}
             <Route path="/maintenancereport" element={
@@ -60,8 +61,10 @@ function App() {
               <PrivateRoute allowedRoles={["Admin", "Staff"]}><WeatherReport /></PrivateRoute>} />
             <Route path="/ridelogs" element={
               <PrivateRoute allowedRoles={["Admin", "Staff"]}><RideLogs /></PrivateRoute> }/>
+            {/*
             <Route path="/adminpage" element={
               <PrivateRoute allowedRoles={["Admin"]}><Admin /></PrivateRoute>} />
+            */}
             <Route path="/managerides" element={
               <PrivateRoute allowedRoles={["Admin", "Staff"]}><ManageRides /> </PrivateRoute>} />
             <Route path="/manageshops" element={

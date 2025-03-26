@@ -2,10 +2,15 @@ import PropTypes from 'prop-types';
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import {useState, useEffect} from "react";
+import { UserContext } from './UserContext';
+import { useContext } from 'react';
 
 export default function NavBar() {
+
+    const { role } = useContext(UserContext);
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [role, setRole] = useState(null);
+    /* const [role, setRole] = useState(null); */
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -13,18 +18,19 @@ export default function NavBar() {
         navigate('/');
     }
 
+    /*
     useEffect(() => {
         // Get the role from localStorage when component loads
         const storedRole = localStorage.getItem('role');
         setRole(storedRole);
     }, []);
+    */
 
     const toggleDropDown = (dropdown) => {
         setDropdownOpen(dropdownOpen === dropdown ? null : dropdown);
     }
 
-    // 🛠️ BONUS TIP: Avoid rendering until role is loaded
-    if (role === null) return null;
+    
 
   return (
     <>
