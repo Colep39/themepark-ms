@@ -15,6 +15,9 @@ namespace BackendGroup.Models
         public DbSet<Ride_log> Ride_logs { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Weather> Weather { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +50,18 @@ namespace BackendGroup.Models
             modelBuilder.Entity<Weather>()
                 .Property(w => w.rainOut)
                 .HasConversion<int>(); // Store bool as int (0/1)
+
+                modelBuilder.Entity<User>()
+                .Property(v => v.role)
+                .HasConversion<string>();
+
+                modelBuilder.Entity<Ticket>()
+            .Property(v => v.ticket_type)
+            .HasConversion<string>();
+
+            modelBuilder.Entity<Maintenance>()
+            .Property(v => v.status)
+            .HasConversion<string>();
         }
 
 
