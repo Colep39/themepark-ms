@@ -68,19 +68,14 @@ namespace BackendGroup.Controllers
             }
 
             // Only update fields if they are provided (non-null)
-            if (rideLog.ride_date != default)
+            if (rideLog.date != default)
             {
-                existingRideLog.ride_date = rideLog.ride_date;
+                existingRideLog.date = rideLog.date;
             }
 
-            if (rideLog.ride_time != default)
+            if (rideLog.ride_count > 0)
             {
-                existingRideLog.ride_time = rideLog.ride_time;
-            }
-
-            if (rideLog.ride_duration > 0)
-            {
-                existingRideLog.ride_duration = rideLog.ride_duration;
+                existingRideLog.ride_count = rideLog.ride_count;
             }
 
             if (rideLog.ride_id > 0)
