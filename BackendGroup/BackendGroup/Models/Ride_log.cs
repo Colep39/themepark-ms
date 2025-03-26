@@ -9,11 +9,9 @@ namespace BackendGroup.Models
         [Key]
         public int log_id { get; set; }
 
-        public DateOnly ride_date { get; set; }
+        public DateTime date { get; set; }
 
-        public TimeOnly ride_time { get; set; }
-
-        public int ride_duration { get; set; }
+        public int ride_count { get; set; }
 
         public int ride_id { get; set; }
 
