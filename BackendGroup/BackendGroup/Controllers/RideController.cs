@@ -50,7 +50,6 @@ namespace BackendGroup.Controllers
 
             return CreatedAtAction(nameof(GetRide), new { id = ride.ride_id }, ride);
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRide(int id, Ride ride)
         {
@@ -65,23 +64,22 @@ namespace BackendGroup.Controllers
                 return NotFound();
             }
 
-            // Only update fields if they are provided (non-null)
             if (!string.IsNullOrEmpty(ride.ride_name))
             {
                 existingRide.ride_name = ride.ride_name;
             }
 
-            if (ride.capacity != 0)
+            if (ride.capacity > 0)
             {
                 existingRide.capacity = ride.capacity;
             }
 
-            if (ride.status >= 0) // Assuming status can be 0 or 1
+            if (ride.status >= 0)
             {
                 existingRide.status = ride.status;
             }
 
-            if (ride.last_maintenance_date != default)
+            if (ride.last_maintenance_date.HasValue)
             {
                 existingRide.last_maintenance_date = ride.last_maintenance_date;
             }
@@ -91,26 +89,25 @@ namespace BackendGroup.Controllers
                 existingRide.maintenance_count = ride.maintenance_count;
             }
 
-            if (ride.type >= 0) // Assuming type is an integer with valid types
+            if (ride.type >= 0)
             {
                 existingRide.type = ride.type;
             }
 
-            try
+            if (ride.ride_img != null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Rides.Any(r => r.ride_id == id))
-                {
-                    return NotFound();
-                }
-                throw;
+                existingRide.ride_img = ride.ride_img;
             }
 
+            if (ride.thrill_level > 0)
+            {
+                existingRide.thrill_level = ride.thrill_level;
+            }
+
+            await _context.SaveChangesAsync();
             return NoContent();
         }
+
 
 
         //DELETE
