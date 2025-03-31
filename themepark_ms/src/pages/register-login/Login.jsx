@@ -1,82 +1,69 @@
 import "./Login.css";
 import { useState } from 'react';
-import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext'; // adjust path as needed
-
 
 const Login = () => {
 
   const { setRole } = useContext(UserContext);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState({
+    username: '',
+    password: '',
+  });
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
+  // Handle input field changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
     });
-    const [errors, setErrors] = useState({
-        username: '',
-        password: '',
-    });
-    const navigate = useNavigate();
+  };
 
-     // Handle input field changes
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    };
+  // Validate the form fields
+  const validate = () => {
+    let tempErrors = { username: '' };
+    let isValid = true;
 
-    // Validate the form fields
-    const validate = () => {
-      let tempErrors = { username: '' };
-      let isValid = true;
+    if (!formData.username) {
+      tempErrors.username = 'Name is required';
+      isValid = false;
+    }
+    if (!formData.password) {
+      tempErrors.password = 'Password is required';
+      isValid = false;
+    }
 
-      if (!formData.username) {
-        tempErrors.username = 'Name is required';
-        isValid = false;
-      }
-      if(!formData.password){
-        tempErrors.password = 'Password is required';
-        isValid = false;
-      }
+    setErrors(tempErrors);
+    return isValid;
+  };
 
-      setErrors(tempErrors);
-      return isValid;
-    };
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validate()) {
+      try {
+        const response = await fetch('https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net//api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
 
-    // Handle form submission
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (validate()) {
-        // Handle form submission (e.g., API call)
-        try {
-          /*
-          const res = await fetch("http://localhost:5000", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-          });
-    
-          if (!res.ok) {
-            throw new Error("Invalid credentials");
-          }
-    
-          const data = await res.json();
-          */
-          const data = {
-            role: 'Admin',
-            token: 'fakeToken123'
-          }
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("role", data.role);
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.token);  // Store the JWT token
+          localStorage.setItem('role', data.role);    // Store the user role
           setRole(data.role);
-    
-          // Navigate to the correct dashboard
+
+          // Navigate based on user role
           switch (data.role) {
             case 'Admin':
               navigate('/adminpage');
@@ -90,15 +77,17 @@ const Login = () => {
             default:
               navigate('/');
           }
-    
-        } catch (error) {
-          alert(error.message);
+        } else {
+          const error = await response.text();
+          alert(error);  // Handle invalid credentials
         }
-        console.log('Form submitted:', formData);
+      } catch (error) {
+        alert('Login failed.');
       }
-    };
+    }
+  };
 
-    return ( 
+  return (
     <div id="login-wrapper">
       <form onSubmit={handleSubmit} className="login-page" id="loginform">
         <div className="login-container">
@@ -134,9 +123,8 @@ const Login = () => {
           </div>
         </div>
       </form>
-
     </div>
-    )
+  );
 }
 
 export default Login;

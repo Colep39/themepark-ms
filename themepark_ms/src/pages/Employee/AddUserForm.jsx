@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 
 export default function AddUserForm({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    dob: "",
+    birth_date: "",
     username: "",
     password: "",
     role: "Visitor"
@@ -29,10 +29,10 @@ export default function AddUserForm({ onClose, onSubmit }) {
       <div className="modal-content">
         <h2>Add New User</h2>
         <form onSubmit={handleSubmit}>
-          <input name="firstName" placeholder="First Name" onChange={handleChange} required />
-          <input name="lastName" placeholder="Last Name" onChange={handleChange} required />
+          <input name="first_name" placeholder="First Name" onChange={handleChange} required />
+          <input name="last_name" placeholder="Last Name" onChange={handleChange} required />
           <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-          <input name="dob" type="date" placeholder="Date of Birth" onChange={handleChange} required />
+          <input name="birth_date" type="date" placeholder="Date of Birth" onChange={handleChange} required />
           <input name="username" placeholder="Username" onChange={handleChange} required />
           <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
           <select name="role" onChange={handleChange} value={formData.role}>

@@ -9,7 +9,7 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     email: '',
-    dob: ''
+    birthDate: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -28,16 +28,44 @@ const Register = () => {
     if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
     if (!formData.email.includes('@')) newErrors.email = 'Invalid email address';
-    if (!formData.dob) newErrors.dob = 'Date of birth is required';
+    if (!formData.birthDate) newErrors.birthDate = 'Date of birth is required';
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      alert('Registration successful!');
-      // Handle submission (e.g., send to server)
+      // Convert the birthDate to ISO 8601 format
+      const formattedbirthDate = new Date(formData.birthDate).toISOString();
+
+      // Prepare the form data to send
+      const dataToSend = {
+        ...formData,
+        birthDate: formattedbirthDate // Send the formatted date to the backend
+      };
+
+      try {
+        const response = await fetch('https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net//api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          alert(data.message); // Show success message from backend
+          // Optionally, you could redirect the user to login here
+        } else {
+          const error = await response.text();
+          alert(error); // Handle error message from backend
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+        alert('Registration failed.');
+      }
     } else {
       setErrors(validationErrors);
     }
@@ -49,45 +77,45 @@ const Register = () => {
         <h2>Register</h2>
 
         <div className="input-group">
-        <label htmlFor="firstName">First Name</label>
-        <input name="firstName" type="text" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
-        {errors.firstName && <span className="error">{errors.firstName}</span>}
+          <label htmlFor="firstName">First Name</label>
+          <input name="firstName" type="text" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
+          {errors.firstName && <span className="error">{errors.firstName}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="lastName">Last Name</label>
-        <input name="lastName" type="text" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
-        {errors.lastName && <span className="error">{errors.lastName}</span>}
+          <label htmlFor="lastName">Last Name</label>
+          <input name="lastName" type="text" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
+          {errors.lastName && <span className="error">{errors.lastName}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="username">Username</label>
-        <input name="username" type="text" placeholder="Username" value={formData.username} onChange={handleChange} />
-        {errors.username && <span className="error">{errors.username}</span>}
+          <label htmlFor="username">Username</label>
+          <input name="username" type="text" placeholder="Username" value={formData.username} onChange={handleChange} />
+          {errors.username && <span className="error">{errors.username}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="password">Password</label>
-        <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
-        {errors.password && <span className="error">{errors.password}</span>}
+          <label htmlFor="password">Password</label>
+          <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input name="confirmPassword" type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} />
-        {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input name="confirmPassword" type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} />
+          {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="email">Email</label>
-        <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        {errors.email && <span className="error">{errors.email}</span>}
+          <label htmlFor="email">Email</label>
+          <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
 
         <div className="input-group">
-        <label htmlFor="dob">Date of Birth</label>
-        <input name="dob" type="date" value={formData.dob} onChange={handleChange} />
-        {errors.dob && <span className="error">{errors.dob}</span>}
+          <label htmlFor="birthDate">Date of Birth</label>
+          <input name="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
+          {errors.birthDate && <span className="error">{errors.birthDate}</span>}
         </div>
 
         <p className="login-prompt">

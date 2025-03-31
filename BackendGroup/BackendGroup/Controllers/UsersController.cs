@@ -20,6 +20,7 @@ namespace BackendGroup.Controllers
 
         // GET: api/users
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users
@@ -29,6 +30,7 @@ namespace BackendGroup.Controllers
 
         // GET: api/users/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users
@@ -45,6 +47,7 @@ namespace BackendGroup.Controllers
 
         // POST: api/users
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
             if (user == null)
@@ -60,6 +63,7 @@ namespace BackendGroup.Controllers
 
         // PUT: api/users/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutUser(int id, [FromBody] User updatedUser)
         {
             if (id != updatedUser.user_id)
