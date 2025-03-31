@@ -53,6 +53,20 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+                "https://themepark-ms-git-main-cole-plagens-projects.vercel.app",
+                "http://localhost:3000",  // Your React dev server
+                "http://localhost:5173"    // Your Vite dev server (if used)
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();  // Important if using cookies/auth
+    });
+});
 
 // Swagger configuration
 builder.Services.AddSwaggerGen(c =>
@@ -122,10 +136,10 @@ if (app.Environment.IsDevelopment())
 //app.UseHttpsRedirection();
 
 // Middleware order
-app.UseCors();
+app.UseRouting();
+app.UseCors("AllowFrontend");  // Must come after UseRouting()
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 app.Run();
 
