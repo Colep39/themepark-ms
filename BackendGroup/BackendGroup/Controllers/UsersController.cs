@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BackendGroup.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace BackendGroup.Controllers
@@ -44,6 +45,28 @@ namespace BackendGroup.Controllers
 
             return user;
         }
+        
+        [HttpGet("profile")]
+public async Task<ActionResult<User>> GetUserProfile()
+{
+    var userIdClaim = User.FindFirst("UserID")?.Value;
+    
+    if (!int.TryParse(userIdClaim, out int userId))
+    {
+        return BadRequest("Invalid user ID format.");
+    }
+
+    var user = await _context.Users
+        .Include(u => u.Tickets)
+        .FirstOrDefaultAsync(u => u.user_id == userId);
+
+    if (user == null)
+    {
+        return NotFound("User not found.");
+    }
+
+    return user;
+}
 
         // POST: api/users
         [HttpPost]
