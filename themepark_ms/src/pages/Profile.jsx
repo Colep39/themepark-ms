@@ -1,114 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 export default function ProfilePage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    dob: "",
-    password: "",
-  });
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!token) {
+        alert("You must be logged in!");
+        navigate("/login");
+        return;
+      }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Profile Submitted:", formData);
-  };
+      try {
+        const response = await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net//api/users/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  const handleUpdateProfile = (e) => {
-    e.preventDefault();
-    console.log("Profile Updated:", formData);
-  };
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          alert("Failed to fetch profile.");
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [token, navigate]);
+
+  if (!userData) {
+    return <p>Loading profile...</p>;
+  }
 
   return (
     <div className="profile-container">
       <h2 className="profile-title">Profile Page</h2>
-      <form onSubmit={handleSubmit} className="profile-form">
-        <div className="form-group">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="dob">Date of Birth:</label>
-          <input
-            type="date"
-            id="dob"
-            name="dob"
-            value={formData.dob}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <button type="submit" className="submit-button">
-          Save Profile
-        </button>
-        <button onClick={handleUpdateProfile} className="update-button">
-          Update Profile
-        </button>
-      </form>
+      <div className="profile-info">
+        <p><strong>First Name:</strong> {userData.first_name}</p>
+        <p><strong>Last Name:</strong> {userData.last_name}</p>
+        <p><strong>Username:</strong> {userData.username}</p>
+        <p><strong>Email:</strong> {userData.email}</p>
+        <p><strong>Date of Birth:</strong> {userData.birth_date ? userData.birth_date.split("T")[0] : "N/A"}</p>
+      </div>
     </div>
   );
 }
