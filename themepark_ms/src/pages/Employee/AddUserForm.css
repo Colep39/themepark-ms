@@ -21,6 +21,7 @@
     max-width: 90%;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     position: relative;
+    color: black;
   }
   
   /* Modal Title */
@@ -34,7 +35,8 @@
   
   /* Form Inputs */
   .modal-content input,
-  .modal-content select {
+  .modal-content select,
+  .modal-content textarea {
     width: 100%;
     padding: 0.6rem 0.75rem;
     margin-bottom: 1rem;
@@ -45,7 +47,8 @@
   }
   
   .modal-content input:focus,
-  .modal-content select:focus {
+  .modal-content select:focus,
+  .modal-content textarea:focus {
     border-color: #007bff;
     outline: none;
   }

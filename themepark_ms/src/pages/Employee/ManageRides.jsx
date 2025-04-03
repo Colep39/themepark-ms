@@ -1,11 +1,21 @@
 import './ManageRides.css';
 import AddRide from '/src/pages/components/AddRide.jsx'
+import AddUserForm from './AddUserForm.jsx'
+import AddRideForm from './AddRideForm.jsx'
+import {useEffect, useState} from 'react';
+
 
 export default function ManageRides(){
+    const [showNewRideForm, setShowNewRideForm] = useState(false);
+    const [rides, setRides] = useState([]);
 
     const handleAddRide = () =>{
         console.log('Add Ride Button Clicked');
-        // implement actions of a pop up to prompt the user to insert information of the new ride instance that they want
+        setShowNewRideForm(true);
+    }
+
+    const handleSubmitNewRide = () => {
+        alert("New Ride Submmitted");
     }
 
 
@@ -36,6 +46,12 @@ export default function ManageRides(){
                         </tbody>
                     </table>
                 </div>
+                {showNewRideForm && (
+                    <AddRideForm
+                        onClose={() => setShowNewRideForm(false)}
+                        onSubmit={handleSubmitNewRide}
+                    />
+                )}
             </div>
         </>
     )

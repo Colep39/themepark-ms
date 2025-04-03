@@ -1,5 +1,7 @@
 import './ManageShops.css';
 import AddItem from '/src/pages/components/AddItem.jsx'
+import AddShopForm from './AddShopForm.jsx'
+import {useEffect, useState} from 'react';
 
 /*
 Reference: 
@@ -9,11 +11,25 @@ If the event affects things outside the component (like app-wide state, API call
 */
 
 export default function ManageShops(){
+
+    const [showNewItemForm, setShowNewItemForm] = useState(false);
+    const [items, setItems] = useState([]);
+
+    const handleAddItem = () =>{
+        console.log('Add Shop Item Button Clicked');
+        setShowNewItemForm(true);
+    }
+
+    const handleSubmitNewItem = () => {
+        alert("New Item Submmitted");
+    }
+
+
     return (
         <>
             <div className="ManageShopsContainer">
                 <h1>Manage Shops</h1>
-                <button id="add-shop-btn">Add New Shop Item</button>
+                <button id="add-shop-btn" onClick={handleAddItem}>Add New Shop Item</button>
 
                 <div id="shops-table-container">
                     <table id="shops-table">
@@ -36,6 +52,12 @@ export default function ManageShops(){
                         </tbody>
                     </table>
                 </div>
+                {showNewItemForm && (
+                    <AddShopForm
+                        onClose={() => setShowNewItemForm(false)}
+                        onSubmit={handleSubmitNewItem}
+                    />
+                )}
             </div>
         </>
     )
