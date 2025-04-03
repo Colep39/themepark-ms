@@ -13,7 +13,7 @@ const WeatherReport = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await axios.get('http://localhost:5171/api/weather/all');
+        const response = await axios.get('https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/weather/all');
         console.log('Fetched Weather Data:', response.data);
         setWeatherData(response.data);
         setFilteredData(response.data); // Initially show all data
@@ -34,7 +34,7 @@ const WeatherReport = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:5171/api/weather?start=${startDate}&end=${endDate}`);
+      const response = await axios.get(`https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/weather?start=${startDate}&end=${endDate}`);
       console.log('Fetched Filtered Weather Data:', response.data);
       setFilteredData(response.data);
     } catch (error) {
