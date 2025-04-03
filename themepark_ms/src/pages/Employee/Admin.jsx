@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from 'react';
 import './ManageUsers.css';
 import AddUser from '/src/pages/components/AddUser.jsx';
 import AddUserForm from './AddUserForm.jsx';
-import EditUserForm from './EditUserForm';
+import EditUserForm from './EditUserForm2';
 
 export default function Admin() {
     const [currentTime, setCurrentTime] = useState(new Date());

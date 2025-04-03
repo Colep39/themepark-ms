@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddUserForm.css'; // Reuse the same styles
 
-export default function EditUserForm({ onClose, onSubmit, initialData, editableRole }) {
+export default function EditUserForm({ onClose, onSubmit, initialData }) {
     const [formData, setFormData] = useState({
         first_name: initialData.first_name || '',
         last_name: initialData.last_name || '',
@@ -53,14 +53,11 @@ export default function EditUserForm({ onClose, onSubmit, initialData, editableR
                            placeholder="New Password (leave blank to keep current)" 
                            value={formData.password} onChange={handleChange} />
                     
-                    {/* Conditionally render role field only if editableRole is true */}
-                    {editableRole && (
-                        <select name="role" value={formData.role} onChange={handleChange}>
-                            <option value="Visitor">Visitor</option>
-                            <option value="Staff">Staff</option>
-                            <option value="Admin">Admin</option>
-                        </select>
-                    )}
+                    <select name="role" value={formData.role} onChange={handleChange}>
+                        <option value="Visitor">Visitor</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Admin">Admin</option>
+                    </select>
 
                     <div className="modal-buttons">
                         <button type="submit">Update</button>
@@ -75,6 +72,5 @@ export default function EditUserForm({ onClose, onSubmit, initialData, editableR
 EditUserForm.propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    initialData: PropTypes.object.isRequired,
-    editableRole: PropTypes.bool // New prop to control role editing
+    initialData: PropTypes.object.isRequired
 };
