@@ -5,16 +5,27 @@
   max-width: 500px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #464444;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(20, 5, 5, 0.8); /* Dark semi-transparent */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
 }
+.profile-page{
+  background-image: url('/public/images/profile-background.jpg'); /* Relative to the public folder */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh; /* Ensures it covers the full height of the screen */
+  padding: 2rem;
+}
+
 
 .profile-title {
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #763333;
 }
 
 .profile-form {
@@ -69,4 +80,18 @@
 
 .update-button:hover {
   background-color: #e69500; /* Darker orange on hover */
+}
+
+#edit-profile-btn{
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#edit-profile-btn:hover{
+  background-color: #0056b3;
+  color: white;
 }

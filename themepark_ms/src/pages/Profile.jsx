@@ -74,29 +74,31 @@ export default function Profile() {
   };
 
   return (
-    <div className="profile-container">
-      {user ? (
-        <>
-          <h1>{user.first_name} {user.last_name}'s Profile</h1>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Role:</strong> {user.role}</p>
-          <p><strong>Birth Date:</strong> {user.birth_date}</p>
-          
-          <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+    <div className="profile-page">
+      <div className="profile-container">
+        {user ? (
+          <>
+            <h1>{user.first_name} {user.last_name}</h1>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Role:</strong> {user.role}</p>
+            <p><strong>Birth Date:</strong> {new Date(user.birth_date).toLocaleDateString()}</p>
+            
+            <button id="edit-profile-btn" onClick={() => setIsEditing(true)}>Edit Profile</button>
 
-          {isEditing && (
-            <EditUserForm
-              onClose={() => setIsEditing(false)}
-              onSubmit={handleEditUser}
-              initialData={user}
-              editableRole={false} // Pass editableRole={false} to hide role dropdown
-            />
-          )}
-        </>
-      ) : (
-        <p>Loading profile...</p>
-      )}
+            {isEditing && (
+              <EditUserForm
+                onClose={() => setIsEditing(false)}
+                onSubmit={handleEditUser}
+                initialData={user}
+                editableRole={false} // Pass editableRole={false} to hide role dropdown
+              />
+            )}
+          </>
+        ) : (
+          <p>Loading profile...</p>
+        )}
+      </div>
     </div>
   );
 }

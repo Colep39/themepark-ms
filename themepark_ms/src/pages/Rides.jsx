@@ -21,7 +21,7 @@ export default function Rides() {
   return (
     <div className="ride-component-container">
       <div className="img-container">
-        <img src="/images/main-rides-img.jpeg" alt="Themepark Image" className="main-ride-img"></img>
+        <img src="/images/rides-background.jpg" alt="Themepark Image" className="main-ride-img"></img>
         <div className="text-overlay">Rides</div>
       </div>
 

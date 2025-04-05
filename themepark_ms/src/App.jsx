@@ -25,7 +25,8 @@ import TicketReport from './pages/Employee/TicketReport.jsx'
 import ManageBreakdowns from './pages/Employee/ManageBreakdowns.jsx'
 import Unauthorized from './pages/Unauthorized.jsx'
 import PrivateRoute from './PrivateRoute'
-
+import RecordWeather from './pages/Employee/RecordWeather.jsx'
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   
@@ -49,6 +50,7 @@ function App() {
             <Route path="/gourmetbites" element={<GourmetBites />} />
             <Route path="/adventuregear" element={<AdventureGear />} />
             <Route path="/adminpage"  element={<Admin />} />
+            <Route path="/recordweather" element={<RecordWeather />} />
 
             {/*These will be the privatized pages*/}
             <Route path="/maintenancereport" element={
@@ -78,6 +80,7 @@ function App() {
             
           </Routes>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   )
 }

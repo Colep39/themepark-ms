@@ -50,7 +50,7 @@ export default function EditUserForm({ onClose, onSubmit, initialData }) {
                            value={formData.username} onChange={handleChange} />
                     
                     <input name="password" type="password" 
-                           placeholder="New Password (leave blank to keep current)" 
+                           placeholder="New Password" 
                            value={formData.password} onChange={handleChange} />
                     
                     <select name="role" value={formData.role} onChange={handleChange}>
