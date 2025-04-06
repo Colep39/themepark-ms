@@ -42,7 +42,31 @@ namespace BackendGroup.Controllers
             return Ok(maintenance);
         }
 
+         // Method to call the GetMaintenanceByRange stored procedure
+         [HttpGet("MaintenanceByRange")]
+        public async Task<List<Maintenance>> GetMaintenanceByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            // Execute the stored procedure and map the result to a list of Maintenance
+            var maintenanceData = await _context.Maintenances
+                .FromSqlRaw("CALL GetMaintenanceByRange({0}, {1})", startDate, endDate)
+                .ToListAsync();
 
+            return maintenanceData;
+        }
+
+        // Method to call the GetMaintenanceByCost stored procedure
+        [HttpGet("MaintenanceByCost")]
+        public async Task<List<Maintenance>> GetMaintenanceByMinCostAsync(int MaintenanceCost)
+        {
+            // Execute the stored procedure and map the result to a list of Maintenance
+            var maintenanceData = await _context.Maintenances
+                .FromSqlRaw("CALL GetMaintenanceByCost({0})", MaintenanceCost)  // Pass only minCost as int
+                .ToListAsync();
+
+            return maintenanceData;
+        }
+
+        
         //POST - essentially create
         [HttpPost]
         public async Task<ActionResult<Maintenance>> PostMaintenance(Maintenance maintenance)
@@ -68,9 +92,14 @@ namespace BackendGroup.Controllers
             }
 
             // Only update fields if they are provided (non-null)
-            if (maintenance.date != default)
+            if (maintenance.startDate != default)
             {
-                existingMaintenance.date = maintenance.date;
+                existingMaintenance.startDate = maintenance.startDate;
+            }
+
+            if (maintenance.endDate != default)
+            {
+                existingMaintenance.endDate = maintenance.endDate;
             }
 
             if (!string.IsNullOrEmpty(maintenance.description))
@@ -81,6 +110,11 @@ namespace BackendGroup.Controllers
             if (maintenance.status >= 0)
             {
                 existingMaintenance.status = maintenance.status;
+            }
+
+            if (maintenance.maintenanceCost > 0)
+            {
+                existingMaintenance.maintenanceCost = maintenance.maintenanceCost;
             }
 
             if (maintenance.ride_id > 0)

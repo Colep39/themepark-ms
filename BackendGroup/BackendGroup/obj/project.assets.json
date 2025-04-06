@@ -5305,19 +5305,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lopez\\.nuget\\packages\\": {}
+    "C:\\Users\\alyss\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lopez\\Downloads\\COSC 3380\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
+      "projectUniqueName": "C:\\Users\\alyss\\themepark-ms\\backendGroup\\backendGroup\\BackendGroup.csproj",
       "projectName": "BackendGroup",
-      "projectPath": "C:\\Users\\lopez\\Downloads\\COSC 3380\\themepark-ms\\BackendGroup\\BackendGroup\\BackendGroup.csproj",
-      "packagesPath": "C:\\Users\\lopez\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lopez\\Downloads\\COSC 3380\\themepark-ms\\BackendGroup\\BackendGroup\\obj\\",
+      "projectPath": "C:\\Users\\alyss\\themepark-ms\\backendGroup\\backendGroup\\BackendGroup.csproj",
+      "packagesPath": "C:\\Users\\alyss\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alyss\\themepark-ms\\backendGroup\\backendGroup\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\lopez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alyss\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

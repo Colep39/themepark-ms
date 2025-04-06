@@ -1,0 +1,93 @@
+
+.maintenance-report-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #3d85bb;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .maintenance-report-container h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #ffffff;
+  }
+  
+  
+  .maintenance-filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .maintenance-filter-section input[type="date"],
+  .maintenance-filter-section input[type="number"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150px;
+  }
+  
+  .maintenance-filter-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .maintenance-filter-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  .maintenance-filter-section button:active {
+    background-color: #007bff;
+  }
+  
+  /* Error Message */
+  .maintenance-error-message {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Table Styles */
+  .maintenance-report-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  
+  .maintenance-report-table th,
+  .maintenance-report-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .maintenance-report-table th {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .maintenance-report-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .maintenance-report-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .maintenance-report-table strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
