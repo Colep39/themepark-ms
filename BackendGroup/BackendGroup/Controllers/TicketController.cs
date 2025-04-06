@@ -1,6 +1,9 @@
 ﻿using BackendGroup.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 
 namespace BackendGroup.Controllers
 {
@@ -26,6 +29,24 @@ namespace BackendGroup.Controllers
 
             return Ok(tickets);
         }
+
+        [HttpGet("my")]
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetMyTickets()
+        {
+            var userIdClaim = User.FindFirst("UserID")?.Value;
+
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                return BadRequest("Invalid user ID format.");
+            }
+
+            var tickets = await _context.Tickets
+                .Where(t => t.user_id == userId)
+                .ToListAsync();
+
+            return tickets;
+        }
+        
 
         // GET: api/ticket/5
         [HttpGet("{id}")]
