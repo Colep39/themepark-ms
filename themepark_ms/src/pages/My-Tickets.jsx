@@ -1,24 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import "./My-Tickets.css";
 
 export default function MyTickets() {
-  // Sample ticket data (replace with real data from API or backend later)
-  const [tickets, setTickets] = useState([
-    { type: "Adult (18+)", date: "2025-04-12", quantity: 2 },
-    { type: "Youth (11-17)", date: "2025-05-01", quantity: 1 },
-    { type: "Senior (65+)", date: "2025-06-15", quantity: 3 },
-  ]);
+  const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No token found");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ticket/my", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("API tickets data:", data);
+
+        // Group tickets by type and date
+        const grouped = {};
+        data.forEach(ticket => {
+          // Use the camelCase property from JSON
+          const rawDate = ticket.purchase_date || ticket.Purchase_date; // try both
+          console.log("Raw date from API:", rawDate);
+
+          // Truncate date string to only YYYY-MM-DD
+          let dateOnly = "Unknown";
+          if (rawDate) {
+            const parsed = new Date(rawDate);
+            if (!isNaN(parsed)) {
+              dateOnly = parsed.toISOString().split("T")[0]; // format: yyyy-mm-dd
+            } else {
+              console.log("Invalid date parsing:", rawDate);
+            }
+          }
+          const key = `${ticket.ticket_type}-${dateOnly}`;
+
+          if (grouped[key]) {
+            grouped[key].count += 1;
+          } else {
+            grouped[key] = {
+              ticket_type: ticket.ticket_type,
+              Purchase_date: dateOnly,
+              count: 1,
+            };
+          }
+        });
+
+        setTickets(Object.values(grouped));
+      } catch (error) {
+        console.error("Failed to fetch tickets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTickets();
+  }, []);
 
   return (
     <div className="tickets-container">
       <h2 className="tickets-title">My Tickets</h2>
-      {tickets.length > 0 ? (
+      {loading ? (
+        <p>Loading tickets...</p>
+      ) : tickets.length > 0 ? (
         <div className="tickets-list">
           {tickets.map((ticket, index) => (
             <div key={index} className="ticket-item">
-              <p><strong>Type:</strong> {ticket.type}</p>
-              <p><strong>Date:</strong> {ticket.date}</p>
-              <p><strong>Quantity:</strong> {ticket.quantity}</p>
+              <p><strong>Type:</strong> {ticket.ticket_type}</p>
+              <p><strong>Date:</strong> {ticket.Purchase_date}</p>
+              <p><strong>Quantity:</strong> {ticket.count}</p>
             </div>
           ))}
         </div>

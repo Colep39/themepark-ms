@@ -9,12 +9,12 @@ namespace BackendGroup.Models
     {
         public enum TicketType
         {
-            adult,
-            season,
-            youth,
-            child,
-            senior,
-            student
+            Adult,
+            Season,
+            Youth,
+            Child,
+            Senior,
+            Student
         }
 
         [Key]
