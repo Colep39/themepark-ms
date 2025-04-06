@@ -17,3 +17,42 @@
 .id-win-container img{
     width: 500px;
 }
+#edit-button{
+    background-color: rgb(25, 25, 20);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+}
+#edit-button:hover{
+    background-color: rgb(41, 58, 151);
+    color: white;
+}
+#delete-button{
+    background-color: rgb(12, 12, 10);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#delete-button:hover{
+    background-color: rgb(41, 58, 151);
+    color: white;
+}
+.filter-controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.controls-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}

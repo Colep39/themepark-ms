@@ -1,13 +1,28 @@
 import './ManageBreakdowns.css'
 import AddBreakdown from '/src/pages/components/AddBreakdown.jsx'
+import {useEffect, useState} from 'react';
+import AddBreakdownForm from './AddBreakdownForm.jsx'
+
 
 export default function ManageBreakdowns(){
+
+    const [showNewBreakdownForm, setShowNewBreakdownForm] = useState(false);
+    const [breakdowns, setBreakdowns] = useState([]);
+
+    const handleAddBreakdown = () =>{
+        console.log('Add Breakdown Button Clicked');
+        setShowNewBreakdownForm(true);
+    }
+
+    const handleSubmitNewBreakdown = () => {
+        alert("New Breakdown Submmitted");
+    }
+
     return (
         <>
             <div className="ManageBreakdownsContainer">
                 <h1>Manage Breakdowns</h1>
-                <button id="add-breakdown-btn">Add New Breakdown</button>
-
+                <button id="add-breakdown-btn" onClick={handleAddBreakdown}>Add New Breakdown</button>
                 <div id="rides-table-container">
                     <table id="rides-table">
                         <thead>
@@ -24,6 +39,12 @@ export default function ManageBreakdowns(){
                         </tbody>
                     </table>
                 </div>
+                {showNewBreakdownForm && (
+                    <AddBreakdownForm
+                        onClose={() => setShowNewBreakdownForm(false)}
+                        onSubmit={handleSubmitNewBreakdown}
+                    />
+                )}
             </div>
         </>
     )

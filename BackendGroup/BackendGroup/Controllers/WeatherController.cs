@@ -19,52 +19,73 @@ namespace BackendGroup.Controllers
             _context = context;
         }
 
-        // GET all weather data
-        [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<Weather>>> GetAllWeather()
+        // ✅ Get Rainouts and Temperature for All Months
+        [HttpGet("monthly-report")]
+        public async Task<ActionResult<IEnumerable<MonthlyWeatherReport>>> GetMonthlyReport()
         {
-            var weatherData = await _context.Weather.ToListAsync();
+            var report = await _context.Set<MonthlyWeatherReport>()
+                .FromSqlRaw("CALL GetMonthlyRainoutsAndTemperature()")
+                .ToListAsync();
 
-            if (!weatherData.Any())
-            {
-                return NotFound("No weather data found.");
-            }
-
-            return Ok(weatherData);
+            return Ok(report);
         }
 
-        // GET weather data within a date range
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Weather>>> GetWeatherData([FromQuery] DateTime start, [FromQuery] DateTime end)
+        // ✅ Get Average Rainouts and Temperature for All Months
+        [HttpGet("monthly-averages")]
+        public async Task<ActionResult<IEnumerable<WeatherAverages>>> GetMonthlyAverages()
+        {
+            var averages = await _context.Set<WeatherAverages>()
+                .FromSqlRaw("CALL GetOverallWeatherAverages()")
+                .ToListAsync();
+
+            return Ok(averages);
+        }
+
+        // ✅ Get Rainouts and Temperature Within a Date Range
+        [HttpGet("date-range")]
+        public async Task<ActionResult<IEnumerable<DailyWeatherReport>>> GetWeatherByDateRange(
+            [FromQuery] DateTime start, [FromQuery] DateTime end)
         {
             if (start > end)
             {
                 return BadRequest("Start date must be before end date.");
             }
 
-            var weatherData = await _context.Weather
-                .Where(w => w.date >= start && w.date <= end)
+            var report = await _context.Set<DailyWeatherReport>()
+                .FromSqlRaw("CALL GetDailyWeatherByDateRange({0}, {1})", start, end)
                 .ToListAsync();
 
-            if (!weatherData.Any())
-            {
-                return NotFound("No weather data found for the selected range.");
-            }
-
-            return Ok(weatherData);
+            return Ok(report);
         }
 
-        // POST - Add new weather data
+        // ✅ Get Average Rainouts and Temperature for a Date Range
+        [HttpGet("date-range-averages")]
+        public async Task<ActionResult<IEnumerable<WeatherAverages>>> GetDateRangeAverages(
+            [FromQuery] DateTime start, [FromQuery] DateTime end)
+        {
+            if (start > end)
+            {
+                return BadRequest("Start date must be before end date.");
+            }
+
+            var averages = await _context.Set<WeatherAverages>()
+                .FromSqlRaw("CALL GetAverageWeatherByDateRange({0}, {1})", start, end)
+                .ToListAsync();
+
+            return Ok(averages);
+        }
+
+        // ✅ Add New Weather Data
         [HttpPost]
         public async Task<ActionResult<Weather>> PostWeatherData(Weather weather)
         {
             _context.Weather.Add(weather);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetWeatherData), new { id = weather.weather_id }, weather);
+            return CreatedAtAction(nameof(GetWeatherByDateRange), new { id = weather.weather_id }, weather);
         }
 
-        // PUT - Update weather data by ID
+        // ✅ Update Weather Data by ID
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateWeather(int id, Weather updatedWeather)
         {
@@ -79,7 +100,6 @@ namespace BackendGroup.Controllers
                 return NotFound("Weather data not found.");
             }
 
-            // Update properties
             existingWeather.date = updatedWeather.date;
             existingWeather.rainOut = updatedWeather.rainOut;
             existingWeather.temperature = updatedWeather.temperature;
@@ -96,7 +116,7 @@ namespace BackendGroup.Controllers
             return NoContent();
         }
 
-        // DELETE - Remove weather data by ID
+        // ✅ Delete Weather Data by ID
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeather(int id)
         {
@@ -111,5 +131,29 @@ namespace BackendGroup.Controllers
 
             return NoContent();
         }
+
+        // Get All Weather Data
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Weather>>> GetAllWeather()
+        {
+            var weatherData = await _context.Weather.ToListAsync();
+            return Ok(weatherData);
+        }
+
+        // Get Weather Data by ID
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Weather>> GetWeatherById(int id)
+        {
+            var weather = await _context.Weather.FindAsync(id);
+
+            if (weather == null)
+            {
+                return NotFound($"Weather data with ID {id} not found.");
+            }
+
+            return Ok(weather);
+        }
+
+
     }
 }

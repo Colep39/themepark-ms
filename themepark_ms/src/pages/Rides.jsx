@@ -1,11 +1,27 @@
 import './Rides.css';
 import Ride from './Ride.jsx';
+import { useEffect, useState } from 'react';
 
 export default function Rides() {
+
+  // Fetching rides from backend to store and display
+  const [rides, setRides] = useState([]);
+
+  const API_URL = import.meta.env.VITE_API_URL; // store backend url
+
+  /*
+  useEffect(() => {
+    fetch('http://localhost:5000/api/ride') // adjust port and endpoint as needed
+      .then(response => response.json())
+      .then(data => setRides(data))
+      .catch(error => console.error('Error fetching rides:', error));
+  }, []);
+  */
+
   return (
     <div className="ride-component-container">
       <div className="img-container">
-        <img src="/images/main-rides-img.jpeg" alt="Themepark Image" className="main-ride-img"></img>
+        <img src="/images/rides-background.jpg" alt="Themepark Image" className="main-ride-img"></img>
         <div className="text-overlay">Rides</div>
       </div>
 
@@ -22,6 +38,14 @@ export default function Rides() {
         <Ride name="Umanji" src="/images/eye-of-uma.jpg"/>
         <Ride name="BumperUma" src="/images/bumper-boats.webp"/>
         <Ride name="UmaLoopa" src="/images/coaster-train.jpg"/>
+
+        {rides.map((ride, index) => (
+          <Ride
+            key={index}
+            name={ride.name}
+            src={ride.imageUrl} // Make sure your DB stores image URLs
+          />
+        ))}
       </div>
     </div>
   )

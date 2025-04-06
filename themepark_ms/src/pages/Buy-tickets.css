@@ -7,7 +7,15 @@
   padding: 20px;
   background-color: #f4f4f9;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+.buy-tickets-page{
+  background-image: url('/public/images/buy-tickets-background.jpg'); /* Relative to the public folder */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh; /* Ensures it covers the full height of the screen */
+  padding: 2rem;
 }
 
 .buy-tickets-title {

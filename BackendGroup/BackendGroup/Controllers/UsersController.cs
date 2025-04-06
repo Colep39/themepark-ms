@@ -70,7 +70,6 @@ public async Task<ActionResult<User>> GetUserProfile()
 
         // POST: api/users
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
             if (user == null)

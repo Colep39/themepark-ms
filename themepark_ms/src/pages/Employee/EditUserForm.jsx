@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddUserForm.css'; // Reuse the same styles
 
-export default function EditUserForm({ onClose, onSubmit, initialData }) {
+export default function EditUserForm({ onClose, onSubmit, initialData, editableRole }) {
     const [formData, setFormData] = useState({
         first_name: initialData.first_name || '',
         last_name: initialData.last_name || '',
@@ -50,14 +50,17 @@ export default function EditUserForm({ onClose, onSubmit, initialData }) {
                            value={formData.username} onChange={handleChange} />
                     
                     <input name="password" type="password" 
-                           placeholder="New Password (leave blank to keep current)" 
+                           placeholder="New Password" 
                            value={formData.password} onChange={handleChange} />
                     
-                    <select name="role" value={formData.role} onChange={handleChange}>
-                        <option value="Visitor">Visitor</option>
-                        <option value="Staff">Staff</option>
-                        <option value="Admin">Admin</option>
-                    </select>
+                    {/* Conditionally render role field only if editableRole is true */}
+                    {editableRole && (
+                        <select name="role" value={formData.role} onChange={handleChange}>
+                            <option value="Visitor">Visitor</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    )}
 
                     <div className="modal-buttons">
                         <button type="submit">Update</button>
@@ -72,5 +75,6 @@ export default function EditUserForm({ onClose, onSubmit, initialData }) {
 EditUserForm.propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    initialData: PropTypes.object.isRequired
+    initialData: PropTypes.object.isRequired,
+    editableRole: PropTypes.bool // New prop to control role editing
 };

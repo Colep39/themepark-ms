@@ -1,0 +1,75 @@
+.weather-container{
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(20, 5, 5, 0.8); /* Dark semi-transparent */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    
+}
+.record-weather-page{
+    background-image: url('/public/images/weather-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 95vh; /* Ensures it covers the full height of the screen */
+    padding: 2rem;
+}
+
+.weather-container h3,
+.weather-container h4 {
+  margin-top: 0;
+  color: #bdc4c3;
+  text-align: center;
+}
+
+.weather-container ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.weather-container li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #f4e5e5;
+}
+
+.weather-container button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.weather-container button:hover {
+  background-color: #004d40;
+}
+
+.weather-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.weather-container input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.weather-container input:focus {
+  outline: none;
+  border-color: #00796b;
+}

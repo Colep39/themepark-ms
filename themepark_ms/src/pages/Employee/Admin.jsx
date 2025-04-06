@@ -1,9 +1,10 @@
 import './Admin.css';
 import { useEffect, useState, useMemo } from 'react';
 import './ManageUsers.css';
-import AddUser from '/src/pages/components/AddUser.jsx';
 import AddUserForm from './AddUserForm.jsx';
-import EditUserForm from './EditUserForm';
+import EditUserForm from './EditUserForm2';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Admin() {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -102,13 +103,17 @@ export default function Admin() {
             });
 
             if (!response.ok) throw new Error("Failed to add user");
+
+            if (response.ok) {
+                toast.success("✅ Employee has been added");
+                // optionally refresh your table or close modal here
+            }
             
-            alert("User added successfully!");
             fetchUsers();
             setShowNewUserForm(false);
         } catch (err) {
             console.error("Error adding user:", err);
-            alert("Failed to add user.");
+            toast.error("❌ Failed to add employee");
         }
     };
 
@@ -124,11 +129,13 @@ export default function Admin() {
 
             if (!response.ok) throw new Error("Failed to delete user");
             
-            alert("User deleted!");
+            if (response.ok) {
+                toast.success("🗑️ Employee has been deleted");
+            }
             fetchUsers();
         } catch (error) {
             console.error("Error deleting user:", error);
-            alert("Failed to delete user.");
+            toast.error("❌ Failed to delete employee");
         }
     };
 
@@ -165,13 +172,15 @@ export default function Admin() {
 
             if (!response.ok) throw new Error("Failed to update user");
             
-            alert("User updated!");
+            if (response.ok) {
+                toast.success("✏️ Employee has been updated");
+            }
             fetchUsers();
             setShowNewUserForm(false);
             setEditingUser(null);
         } catch (error) {
             console.error("Error updating user:", error);
-            alert("Failed to update user.");
+            toast.error("❌ Failed to update employee");
         }
     };
 
@@ -193,7 +202,7 @@ export default function Admin() {
                 <div id="admin-cell"><h2>Revenue Today</h2><p>$2457.69</p></div>
                 <div id="admin-cell"><h2>Current Time</h2><p>{currentTime.toLocaleString()}</p></div>
             </div>
-    
+            
             <div className="ManageUsersContainer">
                 <div className="controls-row">
                     <h1>Manage Users</h1>
@@ -266,10 +275,10 @@ export default function Admin() {
                                         <td>{user.username}</td>
                                         <td>{user.email}</td>
                                         <td>{user.role}</td>
-                                        <td>{user.birth_date}</td>
+                                        <td>{new Date(user.birth_date).toLocaleDateString()}</td>
                                         <td>
-                                            <button onClick={() => handleEditUser(user)}>Edit</button>
-                                            <button onClick={() => handleDeleteUser(user.user_id)}>Delete</button>
+                                            <button id="edit-button" onClick={() => handleEditUser(user)}>Edit</button>
+                                            <button id="delete-button" onClick={() => handleDeleteUser(user.user_id)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))

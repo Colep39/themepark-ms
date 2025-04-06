@@ -51,17 +51,21 @@ namespace BackendGroup.Models
                 .Property(w => w.rainOut)
                 .HasConversion<int>(); // Store bool as int (0/1)
 
-                modelBuilder.Entity<User>()
-                .Property(v => v.role)
-                .HasConversion<string>();
-
-                modelBuilder.Entity<Ticket>()
-            .Property(v => v.ticket_type)
+            modelBuilder.Entity<User>()
+            .Property(v => v.role)
             .HasConversion<string>();
+
+            modelBuilder.Entity<Ticket>()
+        .Property(v => v.ticket_type)
+        .HasConversion<string>();
 
             modelBuilder.Entity<Maintenance>()
             .Property(v => v.status)
             .HasConversion<string>();
+
+            modelBuilder.Entity<MonthlyWeatherReport>().HasNoKey().ToView(null);
+            modelBuilder.Entity<WeatherAverages>().HasNoKey().ToView(null);
+            modelBuilder.Entity<DailyWeatherReport>().HasNoKey().ToView(null);
         }
 
 
