@@ -10,21 +10,23 @@ export default function MyTickets() {
   ]);
 
   return (
-    <div className="tickets-container">
-      <h2 className="tickets-title">My Tickets</h2>
-      {tickets.length > 0 ? (
-        <div className="tickets-list">
-          {tickets.map((ticket, index) => (
-            <div key={index} className="ticket-item">
-              <p><strong>Type:</strong> {ticket.type}</p>
-              <p><strong>Date:</strong> {ticket.date}</p>
-              <p><strong>Quantity:</strong> {ticket.quantity}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="no-tickets">You have no tickets yet.</p>
-      )}
+    <div className="my-tickets-page">
+      <div className="tickets-container">
+        <h2 className="tickets-title">My Tickets</h2>
+        {tickets.length > 0 ? (
+          <div className="tickets-list">
+            {tickets.map((ticket, index) => (
+              <div key={index} className="ticket-item">
+                <p><strong>Type:</strong> {ticket.type}</p>
+                <p><strong>Date:</strong> {ticket.date}</p>
+                <p><strong>Quantity:</strong> {ticket.quantity}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="no-tickets">You have no tickets yet.</p>
+        )}
+      </div>
     </div>
   );
 }

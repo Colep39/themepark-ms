@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditUserForm from "./Employee/EditUserForm"; // Ensure this path is correct
 import "./Profile.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
   const [user, setUser] = useState(null); // State for the logged-in user data
@@ -29,7 +31,7 @@ export default function Profile() {
           const data = await response.json();
           setUser(data);
         } else {
-          alert("Failed to fetch profile.");
+          toast.error("Failed to fetch user data");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
