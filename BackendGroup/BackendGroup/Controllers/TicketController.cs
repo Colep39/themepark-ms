@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-
+using MySql.Data.MySqlClient;
+using System.Text.Json;
 
 namespace BackendGroup.Controllers
 {
@@ -46,7 +47,7 @@ namespace BackendGroup.Controllers
 
             return tickets;
         }
-        
+
 
         // GET: api/ticket/5
         [HttpGet("{id}")]
@@ -63,6 +64,75 @@ namespace BackendGroup.Controllers
             }
 
             return Ok(ticket);
+        }
+
+        // Get ticket report by date range
+        [HttpGet("report")]
+        public async Task<ActionResult<IEnumerable<TicketReport>>> GetTicketReport(
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            if (startDate > endDate)
+            {
+                return BadRequest("Start date must be before end date.");
+            }
+
+            var report = await _context.Set<TicketReport>()
+                .FromSqlRaw("CALL GetTicketReport({0}, {1})", startDate, endDate)
+                .ToListAsync();
+
+            return Ok(report);
+        }
+
+        // Get ticket statistics by date range
+        [HttpGet("statistics")]
+        public async Task<ActionResult<TicketStatistics>> GetTicketStatistics(
+            [FromQuery] DateTime startDate,
+            [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                if (startDate > endDate)
+                {
+                    return BadRequest("Start date must be before end date.");
+                }
+
+                var statistics = await _context.Set<TicketStatistics>()
+                    .FromSqlRaw(@"
+                        SELECT 
+                            COUNT(*) as TotalTickets,
+                            COALESCE(SUM(Price), 0) as TotalRevenue,
+                            JSON_OBJECT(
+                                'Adult', SUM(CASE WHEN ticket_type = 'adult' THEN 1 ELSE 0 END),
+                                'Season', SUM(CASE WHEN ticket_type = 'season' THEN 1 ELSE 0 END),
+                                'Youth', SUM(CASE WHEN ticket_type = 'youth' THEN 1 ELSE 0 END),
+                                'Child', SUM(CASE WHEN ticket_type = 'child' THEN 1 ELSE 0 END),
+                                'Senior', SUM(CASE WHEN ticket_type = 'senior' THEN 1 ELSE 0 END),
+                                'Student', SUM(CASE WHEN ticket_type = 'student' THEN 1 ELSE 0 END)
+                            ) as TicketsByType
+                        FROM ticket
+                        WHERE DATE(Purchase_date) BETWEEN DATE({0}) AND DATE({1})", 
+                        startDate, endDate)
+                    .FirstOrDefaultAsync();
+
+                if (statistics == null)
+                {
+                    return Ok(new TicketStatistics
+                    {
+                        TotalTickets = 0,
+                        TotalRevenue = 0,
+                        TicketsByType = new Dictionary<string, int>()
+                    });
+                }
+
+                return Ok(statistics);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTicketStatistics: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return StatusCode(500, new { message = "An error occurred while retrieving ticket statistics.", error = ex.Message });
+            }
         }
 
         // POST: api/ticket
