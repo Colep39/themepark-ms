@@ -36,7 +36,7 @@
 
 .buy-tickets-ticketOption {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   margin-bottom: 15px;
   font-size: 16px;
@@ -45,6 +45,9 @@
 
 .buy-tickets-ticketOption span {
   flex-grow: 1;
+  margin-left: 10px;
+  font-size: 16px;
+  
 }
 
 .buy-tickets-ticketInput {

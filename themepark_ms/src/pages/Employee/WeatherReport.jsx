@@ -94,55 +94,59 @@ const WeatherReport = () => {
         ).toFixed(2);
 
     return (
-      <table className="weather-table">
-        <thead>
-          <tr>
-            <th>Month</th>
-            <th>Rainouts</th>
-            <th>Avg Temp (°F)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.key}>
-              <td>{row.month}</td>
-              <td>{row.rainouts}</td>
-              <td>{row.temp}</td>
+      <div className="weather-table-container">
+        <table className="weather-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Rainouts</th>
+              <th>Avg Temp (°F)</th>
             </tr>
-          ))}
-          <tr className="average-row">
-            <td><strong>Average</strong></td>
-            <td>{avgRainouts}</td>
-            <td>{avgTemp}</td>
-          </tr>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.key}>
+                <td>{row.month}</td>
+                <td>{row.rainouts}</td>
+                <td>{row.temp}</td>
+              </tr>
+            ))}
+            <tr className="average-row">
+              <td><strong>Average</strong></td>
+              <td>{avgRainouts}</td>
+              <td>{avgTemp}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   };
 
   return (
-    <div className="weather-report-container">
-      <h1>Weather Report</h1>
+    <div className="weather-report-page">
+      <div className="weather-report-container">
+        <h1>Weather Report</h1>
 
-      <div className="filter-container">
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <button onClick={handleFilterSubmit} className="filter-button">
-          Filter
-        </button>
+        <div className="filter-container">
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <button onClick={handleFilterSubmit} className="filter-button">
+            Filter
+          </button>
+        </div>
+
+        {error && <p className="error-message">{error}</p>}
+
+        {renderWeatherTable()}
       </div>
-
-      {error && <p className="error-message">{error}</p>}
-
-      {renderWeatherTable()}
     </div>
   );
 };

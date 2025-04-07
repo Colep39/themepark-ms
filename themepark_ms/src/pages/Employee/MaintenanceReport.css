@@ -90,4 +90,53 @@
     font-weight: bold;
     color: #333;
   }
-  
+  .maintenance-report-container{
+    background-color: black;
+  }
+  .filter-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .filter-container input[type="date"],
+  .filter-container input[type="number"]{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+  }
+  .filter-container button{
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .filter-container button:hover{
+    background-color: #0056b3;
+  }
+  .maintenance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .maintenance-table th,
+  .maintenance-table td {
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  .maintenance-report-page{
+    background: url('/public/images/maintenance-report-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 95vh; /* Ensures it covers the full height of the screen */
+    padding: 2rem;
+  }
+

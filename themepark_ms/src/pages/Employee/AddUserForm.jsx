@@ -52,4 +52,4 @@ export default function AddUserForm({ onClose, onSubmit }) {
 AddUserForm.propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-  };
+};

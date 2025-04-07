@@ -194,120 +194,130 @@ export default function Admin() {
 
     // Render
     return  (
-        <div className="AdminContainer">
-            <h1>Admin Dashboard</h1>
-            <div className="admin-info">
-                {/* Existing dashboard cells */}
-                <div id="admin-cell"><h2>Tickets Sold Today</h2><p>83</p></div>
-                <div id="admin-cell"><h2>Revenue Today</h2><p>$2457.69</p></div>
-                <div id="admin-cell"><h2>Current Time</h2><p>{currentTime.toLocaleString()}</p></div>
-            </div>
-            
-            <div className="ManageUsersContainer">
-                <div className="controls-row">
-                    <h1>Manage Users</h1>
-                    <button id="add-user-btn" onClick={() => {
-                        setEditingUser(null);
-                        setShowNewUserForm(true);
-                    }}>
-                        Add New User
-                    </button>
+        <div className="admin-page">
+            <div className="AdminContainer">
+                
+                {/*
+                <div className="admin-info">
+                    <div id="admin-cell"><h2>Tickets Sold Today</h2><p>83</p></div>
+                    <div id="admin-cell"><h2>Revenue Today</h2><p>$2457.69</p></div>
+                    <div id="admin-cell"><h2>Current Time</h2><p>{currentTime.toLocaleString()}</p></div>
                 </div>
-    
-                {/* NEW: Filter/Search Controls */}
-                <div className="filter-controls">
-                    <input
-                        type="text"
-                        placeholder="Search by name or email..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-    
-                    <select
-                        value={roleFilter}
-                        onChange={(e) => setRoleFilter(e.target.value)}
-                    >
-                        <option value="All">All Roles</option>
-                        <option value="Admin">Admins</option>
-                        <option value="Staff">Staff</option>
-                        <option value="Visitor">Visitors</option>
-                    </select>
-    
-                    <div className="sort-buttons">
-                        <button onClick={() => requestSort('last_name')}>
-                            Sort by Name {sortConfig.key === 'last_name' && (
-                                <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
-                            )}
-                        </button>
-                        <button onClick={() => requestSort('birth_date')}>
-                            Sort by Age {sortConfig.key === 'birth_date' && (
-                                <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
-                            )}
-                        </button>
-                        <button onClick={() => requestSort('role')}>
-                            Sort by Role {sortConfig.key === 'role' && (
-                                <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
-                            )}
+                */}
+
+                <div className="nah-id-win-container">
+                    <img src="public/images/coogs.gif" alt="Coogs" className="coogs" />
+                    {/*<img src="public/images/NAH_I_D_WIN.gif" alt="Nah ID Win" className="gojo" /> */}
+                    <h1>Admin Dashboard</h1>
+                    <img src="public/images/basketball.gif" alt="Basketball" className="basketball" />
+                </div>
+                
+                <div className="ManageUsersContainer">
+                    <div className="controls-row">
+                        <h1>Manage Users</h1>
+                        <button id="add-user-btn" onClick={() => {
+                            setEditingUser(null);
+                            setShowNewUserForm(true);
+                        }}>
+                            Add New User
                         </button>
                     </div>
-                </div>
-    
-                {/* Users Table */}
-                <div id="users-table-container">
-                    <table id="users-table">
-                        <thead>
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Birth Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {processedUsers.length > 0 ? (
-                                processedUsers.map((user) => (
-                                    <tr key={user.user_id}>
-                                        <td>{user.first_name}</td>
-                                        <td>{user.last_name}</td>
-                                        <td>{user.username}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.role}</td>
-                                        <td>{new Date(user.birth_date).toLocaleDateString()}</td>
-                                        <td>
-                                            <button id="edit-button" onClick={() => handleEditUser(user)}>Edit</button>
-                                            <button id="delete-button" onClick={() => handleDeleteUser(user.user_id)}>Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
+        
+                    {/* NEW: Filter/Search Controls */}
+                    <div className="filter-controls">
+                        <input
+                            type="text"
+                            placeholder="Search by name or email..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+        
+                        <select
+                            value={roleFilter}
+                            onChange={(e) => setRoleFilter(e.target.value)}
+                        >
+                            <option value="All">All Roles</option>
+                            <option value="Admin">Admins</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Visitor">Visitors</option>
+                        </select>
+        
+                        <div className="sort-buttons">
+                            <button onClick={() => requestSort('last_name')}>
+                                Sort by Name {sortConfig.key === 'last_name' && (
+                                    <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
+                                )}
+                            </button>
+                            <button onClick={() => requestSort('birth_date')}>
+                                Sort by Age {sortConfig.key === 'birth_date' && (
+                                    <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
+                                )}
+                            </button>
+                            <button onClick={() => requestSort('role')}>
+                                Sort by Role {sortConfig.key === 'role' && (
+                                    <span>({sortConfig.direction === 'asc' ? '↑' : '↓'})</span>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+        
+                    {/* Users Table */}
+                    <div id="users-table-container">
+                        <table id="users-table">
+                            <thead>
                                 <tr>
-                                    <td colSpan="7">No users found matching your criteria.</td>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Birth Date</th>
+                                    <th>Actions</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {processedUsers.length > 0 ? (
+                                    processedUsers.map((user) => (
+                                        <tr key={user.user_id}>
+                                            <td>{user.first_name}</td>
+                                            <td>{user.last_name}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.role}</td>
+                                            <td>{new Date(user.birth_date).toLocaleDateString()}</td>
+                                            <td>
+                                                <button id="edit-button" onClick={() => handleEditUser(user)}>Edit</button>
+                                                <button id="delete-button" onClick={() => handleDeleteUser(user.user_id)}>Delete</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="7">No users found matching your criteria.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    {showNewUserForm && (
+                        editingUser ? (
+                            <EditUserForm
+                                onClose={() => {
+                                    setShowNewUserForm(false);
+                                    setEditingUser(null);
+                                }}
+                                onSubmit={handleUpdateUser}
+                                initialData={editingUser}
+                            />
+                        ) : (
+                            <AddUserForm
+                                onClose={() => setShowNewUserForm(false)}
+                                onSubmit={handleSubmitNewUser}
+                            />
+                        )
+                    )}
                 </div>
-    
-                {showNewUserForm && (
-    editingUser ? (
-        <EditUserForm
-            onClose={() => {
-                setShowNewUserForm(false);
-                setEditingUser(null);
-            }}
-            onSubmit={handleUpdateUser}
-            initialData={editingUser}
-        />
-    ) : (
-        <AddUserForm
-            onClose={() => setShowNewUserForm(false)}
-            onSubmit={handleSubmitNewUser}
-        />
-    )
-)}
             </div>
         </div>
     );

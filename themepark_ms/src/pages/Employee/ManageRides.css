@@ -67,3 +67,21 @@
 #edit-ride-btn:hover, #delete-ride-btn:hover{
     background-color: #b2af12;
 }
+.ride-operation-btn{
+    background-color: #e3e71c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+    margin: 5px;
+    
+}
+.ride-operation-btn:hover{
+    background-color: #b2af12;
+}

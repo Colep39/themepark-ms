@@ -3,7 +3,7 @@
   width: 80%;
   margin: 20px auto;
   padding: 20px;
-  background-color: #3d85bb;
+  background-color: #101316;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -88,4 +88,32 @@
 .weather-report-table strong {
   font-weight: bold;
   color: #333;
+}
+.weather-report-page{
+  background: url('/public/images/weather-report-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 95vh; /* Ensures it covers the full height of the screen */
+  padding: 2rem;
+}
+.weather-table-container{
+  overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+  margin-top: 20px;
+
+}
+.weather-table{
+  border-collapse: collapse;
+  width: 100%;
+  color: white;
+  border: solid 1px black;
+  border-radius: 8px; /* optional: adds rounded corners */
+  overflow: hidden; /* ensures rounded corners don't get cut off */
+  margin-bottom: 20px;
+}
+.weather-table th{
+  border: solid 1px white;
+}
+.weather-table td{
+  border: solid 1px white;
 }

@@ -103,8 +103,8 @@ export default function ManageRides() {
                                 <td>{ride.thrill_level}</td>
                                 <td>{ride.ride_img ? <img src={ride.ride_img} alt={ride.ride_name} width="50" /> : "No Image"}</td>
                                 <td>
-                                    <button onClick={() => handleEditRide(ride)}>Edit</button>
-                                    <button onClick={() => handleDeleteRide(ride.ride_id)}>Delete</button>
+                                    <button className="ride-operation-btn" onClick={() => handleEditRide(ride)}>Edit</button>
+                                    <button className="ride-operation-btn" onClick={() => handleDeleteRide(ride.ride_id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

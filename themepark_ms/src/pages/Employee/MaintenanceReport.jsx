@@ -127,71 +127,73 @@ const MaintenanceReport = () => {
   };
 
   return (
-    <div className="maintenance-report-container">
-      <h1>Maintenance Report</h1>
+    <div className="maintenance-report-page">
+      <div className="maintenance-report-container">
+        <h1>Maintenance Report</h1>
 
-      <div className="filter-container">
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <input
-          type="number"
-          value={MaintenanceCost}
-          onChange={(e) => setMaintenanceCost(e.target.value)}
-          placeholder="Maintenance Cost"
-        />
-        <button onClick={handleFilterSubmit} className="filter-button">
-          Filter
-        </button>
-      </div>
+        <div className="filter-container">
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <input
+            type="number"
+            value={MaintenanceCost}
+            onChange={(e) => setMaintenanceCost(e.target.value)}
+            placeholder="Cost"
+          />
+          <button onClick={handleFilterSubmit} className="filter-button">
+            Filter
+          </button>
+        </div>
 
-      {loading && <p>Loading maintenance data...</p>}
-      {error && !loading && <p className="error-message">{error}</p>}
+        {loading && <p>Loading maintenance data...</p>}
+        {error && !loading && <p className="error-message">{error}</p>}
 
-      <div className="statistics-container">
-        <p><strong>Total Maintenance Cost: </strong>${calculateTotalCost().toFixed(2)}</p>
-        <p><strong>Average Breakdowns Per Month: </strong>{calculateAverageBreakdowns()}</p>
-      </div>
+        <div className="statistics-container">
+          <p><strong>Total Maintenance Cost: </strong>${calculateTotalCost().toFixed(2)}</p>
+          <p><strong>Average Breakdowns Per Month: </strong>{calculateAverageBreakdowns()}</p>
+        </div>
 
-      {/* Render the filtered maintenance data table only if filtered data is available */}
-      {filteredData.length > 0 && (
-        <table className="maintenance-table">
-          <thead>
-            <tr>
-              <th>Maintenance ID</th>
-              <th>Ride ID</th>
-              <th>Ride Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Maintenance Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((row, index) => (
-              <tr key={index}>
-                <td>{row.maintenance_id}</td>
-                <td>{row.ride_id}</td>
-                <td>{getRideName(row.ride_id)}</td>
-                <td>{new Date(row.startDate).toLocaleDateString()}</td>
-                <td>{new Date(row.endDate).toLocaleDateString()}</td>
-                <td>{row.description}</td>
-                <td>{row.status}</td>
-                <td>{row.maintenanceCost || 'N/A'}</td>
+        {/* Render the filtered maintenance data table only if filtered data is available */}
+        {filteredData.length > 0 && (
+          <table className="maintenance-table">
+            <thead>
+              <tr>
+                {/*<th>Maintenance ID</th>*/}
+                {/*<th>Ride ID</th>*/}
+                <th>Ride Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Maintenance Cost</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {filteredData.map((row, index) => (
+                <tr key={index}>
+                  {/*<td>{row.maintenance_id}</td>*/}
+                  {/*<td>{row.ride_id}</td>*/}
+                  <td>{getRideName(row.ride_id)}</td>
+                  <td>{new Date(row.startDate).toLocaleDateString()}</td>
+                  <td>{new Date(row.endDate).toLocaleDateString()}</td>
+                  <td>{row.description}</td>
+                  <td>{row.status}</td>
+                  <td>{row.maintenanceCost || 'N/A'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
+      </div>
     </div>
   );
 };
