@@ -34,11 +34,7 @@ export default function TicketReport() {
         setError(null);
 
         try {
-            // For development (local testing)
-            const baseUrl = "http://localhost:5171/api/ticket";
-
-            // For production (before pushing to main)
-            // const baseUrl = "https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ticket";
+            const baseUrl = "https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ticket";
 
             // Fetch report data
             const reportResponse = await axios.get(`${baseUrl}/report`, {
