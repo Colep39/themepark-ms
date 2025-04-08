@@ -123,7 +123,7 @@ export default function AddRideForm({ onClose, onSubmit, initialData }) {
 
                     <input
                         type="file"
-                        onChange={handleChange}
+                        onChange={(e) => setFormData({...formData, imageFile: e.target.files[0]})}
                         name="ride_img"
                         accept="image/*"
                     />

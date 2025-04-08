@@ -206,10 +206,10 @@ export default function Admin() {
                 */}
 
                 <div className="nah-id-win-container">
-                    <img src="public/images/coogs.gif" alt="Coogs" className="coogs" />
+                    <img src="/images/coogs.gif" alt="Coogs" className="coogs" />
                     {/*<img src="public/images/NAH_I_D_WIN.gif" alt="Nah ID Win" className="gojo" /> */}
                     <h1>Admin Dashboard</h1>
-                    <img src="public/images/basketball.gif" alt="Basketball" className="basketball" />
+                    <img src="/images/basketball.gif" alt="Basketball" className="basketball" />
                 </div>
                 
                 <div className="ManageUsersContainer">
