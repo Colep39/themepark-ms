@@ -30,7 +30,7 @@ const MaintenanceReport = () => {
         }
       } catch (err) {
         console.error('Error loading maintenance data:', err);
-        setError('Could not load maintenance data.');
+        setError('Waiting to fetch maintenance data.');
       } finally {
         setLoading(false);
       }
