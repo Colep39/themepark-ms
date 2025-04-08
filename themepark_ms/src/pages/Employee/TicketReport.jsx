@@ -1,23 +1,25 @@
 import './TicketReport.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function TicketReport() {
     const [reportPeriod, setReportPeriod] = useState('range');
     const [formData, setFormData] = useState({
-        ticketType: '',
-        userType: '',
         startDate: '',
         endDate: ''
     });
 
-    const [results, setResults] = useState([]); // results that are generated from the paramters given in the form
+    const [results, setResults] = useState([]);
+    const [statistics, setStatistics] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleReportPeriodChange = (type) => {
         setReportPeriod(type);
         setFormData((prev) => ({
-        ...prev,
-        startDate: '',
-        endDate: ''
+            ...prev,
+            startDate: '',
+            endDate: ''
         }));
     };
 
@@ -26,107 +28,131 @@ export default function TicketReport() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitted report filters:', {
-        reportPeriod,
-        ...formData
-        });
-        // Mock "fetched" results
-        const mockData = [
-            {
-            ticketId: 1,
-            type: 'Adult',
-            user: 'Visitor',
-            date: '2025-03-01',
-            amount: 20
-            },
-            {
-            ticketId: 2,
-            type: 'Senior',
-            user: 'Staff',
-            date: '2025-03-02',
-            amount: 15
-            }
-        ];
-        setResults(mockData);
+        setLoading(true);
+        setError(null);
 
-        // TODO: Hook this up to a backend API or report generator
+        try {
+            // For development (local testing)
+            const baseUrl = "http://localhost:5171/api/ticket";
+
+            // For production (before pushing to main)
+            // const baseUrl = "https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ticket";
+
+            // Fetch report data
+            const reportResponse = await axios.get(`${baseUrl}/report`, {
+                params: {
+                    startDate: formData.startDate,
+                    endDate: formData.endDate
+                }
+            });
+            setResults(reportResponse.data);
+
+            // Fetch statistics
+            const statsResponse = await axios.get(`${baseUrl}/statistics`, {
+                params: {
+                    startDate: formData.startDate,
+                    endDate: formData.endDate
+                }
+            });
+            setStatistics(statsResponse.data);
+        } catch (err) {
+            setError('Failed to fetch ticket data. Please try again.');
+            console.error('Error fetching ticket data:', err);
+        } finally {
+            setLoading(false);
+        }
     };
+
     return (
-        <>
-            <div id="ticket-report-container">
-                <h1 id="ticket-report-head">Ticket Report</h1>
+        <div id="ticket-report-container">
+            <h1 id="ticket-report-head">Ticket Report</h1>
 
-                <form onSubmit={handleSubmit}>
-                    <label>Report Period:</label>
-                    <div className="report-period-buttons">
-                        <button type="button" className={reportPeriod === 'range' ? 'active' : ''} onClick={() => handleReportPeriodChange('range')}>By Date Range</button>
-                        <button type="button" className={reportPeriod === 'month' ? 'active' : ''} onClick={() => handleReportPeriodChange('month')}>By Month</button>
-                        <button type="button" className={reportPeriod === 'year' ? 'active' : ''} onClick={() => handleReportPeriodChange('year')}>By Year</button>
-                        <button type="button" className={reportPeriod === 'day' ? 'active' : ''} onClick={() => handleReportPeriodChange('day')}>Single Day</button>
-                    </div>
+            <form onSubmit={handleSubmit}>
+                <div className="report-period-buttons">
+                    <button
+                        type="button"
+                        className={reportPeriod === 'range' ? 'active' : ''}
+                        onClick={() => handleReportPeriodChange('range')}
+                    >
+                        Date Range
+                    </button>
+                </div>
 
-                    <label>Ticket Type:</label>
-                    <select name="ticketType" value={formData.ticketType} onChange={handleChange}>
-                        <option value="">All Ticket Types</option>
-                        <option value="adult">Adult</option>
-                        <option value="season">Season</option>
-                        <option value="youth">Youth</option>
-                        <option value="child">Child</option>
-                        <option value="senior">Senior</option>
-                        <option value="student">Student</option>
-                    </select>
+                <div>
+                    <label>Start Date:</label>
+                    <input
+                        type="date"
+                        name="startDate"
+                        value={formData.startDate}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    <label>User Type:</label>
-                    <select name="userType" value={formData.userType} onChange={handleChange}>
-                        <option value="">All User Types</option>
-                        <option value="staff">Staff</option>
-                        <option value="visitor">Visitor</option>
-                    </select>
+                <div>
+                    <label>End Date:</label>
+                    <input
+                        type="date"
+                        name="endDate"
+                        value={formData.endDate}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    {reportPeriod === 'range' && (
-                        <>
-                        <label>Start Date:</label>
-                        <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} />
+                <button type="submit" className="generate-btn">
+                    Generate Report
+                </button>
+            </form>
 
-                        <label>End Date:</label>
-                        <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} />
-                        </>
-                    )}
+            {loading && <p>Loading report data...</p>}
+            {error && <p className="error-message">{error}</p>}
 
-                    <button type="submit" className="generate-btn">Generate Report</button>
-                </form>
-                
-                {/*Results Table*/}
-                {results.length > 0 && (
-                <div className="results-section">
-                    <h4>Report Results</h4>
-                    <table className="results-table">
-                    <thead>
-                        <tr>
-                        <th>Ticket ID</th>
-                        <th>Type</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((ticket) => (
-                        <tr key={ticket.ticketId}>
-                            <td>{ticket.ticketId}</td>
-                            <td>{ticket.type}</td>
-                            <td>{ticket.user}</td>
-                            <td>{ticket.date}</td>
-                            <td>${ticket.amount}</td>
-                        </tr>
+            {statistics && (
+                <div className="statistics-section">
+                    <h2>Statistics</h2>
+                    <p>Total Tickets: {statistics.TotalTickets}</p>
+                    <p>Total Revenue: ${statistics.TotalRevenue.toFixed(2)}</p>
+                    <h3>Tickets by Type:</h3>
+                    <ul>
+                        {Object.entries(statistics.TicketsByType).map(([type, count]) => (
+                            <li key={type}>{type}: {count}</li>
                         ))}
-                    </tbody>
+                    </ul>
+                </div>
+            )}
+
+            {results.length > 0 && (
+                <div className="results-section">
+                    <h2>Ticket Details</h2>
+                    <table className="results-table">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>User</th>
+                                <th>Ride</th>
+                                <th>Purchase Date</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {results.map((ticket) => (
+                                <tr key={ticket.TicketId}>
+                                    <td>{ticket.TicketId}</td>
+                                    <td>{ticket.UserName}</td>
+                                    <td>{ticket.RideName}</td>
+                                    <td>{new Date(ticket.PurchaseDate).toLocaleDateString()}</td>
+                                    <td>{ticket.TicketType}</td>
+                                    <td>${ticket.Price.toFixed(2)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
-                )}
-            </div>
-        </>
-    )
+            )}
+        </div>
+    );
 }
