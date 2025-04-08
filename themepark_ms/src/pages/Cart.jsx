@@ -42,7 +42,6 @@ export default function Cart() {
         console.error("Failed to parse cart:", e);
       }
     }
-    // Ensure you match the case used in your RideController route
     fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ride")
       .then(res => res.json())
       .then(data => setRides(data))
@@ -119,7 +118,7 @@ export default function Cart() {
             Price: item.price
           };
 
-          await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ticket", {  // Note capital "T" to match route.
+          await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ticket", {  
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -134,21 +133,23 @@ export default function Cart() {
       for (const rideName of selectedRides) {
         const rideObj = rides.find(r => r.ride_name === rideName);
         if (rideObj) {
-          for (let i = 0; i < totalTickets; i++) {
-            const rideLogPayload = {
-              date: new Date().toISOString(), // current date/time in ISO format
-              ride_count: 1,                  // one log entry per ticket
-              ride_id: rideObj.ride_id
-            };
-
-            await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ride_log", {  
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              },
-              body: JSON.stringify(rideLogPayload)
-            });
+          for (const item of cartItems) {
+            for (let i = 0; i < item.quantity; i++) {
+              const rideLogPayload = {
+                date: item.date, // Match ride log date to ticket date
+                ride_count: 1,
+                ride_id: rideObj.ride_id
+              };
+      
+              await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ride_log", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(rideLogPayload)
+              });
+            }
           }
         }
       }
