@@ -9,6 +9,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add this line to set the URL explicitly
+builder.WebHost.UseUrls("http://localhost:5171");
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -71,6 +74,8 @@ builder.Services.AddCors(options =>
 // Swagger configuration
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Theme Park API", Version = "v1" });
+    
     c.MapType<User.RoleType>(() => new OpenApiSchema
     {
         Type = "string",
@@ -127,11 +132,13 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// Remove the if statement and just enable Swagger for all environments
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Theme Park API V1");
+    c.RoutePrefix = "swagger";
+});
 
 //app.UseHttpsRedirection();
 
