@@ -42,12 +42,17 @@ export default function Cart() {
         console.error("Failed to parse cart:", e);
       }
     }
+  
     fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/Ride")
       .then(res => res.json())
-      .then(data => setRides(data))
+      .then(data => {
+        // Only keep rides where status is 'operational'
+        const operationalRides = data.filter(ride => ride.status === "operational");
+        setRides(operationalRides);
+      })
       .catch(err => console.error("Failed to fetch rides:", err));
   }, []);
-
+  
   const handleRideToggle = (rideName) => {
     setSelectedRides(prevSelected =>
       prevSelected.includes(rideName)
