@@ -19,13 +19,18 @@ namespace BackendGroup.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Maintenance>>> GetMaintenances()
         {
-            var Maintenances = await _context.Maintenances.ToListAsync();
-            if (Maintenances == null || Maintenances.Count == 0)
+            var maintenances = await _context.Maintenances
+                .Include(m => m.Ride)
+                .ToListAsync();
+
+            if (maintenances == null || maintenances.Count == 0)
             {
                 return NotFound("No Maintenances found.");
             }
-            return Ok(Maintenances);
+
+            return Ok(maintenances);
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Maintenance>> GetMaintenance(int id)
@@ -42,8 +47,8 @@ namespace BackendGroup.Controllers
             return Ok(maintenance);
         }
 
-         // Method to call the GetMaintenanceByRange stored procedure
-         [HttpGet("MaintenanceByRange")]
+        // Method to call the GetMaintenanceByRange stored procedure
+        [HttpGet("MaintenanceByRange")]
         public async Task<List<Maintenance>> GetMaintenanceByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             // Execute the stored procedure and map the result to a list of Maintenance
@@ -66,16 +71,28 @@ namespace BackendGroup.Controllers
             return maintenanceData;
         }
 
-        
-        //POST - essentially create
+
         [HttpPost]
         public async Task<ActionResult<Maintenance>> PostMaintenance(Maintenance maintenance)
         {
+
+            if (maintenance.ride_id == 0)
+            {
+                return BadRequest("Ride ID is required.");
+            }
+
+            var ride = await _context.Rides.FindAsync(maintenance.ride_id);
+            if (ride == null)
+            {
+                return BadRequest("Invalid Ride ID.");
+            }
+
             _context.Maintenances.Add(maintenance);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMaintenance), new { id = maintenance.maintenance_id}, maintenance);
+            return CreatedAtAction(nameof(GetMaintenance), new { id = maintenance.maintenance_id }, maintenance);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMaintenance(int id, Maintenance maintenance)
@@ -91,7 +108,7 @@ namespace BackendGroup.Controllers
                 return NotFound();
             }
 
-            // Only update fields if they are provided (non-null)
+            // Update fields for maintenance if provided
             if (maintenance.startDate != default)
             {
                 existingMaintenance.startDate = maintenance.startDate;
@@ -122,6 +139,16 @@ namespace BackendGroup.Controllers
                 existingMaintenance.ride_id = maintenance.ride_id;
             }
 
+            // If the Maintenance status is set to "complete," update the related Ride's status to "operational"
+            if (maintenance.status == Maintenance.mStatus.complete)
+            {
+                var ride = await _context.Rides.FindAsync(existingMaintenance.ride_id);
+                if (ride != null)
+                {
+                    ride.status = Ride.RideStatus.operational;  // Update the ride status to "operational"
+                }
+            }
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -137,7 +164,6 @@ namespace BackendGroup.Controllers
 
             return NoContent();
         }
-
 
         //DELETE
         [HttpDelete("{id}")]

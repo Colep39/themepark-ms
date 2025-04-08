@@ -41,3 +41,22 @@ namespace BackendGroup.Models
     }
 }
 
+// DTO for ticket report data
+public class TicketReport
+{
+    public int TicketId { get; set; }
+    public string UserName { get; set; }
+    public string RideName { get; set; }
+    public DateTime PurchaseDate { get; set; }
+    public string TicketType { get; set; }
+    public decimal Price { get; set; }
+}
+
+// DTO for ticket statistics
+public class TicketStatistics
+{
+    public int TotalTickets { get; set; } = 0;
+    public decimal TotalRevenue { get; set; } = 0;
+    public Dictionary<string, int> TicketsByType { get; set; } = new Dictionary<string, int>();
+}
+
