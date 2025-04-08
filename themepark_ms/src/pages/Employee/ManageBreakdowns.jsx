@@ -4,14 +4,13 @@ import {useEffect, useState} from 'react';
 import AddBreakdownForm from './AddBreakdownForm.jsx'
 import axios from 'axios';
 
-
 export default function ManageBreakdowns(){
-
     const [showNewBreakdownForm, setShowNewBreakdownForm] = useState(false);
     const [breakdowns, setBreakdowns] = useState([]);
     const [editBreakdown, setEditBreakdown] = useState(null);
 
-    const API_BASE_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/maintenance';
+    const API_BASE_URL = 'http://localhost:5171/api/maintenance';
+    const RIDES_API_URL = 'http://localhost:5171/api/ride';
 
     useEffect(() => {
         fetchBreakdowns();
@@ -19,39 +18,51 @@ export default function ManageBreakdowns(){
 
     const fetchBreakdowns = async () => {
         try {
-            const response = await fetch(API_BASE_URL);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setBreakdowns(data);
+            const response = await axios.get(API_BASE_URL);
+            setBreakdowns(response.data);
         } catch (error) {
-            console.error('Error fetching breakdowns:', error);
+            console.error('Error fetching maintenance records:', error);
         }
     }
 
-    const handleAddBreakdown = () =>{
-        console.log('Add Breakdown Button Clicked');
+    const handleAddBreakdown = () => {
+        console.log('Add Maintenance Button Clicked');
         setShowNewBreakdownForm(true);
         setEditBreakdown(null);
     }
 
-    const handleEditbreakdown = (breakdown) => {
+    const handleEditBreakdown = (breakdown) => {
         setShowNewBreakdownForm(true);
         setEditBreakdown(breakdown);
     }
 
     const handleDeleteBreakdown = async (breakdownId) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/${breakdownId}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+            await axios.delete(`${API_BASE_URL}/${breakdownId}`);
             fetchBreakdowns(); // Refresh the breakdowns list
         } catch (error) {
-            console.error('Error deleting breakdown:', error);
+            console.error('Error deleting maintenance record:', error);
+        }
+    }
+
+    const updateRideStatus = async (rideId, status) => {
+        try {
+            // Get the ride details
+            const ridesResponse = await axios.get(`${RIDES_API_URL}/${rideId}`);
+            const ride = ridesResponse.data;
+            
+            if (ride) {
+                // Update the ride status
+                const rideUpdatePayload = {
+                    ...ride,
+                    status: status
+                };
+                
+                await axios.put(`${RIDES_API_URL}/${rideId}`, rideUpdatePayload);
+                console.log(`Updated ride status for ${ride.ride_name} to ${status}`);
+            }
+        } catch (error) {
+            console.error('Error updating ride status:', error);
         }
     }
 
@@ -59,24 +70,25 @@ export default function ManageBreakdowns(){
         try {
             if (editBreakdown) {
                 // Debug: Log what we're sending in the PUT request
-                console.log(`Sending PUT request to ${API_BASE_URL}/${editBreakdown.id}`, breakdownData);
+                console.log(`Sending PUT request to ${API_BASE_URL}/${editBreakdown.maintenance_id}`, breakdownData);
                 
-                // Add ride_id to the payload for edit operations
-                const editPayload = {
-                    ...breakdownData,
-                    id: editBreakdown.id // Include the ride_id in the payload
-                };
+                // PUT request to update the breakdown
+                await axios.put(`${API_BASE_URL}/${editBreakdown.maintenance_id}`, breakdownData);
                 
-                // PUT request to update the ride
-                await axios.put(`${API_BASE_URL}/${editBreakdown.id}`, editPayload);
+                // If status is changed to Complete, update the ride status to operational
+                if (breakdownData.status === 0 && editBreakdown.status === 1) {
+                    await updateRideStatus(breakdownData.ride_id, "operational");
+                }
             } else {
-                // Add new ride (POST)
+                // Add new breakdown (POST)
                 await axios.post(API_BASE_URL, breakdownData);
+                // No need to update ride status here as it's handled in the AddBreakdownForm
             }
+            
             setShowNewBreakdownForm(false); // Hide form after submission
-            fetchBreakdowns(); // Refresh the ride list
+            fetchBreakdowns(); // Refresh the breakdowns list
         } catch (error) {
-            console.error("Error submitting breakdown:", error.response?.data || error.message);
+            console.error("Error submitting maintenance record:", error.response?.data || error.message);
             // Debug: Log the full error response
             if (error.response) {
                 console.error("Response status:", error.response.status);
@@ -86,34 +98,51 @@ export default function ManageBreakdowns(){
         }
     };
 
+    // Format date for display
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+
+    // Get status text
+const getStatusText = (statusCode) => {
+    return statusCode === 'complete' ? 'Complete' : 'Pending';
+};
+
+
     return (
         <>
             <div className="ManageBreakdownsContainer">
-                <h1>Manage Breakdowns</h1>
-                <button id="add-breakdown-btn" onClick={handleAddBreakdown}>Add New Breakdown</button>
+                <h1>Manage Ride Maintenance</h1>
+                <button id="add-breakdown-btn" onClick={handleAddBreakdown}>Add New Maintenance Record</button>
                 <div id="rides-table-container">
                     <table id="rides-table">
                         <thead>
                             <tr>
                                 <th>Ride Name</th>
-                                <th>Date</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Description</th>
                                 <th>Status</th>
+                                <th>Cost</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <AddBreakdown name="Uma's Infinite Loop" date="2025-1-13" end="2025-5-6" description="A important part that makes the ride function properly busted, it was an expensive and rare part that may take long to obtain" status="Pending"/>
-
                             {breakdowns.map((breakdown) => (
-                                <tr key={breakdown.id}>
-                                    <td>{breakdown.ride_name}</td>
-                                    <td>{new Date(breakdown.date).toLocaleDateString()}</td>
-                                    <td>{breakdown.description}</td>
-                                    <td>{breakdown.status}</td>
+                                <tr key={breakdown.maintenance_id}>
                                     <td>
-                                        <button className="edit-btn" onClick={() => handleEditbreakdown(breakdown)}>Edit</button>
-                                        <button className="delete-btn" onClick={() => handleDeleteBreakdown(breakdown.id)}>Delete</button>
+                                        {breakdown.ride ? breakdown.ride.ride_name : `Ride #${breakdown.ride_id}`}
+                                    </td>
+                                    <td>{formatDate(breakdown.startDate)}</td>
+                                    <td>{formatDate(breakdown.endDate)}</td>
+                                    <td>{breakdown.description}</td>
+                                    <td>{getStatusText(breakdown.status)}</td>
+                                    <td>${breakdown.maintenanceCost}</td>
+                                    <td>
+                                        <button className="edit-btn" onClick={() => handleEditBreakdown(breakdown)}>Edit</button>
+                                        <button className="delete-btn" onClick={() => handleDeleteBreakdown(breakdown.maintenance_id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -129,5 +158,5 @@ export default function ManageBreakdowns(){
                 )}
             </div>
         </>
-    )
+    );
 }
