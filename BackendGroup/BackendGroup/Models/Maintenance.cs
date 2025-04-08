@@ -15,7 +15,7 @@ namespace BackendGroup.Models
 
         [Column(TypeName = "varchar(50)")]
         [EnumDataType(typeof(mStatus))]
-        public mStatus? status { get; set; }  // Make status nullable if optional
+        public mStatus? status { get; set; }
 
         [Key]
         public int maintenance_id { get; set; }
@@ -25,7 +25,7 @@ namespace BackendGroup.Models
 
         public string description { get; set; }
 
-        public int? maintenanceCost { get; set; }  // Nullable if optional
+        public int? maintenanceCost { get; set; }
 
         [Required]  // Ensuring that ride_id is required
         public int ride_id { get; set; }

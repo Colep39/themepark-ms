@@ -9,8 +9,8 @@ export default function ManageBreakdowns(){
     const [breakdowns, setBreakdowns] = useState([]);
     const [editBreakdown, setEditBreakdown] = useState(null);
 
-    const API_BASE_URL = 'http://localhost:5171/api/maintenance';
-    const RIDES_API_URL = 'http://localhost:5171/api/ride';
+    const API_BASE_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/maintenance';
+    const RIDES_API_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ride';
 
     useEffect(() => {
         fetchBreakdowns();

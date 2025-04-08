@@ -14,7 +14,7 @@ export default function AddBreakdownForm({ onClose, onSubmit, initialData }) {
         maintenanceCost: 0
     });
     const [rides, setRides] = useState([]);
-    const RIDES_API_URL = 'http://localhost:5171/api/ride';
+    const RIDES_API_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ride';
 
     // Fetch available rides
     useEffect(() => {

@@ -165,8 +165,6 @@ namespace BackendGroup.Controllers
             return NoContent();
         }
 
-
-
         //DELETE
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMaintenance(int id)
