@@ -39,8 +39,6 @@ namespace BackendGroup.Models
         [Required]
         public int item_price { get; set; }
 
-        // Add format documentation for Swagger
-        [Column(TypeName = "mediumblob")]
-        public byte[]? item_img { get; set; }
+        public string? item_img { get; set; }
     }
 }
