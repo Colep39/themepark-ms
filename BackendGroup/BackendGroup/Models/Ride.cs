@@ -38,8 +38,7 @@ namespace BackendGroup.Models
 
         public RideType type { get; set; }
 
-        [JsonIgnore]
-        public Byte[]? ride_img { get; set; }
+        public string? ride_img { get; set; }
 
         public int thrill_level { get; set; }
     }
