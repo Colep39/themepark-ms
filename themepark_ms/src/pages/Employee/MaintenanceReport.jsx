@@ -11,6 +11,8 @@ const MaintenanceReport = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [rides, setRides] = useState([]);
+  const [totalCost, setTotalCost] = useState(0); // Track total cost
+  const [avgBreakdowns, setAvgBreakdowns] = useState(0); // Track average breakdowns
 
   // Updated baseUrl for the production API
   const baseUrl = "https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/maintenance"; 
@@ -54,6 +56,8 @@ const MaintenanceReport = () => {
     setError(null);
     if (!startDate && !endDate && !MaintenanceCost) {
       setFilteredData(maintenanceData); // No filters, show all
+      setTotalCost(calculateTotalCost()); // Recalculate total cost
+      setAvgBreakdowns(calculateAverageBreakdowns()); // Recalculate average breakdowns
       return;
     }
 
@@ -86,6 +90,9 @@ const MaintenanceReport = () => {
       }
 
       setFilteredData(combinedResults);
+      setTotalCost(calculateTotalCost(combinedResults)); // Recalculate total cost with filtered data
+      setAvgBreakdowns(calculateAverageBreakdowns(combinedResults)); // Recalculate breakdowns with filtered data
+
       if (combinedResults.length === 0) {
         setError('No data found for the given filters.');
       }
@@ -101,28 +108,43 @@ const MaintenanceReport = () => {
   };
 
   // Calculate total maintenance cost for the filtered data
-  const calculateTotalCost = () => {
-    return filteredData.reduce((total, row) => total + (row.maintenanceCost || 0), 0);
+  const calculateTotalCost = (filtered = filteredData) => {
+    return filtered.reduce((total, row) => total + (row.maintenanceCost || 0), 0);
   };
 
-  // Calculate the average breakdowns per month in the time span
-  const calculateAverageBreakdowns = () => {
-    // Filter data based on the given start and end date
-    const filtered = filteredData.filter((row) => {
-      const start = new Date(row.startDate);
-      const end = new Date(row.endDate);
-      return start >= new Date(startDate) && end <= new Date(endDate);
+  const calculateAverageBreakdowns = (filtered = filteredData) => {
+    if (!startDate || !endDate) return 0;
+  
+    const rangeStart = new Date(startDate);
+    const rangeEnd = new Date(endDate);
+  
+    if (rangeEnd < rangeStart) return 0;
+  
+    // Filter breakdowns that overlap the given range
+    const filteredBreakdowns = filtered.filter((row) => {
+      const breakdownStart = new Date(row.startDate);
+      const breakdownEnd = new Date(row.endDate);
+      return breakdownEnd >= rangeStart && breakdownStart <= rangeEnd;
+    });
+  
+    // Now we calculate the unique months in which breakdowns occurred
+    const monthsWithBreakdowns = new Set();
+
+    filteredBreakdowns.forEach(row => {
+      const breakdownStart = new Date(row.startDate);
+      const breakdownEnd = new Date(row.endDate);
+
+      // Add the start and end month (if they're within the range)
+      monthsWithBreakdowns.add(`${breakdownStart.getFullYear()}-${breakdownStart.getMonth()}`);
+      monthsWithBreakdowns.add(`${breakdownEnd.getFullYear()}-${breakdownEnd.getMonth()}`);
     });
 
-    if (filtered.length === 0) return "Waiting to filter data";
+    // The number of unique months where breakdowns occurred
+    const monthsCount = monthsWithBreakdowns.size;
 
-    // Calculate the number of months in the given time span
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const monthsDifference = (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth();
+    if (monthsCount === 0) return 0;
 
-    // Calculate the average breakdowns per month
-    const avgBreakdowns = filtered.length / (monthsDifference + 1); // Adding 1 because the range includes both start and end months
+    const avgBreakdowns = filteredBreakdowns.length / monthsCount;
     return avgBreakdowns.toFixed(2);
   };
 
@@ -157,8 +179,8 @@ const MaintenanceReport = () => {
         {error && !loading && <p className="error-message">{error}</p>}
 
         <div className="statistics-container">
-          <p><strong>Total Maintenance Cost: </strong>${calculateTotalCost().toFixed(2)}</p>
-          <p><strong>Average Breakdowns Per Month: </strong>{calculateAverageBreakdowns()}</p>
+          <p><strong>Total Maintenance Cost: </strong>${totalCost.toFixed(2)}</p>
+          <p><strong>Average Breakdowns Per Month: </strong>{avgBreakdowns}</p>
         </div>
 
         {/* Render the filtered maintenance data table only if filtered data is available */}
@@ -166,8 +188,6 @@ const MaintenanceReport = () => {
           <table className="maintenance-table">
             <thead>
               <tr>
-                {/*<th>Maintenance ID</th>*/}
-                {/*<th>Ride ID</th>*/}
                 <th>Ride Name</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -179,8 +199,6 @@ const MaintenanceReport = () => {
             <tbody>
               {filteredData.map((row, index) => (
                 <tr key={index}>
-                  {/*<td>{row.maintenance_id}</td>*/}
-                  {/*<td>{row.ride_id}</td>*/}
                   <td>{getRideName(row.ride_id)}</td>
                   <td>{new Date(row.startDate).toLocaleDateString()}</td>
                   <td>{new Date(row.endDate).toLocaleDateString()}</td>
@@ -192,7 +210,6 @@ const MaintenanceReport = () => {
             </tbody>
           </table>
         )}
-
       </div>
     </div>
   );

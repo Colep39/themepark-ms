@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendGroup.Models;
 
-
 namespace BackendGroup.Controllers
 {
     [Route("api/[controller]")]
@@ -31,12 +30,11 @@ namespace BackendGroup.Controllers
             return Ok(maintenances);
         }
 
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Maintenance>> GetMaintenance(int id)
         {
             var maintenance = await _context.Maintenances
-                .Include(r => r.Ride)  // Include the related 'Ride' entity
+                .Include(r => r.Ride)
                 .FirstOrDefaultAsync(r => r.maintenance_id == id);
 
             if (maintenance == null)
@@ -47,11 +45,9 @@ namespace BackendGroup.Controllers
             return Ok(maintenance);
         }
 
-        // Method to call the GetMaintenanceByRange stored procedure
         [HttpGet("MaintenanceByRange")]
         public async Task<List<Maintenance>> GetMaintenanceByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            // Execute the stored procedure and map the result to a list of Maintenance
             var maintenanceData = await _context.Maintenances
                 .FromSqlRaw("CALL GetMaintenanceByRange({0}, {1})", startDate, endDate)
                 .ToListAsync();
@@ -59,23 +55,19 @@ namespace BackendGroup.Controllers
             return maintenanceData;
         }
 
-        // Method to call the GetMaintenanceByCost stored procedure
         [HttpGet("MaintenanceByCost")]
         public async Task<List<Maintenance>> GetMaintenanceByMinCostAsync(int MaintenanceCost)
         {
-            // Execute the stored procedure and map the result to a list of Maintenance
             var maintenanceData = await _context.Maintenances
-                .FromSqlRaw("CALL GetMaintenanceByCost({0})", MaintenanceCost)  // Pass only minCost as int
+                .FromSqlRaw("CALL GetMaintenanceByCost({0})", MaintenanceCost)
                 .ToListAsync();
 
             return maintenanceData;
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Maintenance>> PostMaintenance(Maintenance maintenance)
         {
-
             if (maintenance.ride_id == 0)
             {
                 return BadRequest("Ride ID is required.");
@@ -88,11 +80,19 @@ namespace BackendGroup.Controllers
             }
 
             _context.Maintenances.Add(maintenance);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Trigger will throw SQL exception if there's already a pending maintenance
+                return BadRequest("This ride already has a pending maintenance.");
+            }
 
             return CreatedAtAction(nameof(GetMaintenance), new { id = maintenance.maintenance_id }, maintenance);
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMaintenance(int id, Maintenance maintenance)
@@ -108,69 +108,38 @@ namespace BackendGroup.Controllers
                 return NotFound();
             }
 
-            // Update fields for maintenance if provided
+            // Update only fields that are allowed to change
             if (maintenance.startDate != default)
-            {
                 existingMaintenance.startDate = maintenance.startDate;
-            }
 
             if (maintenance.endDate != default)
-            {
                 existingMaintenance.endDate = maintenance.endDate;
-            }
 
             if (!string.IsNullOrEmpty(maintenance.description))
-            {
                 existingMaintenance.description = maintenance.description;
-            }
 
             if (maintenance.status >= 0)
-            {
                 existingMaintenance.status = maintenance.status;
-            }
 
             if (maintenance.maintenanceCost > 0)
-            {
                 existingMaintenance.maintenanceCost = maintenance.maintenanceCost;
-            }
-
-            if (maintenance.ride_id > 0)
-            {
-                existingMaintenance.ride_id = maintenance.ride_id;
-            }
-
-            // If the Maintenance status is set to "complete," update the related Ride's status to "operational"
-            if (maintenance.status == Maintenance.mStatus.complete)
-            {
-                var ride = await _context.Rides.FindAsync(existingMaintenance.ride_id);
-                if (ride != null)
-                {
-                    ride.status = Ride.RideStatus.operational;  // Update the ride status to "operational"
-                }
-            }
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException)
             {
-                if (!_context.Maintenances.Any(r => r.maintenance_id == id))
-                {
-                    return NotFound();
-                }
-                throw;
+                return BadRequest("Database update failed.");
             }
 
             return NoContent();
         }
 
-        //DELETE
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMaintenance(int id)
         {
             var maintenance = await _context.Maintenances.FindAsync(id);
-
             if (maintenance == null)
             {
                 return NotFound();
@@ -180,7 +149,6 @@ namespace BackendGroup.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-
         }
     }
 }
