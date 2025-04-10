@@ -85,7 +85,6 @@ public async Task<ActionResult<User>> GetUserProfile()
 
         // PUT: api/users/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutUser(int id, [FromBody] User updatedUser)
         {
             if (id != updatedUser.user_id)
