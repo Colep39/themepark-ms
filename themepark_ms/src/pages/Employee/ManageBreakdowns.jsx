@@ -65,8 +65,8 @@ export default function ManageBreakdowns() {
                     <thead>
                         <tr>
                             <th>Ride</th>
-                            <th>Start</th>
-                            <th>End</th>
+                            <th>Date</th>
+                            {/*<th>End</th>*/}
                             <th>Description</th>
                             <th>Status</th>
                             <th>Cost</th>
@@ -78,7 +78,7 @@ export default function ManageBreakdowns() {
                             <tr key={b.maintenance_id}>
                                 <td>{b.ride?.ride_name || `#${b.ride_id}`}</td>
                                 <td>{formatDate(b.startDate)}</td>
-                                <td>{formatDate(b.endDate)}</td>
+                                {/*<td>{formatDate(b.endDate)}</td>*/}
                                 <td>{b.description}</td>
                                 <td>{getStatusText(b.status)}</td>
                                 <td>${b.maintenanceCost}</td>

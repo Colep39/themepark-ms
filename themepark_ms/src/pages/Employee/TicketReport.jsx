@@ -124,13 +124,15 @@ const TicketReport = () => {
             <h2>Ticket Statistics</h2>
             <p>Total Tickets Sold: <strong>{statistics.totalTickets}</strong></p>
             <p>Total Revenue: <strong>${statistics.totalRevenue.toFixed(2)}</strong></p>
+
+            {/*
             
-            {/* Ticket Types Section */}
+           
             <h3>Tickets by Type</h3>
             {statistics.ticketsByType && Object.entries(statistics.ticketsByType).map(([type, count]) => (
               <p key={type}>{type} Tickets: <strong>{count}</strong></p>
             ))}
-
+            */}
             {/* Top Rides Section */}
             {topRides && topRides.length > 0 && (
               <>
@@ -149,7 +151,7 @@ const TicketReport = () => {
           <table className="maintenance-table">
             <thead>
               <tr>
-                <th>Ticket ID</th>
+                {/*<th>Ticket ID</th> */}
                 <th>User Name</th>
                 <th>Ride Name</th>
                 <th>Purchase Date</th>
@@ -160,7 +162,7 @@ const TicketReport = () => {
             <tbody>
               {filteredData.map((ticket) => (
                 <tr key={ticket.ticketId}>
-                  <td>{ticket.ticketId}</td>
+                  {/*<td>{ticket.ticketId}</td>*/}
                   <td>{ticket.userName}</td>
                   <td>{ticket.rideName}</td>
                   <td>{new Date(ticket.purchaseDate).toLocaleDateString()}</td>

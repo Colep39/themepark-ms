@@ -189,8 +189,8 @@ const MaintenanceReport = () => {
             <thead>
               <tr>
                 <th>Ride Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Date</th>
+                {/*<th>End Date</th>*/}
                 <th>Description</th>
                 <th>Status</th>
                 <th>Maintenance Cost</th>
@@ -201,7 +201,7 @@ const MaintenanceReport = () => {
                 <tr key={index}>
                   <td>{getRideName(row.ride_id)}</td>
                   <td>{new Date(row.startDate).toLocaleDateString()}</td>
-                  <td>{new Date(row.endDate).toLocaleDateString()}</td>
+                  {/*<td>{new Date(row.endDate).toLocaleDateString()}</td>*/}
                   <td>{row.description}</td>
                   <td>{row.status}</td>
                   <td>{row.maintenanceCost || 'N/A'}</td>

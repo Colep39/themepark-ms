@@ -80,12 +80,14 @@ const WeatherReport = () => {
           rainouts: data.rainouts,
           temp: (data.totalTemp / data.count).toFixed(2),
         }));
-
+    
     const avgRainouts = filteredAverages
       ? filteredAverages.averageRainouts?.toFixed(2)
       : (
           rows.reduce((sum, r) => sum + Number(r.rainouts), 0) / rows.length
         ).toFixed(2);
+
+    
 
     const avgTemp = filteredAverages
       ? filteredAverages.averageTemperature?.toFixed(2)
