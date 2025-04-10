@@ -23,7 +23,7 @@ namespace BackendGroup.Models
 
         // Foreign Key for User
         public int? user_id { get; set; }
-
+        
         [ForeignKey("user_id")]
         [JsonIgnore]  // Prevent circular reference
         public virtual User? User { get; set; }
@@ -58,5 +58,12 @@ public class TicketStatistics
     public int TotalTickets { get; set; } = 0;
     public decimal TotalRevenue { get; set; } = 0;
     public Dictionary<string, int> TicketsByType { get; set; } = new Dictionary<string, int>();
+}
+
+// New separate class for top rides
+public class TopRideStatistics
+{
+    public string RideName { get; set; }
+    public int RideCount { get; set; }
 }
 

@@ -68,6 +68,7 @@ namespace BackendGroup.Models
             modelBuilder.Entity<DailyWeatherReport>().HasNoKey().ToView(null);
             modelBuilder.Entity<TicketReport>().HasNoKey().ToView(null);
             modelBuilder.Entity<TicketStatistics>().HasNoKey().ToView(null);
+            modelBuilder.Entity<TopRideStatistics>().HasNoKey().ToView(null);
         }
 
 

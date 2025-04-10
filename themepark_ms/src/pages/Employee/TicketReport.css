@@ -153,6 +153,14 @@
   font-size: 1.5rem;
 }
 
+.statistics-container h3 {
+  color: #2c3e50;
+  margin: 20px 0 10px;
+  font-size: 1.3rem;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
 .statistics-container p {
   margin: 10px 0;
   font-size: 1.1rem;

@@ -10,9 +10,22 @@ const TicketReport = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [statistics, setStatistics] = useState(null);
+  const [topRides, setTopRides] = useState([]);
 
-  // Azure deployment URL
+  // Base URL for API
+  //const baseUrl = "http://localhost:5171/api/ticket";
   const baseUrl = "https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ticket";
+
+  // Function to format date for API
+  const formatDateForApi = (dateString) => {
+    try {
+      const [year, month, day] = dateString.split('-');
+      return `${year}-${month}-${day}`;
+    } catch (err) {
+      console.error('Error formatting date:', err);
+      return dateString;
+    }
+  };
 
   // Only fetch data when dates are selected
   useEffect(() => {
@@ -30,24 +43,53 @@ const TicketReport = () => {
 
     try {
       setLoading(true);
-      const [reportResponse, statsResponse] = await Promise.all([
-        axios.get(`${baseUrl}/report`, {
-          params: { startDate, endDate }
-        }),
-        axios.get(`${baseUrl}/statistics`, {
-          params: { startDate, endDate }
-        })
-      ]);
+      const formattedStartDate = formatDateForApi(startDate);
+      const formattedEndDate = formatDateForApi(endDate);
 
-      setFilteredData(reportResponse.data);
-      setStatistics(statsResponse.data);
-      
-      if (reportResponse.data.length === 0) {
+      console.log('Sending dates:', { formattedStartDate, formattedEndDate });
+
+      // First try to get the report data
+      const reportResponse = await axios.get(`${baseUrl}/report`, {
+        params: { 
+          startDate: formattedStartDate,
+          endDate: formattedEndDate
+        }
+      });
+      setFilteredData(reportResponse.data || []);
+
+      // Then get statistics
+      const statsResponse = await axios.get(`${baseUrl}/statistics`, {
+        params: { 
+          startDate: formattedStartDate,
+          endDate: formattedEndDate
+        }
+      });
+      setStatistics(statsResponse.data || {
+        totalTickets: 0,
+        totalRevenue: 0,
+        ticketsByType: {}
+      });
+
+      // Finally get top rides
+      const topRidesResponse = await axios.get(`${baseUrl}/toprides`, {
+        params: { 
+          startDate: formattedStartDate,
+          endDate: formattedEndDate
+        }
+      });
+      setTopRides(topRidesResponse.data || []);
+
+      if (!reportResponse.data || reportResponse.data.length === 0) {
         setError('No tickets found for the selected dates.');
       }
     } catch (err) {
       console.error('Error filtering ticket data:', err);
-      setError('Could not filter ticket data. Please try again later.');
+      if (err.response) {
+        console.error('Error details:', err.response.data);
+        setError(`Could not filter ticket data: ${err.response.data.message || 'Please try again later.'}`);
+      } else {
+        setError('Could not filter ticket data. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
@@ -82,9 +124,24 @@ const TicketReport = () => {
             <h2>Ticket Statistics</h2>
             <p>Total Tickets Sold: <strong>{statistics.totalTickets}</strong></p>
             <p>Total Revenue: <strong>${statistics.totalRevenue.toFixed(2)}</strong></p>
+            
+            {/* Ticket Types Section */}
+            <h3>Tickets by Type</h3>
             {statistics.ticketsByType && Object.entries(statistics.ticketsByType).map(([type, count]) => (
               <p key={type}>{type} Tickets: <strong>{count}</strong></p>
             ))}
+
+            {/* Top Rides Section */}
+            {topRides && topRides.length > 0 && (
+              <>
+                <h3>Most Popular Rides</h3>
+                {topRides.map((ride, index) => (
+                  <p key={ride.rideName}>
+                    {index + 1}. {ride.rideName}: <strong>{ride.rideCount} rides</strong>
+                  </p>
+                ))}
+              </>
+            )}
           </div>
         )}
 

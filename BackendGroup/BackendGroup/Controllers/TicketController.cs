@@ -69,30 +69,50 @@ namespace BackendGroup.Controllers
         // Get ticket report by date range
         [HttpGet("report")]
         public async Task<ActionResult<IEnumerable<TicketReport>>> GetTicketReport(
-            [FromQuery] DateTime startDate,
-            [FromQuery] DateTime endDate)
+            [FromQuery] string startDate,
+            [FromQuery] string endDate)
         {
-            if (startDate > endDate)
+            try
             {
-                return BadRequest("Start date must be before end date.");
+                if (!DateTime.TryParse(startDate, out DateTime parsedStartDate) ||
+                    !DateTime.TryParse(endDate, out DateTime parsedEndDate))
+                {
+                    return BadRequest("Invalid date format. Use YYYY-MM-DD format.");
+                }
+
+                if (parsedStartDate > parsedEndDate)
+                {
+                    return BadRequest("Start date must be before end date.");
+                }
+
+                var report = await _context.Set<TicketReport>()
+                    .FromSqlRaw("CALL GetTicketReport({0}, {1})", parsedStartDate, parsedEndDate)
+                    .ToListAsync();
+
+                return Ok(report);
             }
-
-            var report = await _context.Set<TicketReport>()
-                .FromSqlRaw("CALL GetTicketReport({0}, {1})", startDate, endDate)
-                .ToListAsync();
-
-            return Ok(report);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTicketReport: {ex.Message}");
+                return StatusCode(500, new { message = "An error occurred while retrieving ticket report.", error = ex.Message });
+            }
         }
 
         // Get ticket statistics by date range
         [HttpGet("statistics")]
         public async Task<ActionResult<TicketStatistics>> GetTicketStatistics(
-            [FromQuery] DateTime startDate,
-            [FromQuery] DateTime endDate)
+            [FromQuery] string startDate,
+            [FromQuery] string endDate)
         {
             try
             {
-                if (startDate > endDate)
+                if (!DateTime.TryParse(startDate, out DateTime parsedStartDate) ||
+                    !DateTime.TryParse(endDate, out DateTime parsedEndDate))
+                {
+                    return BadRequest("Invalid date format. Use YYYY-MM-DD format.");
+                }
+
+                if (parsedStartDate > parsedEndDate)
                 {
                     return BadRequest("Start date must be before end date.");
                 }
@@ -103,26 +123,34 @@ namespace BackendGroup.Controllers
                             COUNT(*) as TotalTickets,
                             COALESCE(SUM(Price), 0) as TotalRevenue,
                             JSON_OBJECT(
-                                'Adult', SUM(CASE WHEN ticket_type = 'adult' THEN 1 ELSE 0 END),
-                                'Season', SUM(CASE WHEN ticket_type = 'season' THEN 1 ELSE 0 END),
-                                'Youth', SUM(CASE WHEN ticket_type = 'youth' THEN 1 ELSE 0 END),
-                                'Child', SUM(CASE WHEN ticket_type = 'child' THEN 1 ELSE 0 END),
-                                'Senior', SUM(CASE WHEN ticket_type = 'senior' THEN 1 ELSE 0 END),
-                                'Student', SUM(CASE WHEN ticket_type = 'student' THEN 1 ELSE 0 END)
+                                'Adult', COALESCE(SUM(CASE WHEN ticket_type = 'adult' THEN 1 ELSE 0 END), 0),
+                                'Season', COALESCE(SUM(CASE WHEN ticket_type = 'season' THEN 1 ELSE 0 END), 0),
+                                'Youth', COALESCE(SUM(CASE WHEN ticket_type = 'youth' THEN 1 ELSE 0 END), 0),
+                                'Child', COALESCE(SUM(CASE WHEN ticket_type = 'child' THEN 1 ELSE 0 END), 0),
+                                'Senior', COALESCE(SUM(CASE WHEN ticket_type = 'senior' THEN 1 ELSE 0 END), 0),
+                                'Student', COALESCE(SUM(CASE WHEN ticket_type = 'student' THEN 1 ELSE 0 END), 0)
                             ) as TicketsByType
                         FROM ticket
                         WHERE DATE(Purchase_date) BETWEEN DATE({0}) AND DATE({1})", 
-                        startDate, endDate)
+                        parsedStartDate, parsedEndDate)
                     .FirstOrDefaultAsync();
 
                 if (statistics == null)
                 {
-                    return Ok(new TicketStatistics
+                    statistics = new TicketStatistics
                     {
                         TotalTickets = 0,
                         TotalRevenue = 0,
-                        TicketsByType = new Dictionary<string, int>()
-                    });
+                        TicketsByType = new Dictionary<string, int>
+                        {
+                            { "Adult", 0 },
+                            { "Season", 0 },
+                            { "Youth", 0 },
+                            { "Child", 0 },
+                            { "Senior", 0 },
+                            { "Student", 0 }
+                        }
+                    };
                 }
 
                 return Ok(statistics);
@@ -130,8 +158,50 @@ namespace BackendGroup.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetTicketStatistics: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, new { message = "An error occurred while retrieving ticket statistics.", error = ex.Message });
+            }
+        }
+
+        // GET: api/ticket/toprides
+        [HttpGet("toprides")]
+        public async Task<ActionResult<IEnumerable<TopRideStatistics>>> GetTopRides(
+            [FromQuery] string startDate,
+            [FromQuery] string endDate)
+        {
+            try
+            {
+                if (!DateTime.TryParse(startDate, out DateTime parsedStartDate) ||
+                    !DateTime.TryParse(endDate, out DateTime parsedEndDate))
+                {
+                    return BadRequest("Invalid date format. Use YYYY-MM-DD format.");
+                }
+
+                if (parsedStartDate > parsedEndDate)
+                {
+                    return BadRequest("Start date must be before end date.");
+                }
+
+                var sql = @"
+                    SELECT 
+                        r.ride_name AS RideName,
+                        COALESCE(SUM(rl.ride_count), 0) AS RideCount
+                    FROM ride r
+                    LEFT JOIN ride_logs rl ON r.ride_id = rl.ride_id
+                        AND DATE(rl.date) BETWEEN {0} AND {1}
+                    GROUP BY r.ride_id, r.ride_name
+                    ORDER BY RideCount DESC
+                    LIMIT 3";
+
+                var topRides = await _context.Set<TopRideStatistics>()
+                    .FromSqlRaw(sql, parsedStartDate, parsedEndDate)
+                    .ToListAsync();
+
+                return Ok(topRides);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTopRides: {ex.Message}");
+                return StatusCode(500, new { message = "An error occurred while retrieving top rides.", error = ex.Message });
             }
         }
 
