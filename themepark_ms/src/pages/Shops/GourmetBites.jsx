@@ -1,21 +1,48 @@
 import './Shops.css';
 import ShopItem from './ShopItem';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 export default function GourmetBits(){
+
+    const [items, setItems] = useState([]);
+
+    const API_BASE_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/shop'; 
+
+        useEffect(() => {
+        fetchShop();
+    }, []);
+
+        const fetchShop = async () => {
+            try {
+                const response = await axios.get(API_BASE_URL);
+                console.log("Fetched Shop data:", response.data);
+        
+                // Filter for only items that match this shop
+                const filteredItems = response.data.filter(item => item.shop_name === "Gourmet_Bites");
+                setItems(filteredItems);
+                console.log(filteredItems);
+        
+            } catch (error) {
+                console.error("Error fetching items:", error);
+            }
+        };
     return(
         <>
             <div className="gourmet-container">
                 <h1 id="shop-header">GourmetBites</h1>
 
                 <div className="shop-items-container">
-                    <ShopItem src="/images/brisket.jpg" shopItemName="Brisket" price="15.00"/>
-                    <ShopItem src="/images/fries.jpg" shopItemName="Fries" price="5.00"/>
-                    <ShopItem src="/images/chili-dog.webp" shopItemName="Chili Dog" price="10.00"/>
-                    <ShopItem src="/images/sub-honey-butter.webp" shopItemName="Honey Butter Sandwich" price="10.00"/>
-                    <ShopItem src="/images/pizza.webp" shopItemName="Pizza" price="20.00" />
-                    <ShopItem src="/images/soda.avif" shopItemName="Soft drink" price="2.00"/>
-                    <ShopItem src="/images/water.webp" shopItemName="Water" price="0.00" />
-                    <ShopItem src="/images/alcohol.jpg" shopItemName="Mimosa (21+)" price="5.00"/>
+
+                    {items.map((item, index) => (
+                        <ShopItem 
+                            key={index}
+                            src={item.item_img}
+                            shopItemName={item.item_name}
+                            price={item.item_price}
+                        />
+                    ))}
                 </div>
             </div>
         </>

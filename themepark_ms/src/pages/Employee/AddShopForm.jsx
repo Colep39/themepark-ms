@@ -88,21 +88,12 @@ export default function AddShopForm({ onClose, onSubmit, initialData }) {
                         <option value="Gourmet Bites">Gourmet Bites</option>
                     </select>
                     <input 
-                        type="file" 
                         onChange={handleChange} 
                         name="item_img" 
-                        accept="image/*" 
+                        placeholder="Item Image URL"
+                        value={formData.item_img}
+                        
                     />
-                    {initialData && initialData.item_img && (
-                        <div className="current-image">
-                            <p>Current image:</p>
-                            <img 
-                                src={`data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(initialData.item_img)))}`} 
-                                alt="Current item" 
-                                width="100" 
-                            />
-                        </div>
-                    )}
                     <div className="modal-buttons">
                         <button type="submit">Submit</button>
                         <button type="button" onClick={onClose}>Cancel</button>

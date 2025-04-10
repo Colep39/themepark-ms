@@ -127,7 +127,7 @@ export default function ManageShops() {
                                     <td>
                                         {item.item_img ? (
                                             <img 
-                                                src={`data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(item.item_img)))}`} 
+                                                src={item.item_img} 
                                                 alt={item.item_name} 
                                                 width="50" 
                                             />
@@ -137,8 +137,8 @@ export default function ManageShops() {
                                     </td>
                                     <td>{item.status ? "Available" : "Unavailable"}</td>
                                     <td>
-                                        <button onClick={() => handleEditItem(item)}>Edit</button>
-                                        <button onClick={() => handleDeleteItem(item.shop_id)}>Delete</button>
+                                        <button id="manage-shop-btn"onClick={() => handleEditItem(item)}>Edit</button>
+                                        <button id="manage-shop-btn"onClick={() => handleDeleteItem(item.shop_id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))

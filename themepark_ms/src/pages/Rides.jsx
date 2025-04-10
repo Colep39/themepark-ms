@@ -1,22 +1,28 @@
 import './Rides.css';
 import Ride from './Ride.jsx';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Rides() {
 
   // Fetching rides from backend to store and display
   const [rides, setRides] = useState([]);
 
-  const API_URL = import.meta.env.VITE_API_URL; // store backend url
+  const API_BASE_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/ride'; 
 
-  /*
-  useEffect(() => {
-    fetch('http://localhost:5000/api/ride') // adjust port and endpoint as needed
-      .then(response => response.json())
-      .then(data => setRides(data))
-      .catch(error => console.error('Error fetching rides:', error));
+    useEffect(() => {
+      fetchRides();
   }, []);
-  */
+
+  const fetchRides = async () => {
+      try {
+          const response = await axios.get(API_BASE_URL);
+          console.log("Fetched ride data:", response.data); 
+          setRides(response.data);
+      } catch (error) {
+          console.error("Error fetching rides:", error);
+      }
+  };
 
   return (
     <div className="ride-component-container">
@@ -26,6 +32,7 @@ export default function Rides() {
       </div>
 
       <div className="rides-container">
+        {/*
         <Ride name="UmaNator" src="/images/ferris-wheel.jpg"/>
         <Ride name="UmaCoaster 3000" src="/images/roller-coaster.jpeg"/>
         <Ride name="UmaGeddon" src="/images/freefall.webp"/>
@@ -38,14 +45,19 @@ export default function Rides() {
         <Ride name="Umanji" src="/images/eye-of-uma.jpg"/>
         <Ride name="BumperUma" src="/images/bumper-boats.webp"/>
         <Ride name="UmaLoopa" src="/images/coaster-train.jpg"/>
+        */}
 
         {rides.map((ride, index) => (
-          <Ride
-            key={index}
-            name={ride.name}
-            src={ride.imageUrl} // Make sure your DB stores image URLs
-          />
+          <div className="ride-card" key={index}>
+            <h3 className="ride-name">{ride.ride_name}</h3>
+            <img
+              src={ride.ride_img}
+              alt={ride.ride_name}
+              className="ride-image"
+            />
+          </div>
         ))}
+
       </div>
     </div>
   )

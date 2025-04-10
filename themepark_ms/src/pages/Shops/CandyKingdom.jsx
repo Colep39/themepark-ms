@@ -1,21 +1,47 @@
 import './Shops.css';
 import ShopItem from './ShopItem';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 export default function CandyKingdom(){
+    const [items, setItems] = useState([]);
+
+    const API_BASE_URL = 'https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/shop'; 
+
+        useEffect(() => {
+        fetchShop();
+    }, []);
+
+        const fetchShop = async () => {
+            try {
+                const response = await axios.get(API_BASE_URL);
+                console.log("Fetched Shop data:", response.data);
+        
+                // Filter for only items that match this shop
+                const filteredItems = response.data.filter(item => item.shop_name === "Candy_Kingdom");
+                setItems(filteredItems);
+                console.log(filteredItems);
+        
+            } catch (error) {
+                console.error("Error fetching items:", error);
+            }
+        };
     return(
         <>
             <div className="candy-container">
                 <h1 id="shop-header">Candy Kingdom</h1>
 
                 <div className="shop-items-container">
-                    <ShopItem src="/images/cool-mint-crunch.webp" shopItemName="Cool Mint Crunch" price="5.00"/>
-                    <ShopItem src="/images/cotton-candy-ice.jpg" shopItemName="Cotton Candy Ice Cream" price="5.00"/>
-                    <ShopItem src="/images/cookies-n-cream.webp" shopItemName="Cookies N Cream" price="5.00"/>
-                    <ShopItem src="/images/pretzel.webp" shopItemName="Pretzel" price="3.50"/>
-                    <ShopItem src="/images/cotton-candy.webp" shopItemName="Cotton Candy" price="7.00" />
-                    <ShopItem src="/images/cookies.webp" shopItemName="Cookies (4)" price="8.00"/>
-                    <ShopItem src="/images/churros.jpg" shopItemName="Churros" price="6.00"/>
-                    <ShopItem src="/images/candy-apple.jpg" shopItemName="Candy Apple" price="2.50"/>
+
+                    {items.map((item, index) => (
+                        <ShopItem 
+                            key={index}
+                            src={item.item_img}
+                            shopItemName={item.item_name}
+                            price={item.item_price}
+                        />
+                    ))}
                 </div>
             </div>
         </>

@@ -40,6 +40,14 @@ export default function RecordWeather() {
         e.preventDefault();
         setIsSubmitting(true);
 
+         // Transform "yes"/"no" to 1/0
+         const formattedData = {
+            temperature: weatherData.temperature,
+            rainOut: weatherData.is_raining.toLowerCase() === "yes", // returns true or false
+            date: weatherData.date
+        };
+        console.log(formattedData);    
+
         try {
             const response = await fetch("https://themepark-backend-bcfpc8dvabedfcbt.centralus-01.azurewebsites.net/api/weather", {
                 method: "POST",
@@ -47,14 +55,14 @@ export default function RecordWeather() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 },
-                body: JSON.stringify(weatherData),
+                body: JSON.stringify(formattedData),
             });
 
             if (!response.ok) throw new Error("Failed to record weather data");
 
             toast.success("Weather data recorded successfully!");
 
-            alert("Weather data recorded successfully!");
+            
             setWeatherData({
                 temperature: '',
                 is_raining: '',

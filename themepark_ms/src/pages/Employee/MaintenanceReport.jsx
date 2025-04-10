@@ -114,7 +114,7 @@ const MaintenanceReport = () => {
       return start >= new Date(startDate) && end <= new Date(endDate);
     });
 
-    if (filtered.length === 0) return 0;
+    if (filtered.length === 0) return "Waiting to filter data";
 
     // Calculate the number of months in the given time span
     const start = new Date(startDate);

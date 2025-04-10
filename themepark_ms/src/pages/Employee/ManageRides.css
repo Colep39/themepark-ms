@@ -85,3 +85,7 @@
 .ride-operation-btn:hover{
     background-color: #b2af12;
 }
+#rides-table img{
+    width: 300px;
+    height: 300px;
+}

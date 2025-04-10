@@ -24,6 +24,7 @@
     width: 100%;
     overflow-x: auto;
     width: 100%;
+    margin-bottom: 20px;
 }
 #shops-table{
     border-collapse: collapse;
@@ -64,4 +65,25 @@
 }
 #edit-shop-btn:hover, #delete-shop-btn:hover{
     background-color: #b2af12;
+}
+#manage-shop-btn{
+    background-color: #e3e71c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+    margin: 5px;
+}
+#manage-shop-btn:hover{
+    background-color: #b2af12;
+}
+#shops-table img{
+    width: 250px;
+    height: 250px;
 }

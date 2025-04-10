@@ -155,7 +155,7 @@ export default function AddBreakdownForm({ onClose, onSubmit, initialData }) {
                     
                     <div className="date-inputs">
                         <div>
-                            <label htmlFor="startDate">Start Date:</label>
+                            <label htmlFor="startDate">Date:</label>
                             <input 
                                 id="startDate"
                                 name="startDate" 
@@ -165,7 +165,7 @@ export default function AddBreakdownForm({ onClose, onSubmit, initialData }) {
                                 required 
                             />
                         </div>
-                        
+                        {/*
                         <div>
                             <label htmlFor="endDate">End Date:</label>
                             <input 
@@ -176,6 +176,7 @@ export default function AddBreakdownForm({ onClose, onSubmit, initialData }) {
                                 onChange={handleChange} 
                             />
                         </div>
+                        */}
                     </div>
                     
                     <div>

@@ -122,10 +122,10 @@ export default function AddRideForm({ onClose, onSubmit, initialData }) {
                     </select>
 
                     <input
-                        type="file"
-                        onChange={(e) => setFormData({...formData, imageFile: e.target.files[0]})}
+                        onChange={handleChange}
                         name="ride_img"
-                        accept="image/*"
+                        value={formData.ride_img}
+                        placeholder="Ride Image URL"
                     />
                     <div className="modal-buttons">
                         <button type="submit">Submit</button>

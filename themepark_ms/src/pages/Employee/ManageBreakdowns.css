@@ -21,3 +21,19 @@
 #maintenance-description{
     font-size: 12px;
 }
+.edit-btn, .delete-btn{
+    background-color: #e3e71c;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+.edit-btn:hover, .delete-btn:hover{
+    background-color: #b2af12;
+}

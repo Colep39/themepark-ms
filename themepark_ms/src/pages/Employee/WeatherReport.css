@@ -117,3 +117,6 @@
 .weather-table td{
   border: solid 1px white;
 }
+.weather-report-container p{
+  font-size: 16px;
+}

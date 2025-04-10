@@ -3,6 +3,8 @@ import AddBreakdown from '/src/pages/components/AddBreakdown.jsx'
 import {useEffect, useState} from 'react';
 import AddBreakdownForm from './AddBreakdownForm.jsx'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ManageBreakdowns(){
     const [showNewBreakdownForm, setShowNewBreakdownForm] = useState(false);
@@ -86,6 +88,7 @@ export default function ManageBreakdowns(){
             }
             
             setShowNewBreakdownForm(false); // Hide form after submission
+            toast.success("Maintenance record submitted successfully!");
             fetchBreakdowns(); // Refresh the breakdowns list
         } catch (error) {
             console.error("Error submitting maintenance record:", error.response?.data || error.message);
@@ -121,8 +124,8 @@ const getStatusText = (statusCode) => {
                         <thead>
                             <tr>
                                 <th>Ride Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Date</th>
+                                {/*<th>End Date</th>*/}
                                 <th>Description</th>
                                 <th>Status</th>
                                 <th>Cost</th>
@@ -136,7 +139,7 @@ const getStatusText = (statusCode) => {
                                         {breakdown.ride ? breakdown.ride.ride_name : `Ride #${breakdown.ride_id}`}
                                     </td>
                                     <td>{formatDate(breakdown.startDate)}</td>
-                                    <td>{formatDate(breakdown.endDate)}</td>
+                                    {/*<td>{formatDate(breakdown.endDate)}</td>*/}
                                     <td>{breakdown.description}</td>
                                     <td>{getStatusText(breakdown.status)}</td>
                                     <td>${breakdown.maintenanceCost}</td>
