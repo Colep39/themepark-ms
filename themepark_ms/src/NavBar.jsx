@@ -35,7 +35,7 @@ export default function NavBar() {
   return (
     <>
         <nav className="nav">
-            <HomeLink to="/home" className="site-title">UmaZooma Land</HomeLink>
+            <HomeLink to="/home" className="site-title">Ian Hawke Land</HomeLink>
             <ul>
                 <CustomLink to="/visit">Visit</CustomLink>
                 <CustomLink to="/rides">Rides</CustomLink>
@@ -120,7 +120,7 @@ function CustomLink({to, children, ...props}){
 function HomeLink({ ...props}){
     return (
         <>
-            <Link to="/home" {...props}>UmaZooma Land</Link>
+            <Link to="/home" {...props}>Gojo Land</Link>
         </>
     )
 }

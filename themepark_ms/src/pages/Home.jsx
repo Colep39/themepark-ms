@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="hero">
-        <h1>Welcome to UmaZooma Land!</h1>
+        <h1>Welcome to Gojo Land!</h1>
       </section>
 
       {/* Explore Attractions */}
@@ -15,17 +15,17 @@ export default function Home() {
         <h2>Main Attractions</h2>
         <div className="scroll-container">
           <div className="card">
-            <h3>UmaCoaster 3000</h3>
+            <h3>Deep Blue Disaster</h3>
             <img src="/images/roller-coaster.jpeg"/>
             <p>Experience the thrill of high-speed rides!</p>
           </div>
           <div className="card">
-            <h3>Umanji</h3>
+            <h3>Tornado</h3>
             <img src="/images/eye-of-uma.jpg"/>
             <p>Dive into the ultimate water experience!</p>
           </div>
           <div className="card">
-            <h3>Umapocalypse</h3>
+            <h3>Gojos Dimension</h3>
             <img src="/images/umas-bullet.jpeg"/>
             <p>Step into a world of magic and wonder!</p>
           </div>
@@ -46,7 +46,7 @@ export default function Home() {
           <div className="card">
             <h3>Adventure Gear</h3>
             <img src="/images/nah-id-win-shirt.jpeg"/>
-            <p>Get your favorite UmaZooma merch!</p>
+            <p>Get your favorite Gojo Land merch!</p>
             <button onClick={() => navigate('/adventuregear')}className="button">All Gear!</button>
           </div>
           <div className="card">
