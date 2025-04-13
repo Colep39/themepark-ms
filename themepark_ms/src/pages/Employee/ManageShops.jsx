@@ -38,6 +38,7 @@ export default function ManageShops() {
     };
 
     const handleDeleteItem = async (itemId) => {
+        if (!window.confirm("Are you sure?")) return;
         try {
             await axios.delete(`${API_BASE_URL}/${itemId}`);
             fetchShopItems(); // Refresh the list after deletion

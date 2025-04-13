@@ -37,6 +37,7 @@ export default function ManageBreakdowns() {
     };
 
     const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure?")) return;
         try {
             await axios.delete(`${API_URL}/${id}`);
             fetchBreakdowns();

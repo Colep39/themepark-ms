@@ -35,6 +35,7 @@ export default function ManageRides() {
     };
 
     const handleDeleteRide = async (rideId) => {
+        if (!window.confirm("Are you sure?")) return;
         try {
             await axios.delete(`${API_BASE_URL}/${rideId}`);
             fetchRides(); // Refresh rides after deletion
