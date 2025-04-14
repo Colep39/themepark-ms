@@ -32,23 +32,12 @@ export default function Rides() {
       </div>
 
       <div className="rides-container">
-        {/*
-        <Ride name="UmaNator" src="/images/ferris-wheel.jpg"/>
-        <Ride name="UmaCoaster 3000" src="/images/roller-coaster.jpeg"/>
-        <Ride name="UmaGeddon" src="/images/freefall.webp"/>
-        <Ride name="Umapocalypse" src="/images/umas-bullet.jpeg"/>
-        <Ride name="Uma's Infinite Loop" src="/images/umas-infinite-loop.webp"/>
-        <Ride name="UmaPhobia" src="/images/twirly-thing.jpg"/>
-        <Ride name="OctoUma" src="/images/kid-ride1.jpg"/>
-        <Ride name="Wheel O Uma Jr" src="/images/kid-ride2.jpeg"/>
-        <Ride name="Heavens Fall" src="/images/fall-of-uma.jpg" />
-        <Ride name="Umanji" src="/images/eye-of-uma.jpg"/>
-        <Ride name="BumperUma" src="/images/bumper-boats.webp"/>
-        <Ride name="UmaLoopa" src="/images/coaster-train.jpg"/>
-        */}
 
         {rides.map((ride, index) => (
           <div className="ride-card" key={index}>
+            {ride.hot_attraction && (
+              <div className="hot-banner">🔥 Popular Attraction!</div>
+            )}
             <h3 className="ride-name">{ride.ride_name}</h3>
             <img
               src={ride.ride_img}

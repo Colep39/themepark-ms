@@ -71,7 +71,7 @@ export default function NavBar() {
                             {/*<Link to="/ridelogs" className="dropdown-item">Ride Logs</Link> */}
                             <Link to="/recordweather" className="dropdown-item">Record Weather</Link>
                             <Link to="/ticketreport" className="dropdown-item">Ticket Report</Link>
-                            <Link to="/weatherreport" className="dropdown-item">Weather Report</Link>
+                            <Link to="/weatherreport" className="dropdown-item">Weather Info</Link>
                             <Link to="/maintenancereport" className="dropdown-item">Maintenance Report</Link>
 
                             {/*Admin Only Pages*/}

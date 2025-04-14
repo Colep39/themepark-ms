@@ -127,7 +127,7 @@ const WeatherReport = () => {
   return (
     <div className="weather-report-page">
       <div className="weather-report-container">
-        <h1>Weather Report</h1>
+        <h1>Weather Information</h1>
         <p>Reports Average Number of Rainouts and temperature per month and by total time span given</p>
 
         <div className="filter-container">

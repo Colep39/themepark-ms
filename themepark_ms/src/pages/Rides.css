@@ -48,4 +48,13 @@ img{
     object-fit: cover;
     border-radius: 10px;
   }
+
+/* Populara attraction trigger styling */
+  .hot-banner{
+    color: white;
+    background-color: red;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 8px;
+  }
   
