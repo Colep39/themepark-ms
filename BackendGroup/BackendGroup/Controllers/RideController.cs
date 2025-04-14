@@ -69,6 +69,7 @@ namespace BackendGroup.Controllers
                 existingRide.ride_name = ride.ride_name;
             }
 
+            
             if (ride.capacity > 0)
             {
                 existingRide.capacity = ride.capacity;
@@ -103,6 +104,8 @@ namespace BackendGroup.Controllers
             {
                 existingRide.thrill_level = ride.thrill_level;
             }
+
+            existingRide.hot_attraction = ride.hot_attraction;
 
             await _context.SaveChangesAsync();
             return NoContent();

@@ -41,5 +41,7 @@ namespace BackendGroup.Models
         public string? ride_img { get; set; }
 
         public int thrill_level { get; set; }
+
+        public bool? hot_attraction {get; set;}
     }
 }
