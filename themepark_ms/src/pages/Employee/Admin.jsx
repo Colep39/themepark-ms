@@ -180,7 +180,7 @@ export default function Admin() {
             setEditingUser(null);
         } catch (error) {
             console.error("Error updating user:", error);
-            toast.error("❌ Admin limit reached. Demote an admin to add another.");
+            toast.error("❌ Failed to update employee");
         }
     };
 
