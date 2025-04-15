@@ -3,8 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
+
 using System.Threading.Tasks;
 using BackendGroup.Models;
+using MySql.Data.MySqlClient;
 
 namespace BackendGroup.Controllers
 {
@@ -13,10 +16,12 @@ namespace BackendGroup.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly ThemeParkContext _context;
+        private readonly IConfiguration _configuration;
 
-        public WeatherController(ThemeParkContext context)
+        public WeatherController(ThemeParkContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // ✅ Get Rainouts and Temperature for All Months
@@ -153,6 +158,80 @@ namespace BackendGroup.Controllers
 
             return Ok(weather);
         }
+
+
+
+        [HttpGet("ride-stats")]
+        public async Task<IActionResult> GetRideStats([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            var result = new RideStatsDashboard();
+
+            string connStr = _configuration.GetConnectionString("MySqlConnection");
+
+            using var conn = new MySqlConnection(connStr);
+            await conn.OpenAsync();
+
+            using var cmd = new MySqlCommand("GetRideStatsDashboard", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@start_date", startDate);
+            cmd.Parameters.AddWithValue("@end_date", endDate);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            // 1. Ride stats
+            while (await reader.ReadAsync())
+            {
+                result.RideStats.Add(new RideStat
+                {
+                    RideName = reader["ride_name"].ToString(),
+                    RideType = reader["type"].ToString(),
+                    RideCount = Convert.ToInt32(reader["total_ride_count"]),
+                    RideDate = Convert.ToDateTime(reader["ride_date"]),
+                    Temperature = Convert.ToDecimal(reader["temperature"]),
+                    RainOut = Convert.ToBoolean(reader["rainOut"])
+                });
+            }
+
+            // 2. Top 3 rides
+            await reader.NextResultAsync();
+            while (await reader.ReadAsync())
+            {
+                result.TopRides.Add(new TopRide
+                {
+                    RideName = reader["ride_name"].ToString(),
+                    TotalRideCount = Convert.ToInt32(reader["total_ride_count"])
+                });
+            }
+
+            // 3. Most popular ride type
+            await reader.NextResultAsync();
+            if (await reader.ReadAsync())
+            {
+                result.MostPopularType = reader["type"].ToString();
+                result.MostPopularTypeCount = Convert.ToInt32(reader["total_ride_count"]); // Add this line
+            }
+
+            // 4. Average temperature
+            await reader.NextResultAsync();
+            if (await reader.ReadAsync())
+            {
+                result.AvgTemp = Convert.ToDouble(reader["avg_temperature"]);
+            }
+
+            // 5. Total rainouts
+            await reader.NextResultAsync();
+            if (await reader.ReadAsync())
+            {
+                result.TotalRainouts = Convert.ToInt32(reader["total_rainouts"]);
+            }
+
+            return Ok(result);
+        }
+
+
+
 
 
     }
