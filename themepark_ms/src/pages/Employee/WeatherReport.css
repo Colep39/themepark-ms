@@ -203,3 +203,7 @@
   min-height: 95vh;
   padding: 2rem;
 }
+
+.summary-card li{
+  font-size: 14px;
+}
