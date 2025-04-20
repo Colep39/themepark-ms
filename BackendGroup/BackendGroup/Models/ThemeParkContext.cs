@@ -18,10 +18,13 @@ namespace BackendGroup.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<RideStuff> RideStuff { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RideStuff>().HasNoKey();
 
             // Convert the RideStatus enum to string 
             modelBuilder.Entity<Ride>()
