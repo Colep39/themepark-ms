@@ -3,7 +3,7 @@ COSC 3380 Group 14 Database Project for a Theme park Management System for the c
 This project involves handing aspects of a theme park, including featured rides, shop items, ticket purchasing, maintenance information, weather affecting the park, revenue, and user profiles. 
 
 ## Deployment Link:
-The application is deployed to be accessed with this link: [themepark-ms-git-main-cole-plagens-projects.vercel.app]
+The application is deployed to be accessed with this link: [themepark-ms-git-main-cole-plagens-projects.vercel.app](themepark-ms-git-main-cole-plagens-projects.vercel.app)
 
 ## Features:
 - User Authentication for different user roles of a Visitor, Staff Member, or Admin
@@ -24,10 +24,10 @@ The application is deployed to be accessed with this link: [themepark-ms-git-mai
    ```
 
 ## Running the app
--Frontend:
+- Frontend:
   cd themepark_ms
   npm run dev # Runs locally
--Backend:
+- Backend:
   cd BackendGroup
   cd BackendGroup # do it twice since its nested
   dotnet build
