@@ -23,16 +23,25 @@ The application is deployed to be accessed with this link: [https://themepark-ms
    npm install
    ```
 
-## Running the app
-- Frontend:
-  cd themepark_ms
-  npm run dev # Runs locally
-- Backend:
+## Running the App
+
+### Frontend
+
+To run the frontend locally:
+
+```bash
+cd themepark_ms
+npm install        # Install dependencies if not done yet
+npm run dev        # Starts the development server
+```
+### Backend
+Running the backend of the application:
+```bash
      cd BackendGroup
      cd BackendGroup # do it twice since its nested
      dotnet build
      dotnet run
-
+```
 ## Database Setup
 - You create your database in MySQL
 - Download the sql dump file
