@@ -1,13 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data;
-
-using System.Threading.Tasks;
 using BackendGroup.Models;
-using MySql.Data.MySqlClient;
+
 
 namespace BackendGroup.Controllers
 {
@@ -161,77 +155,32 @@ namespace BackendGroup.Controllers
 
 
 
-        [HttpGet("ride-stats")]
-        public async Task<IActionResult> GetRideStats([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
-        {
-            var result = new RideStatsDashboard();
-
-            string connStr = _configuration.GetConnectionString("MySqlConnection");
-
-            using var conn = new MySqlConnection(connStr);
-            await conn.OpenAsync();
-
-            using var cmd = new MySqlCommand("GetRideStatsDashboard", conn)
+        
+        [HttpGet("ride-counts-by-date-range")]
+            public async Task<ActionResult<IEnumerable<RideStuff>>> GetRideCountsByDateRange(
+                [FromQuery] DateTime startDate, 
+                [FromQuery] DateTime endDate)
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@start_date", startDate);
-            cmd.Parameters.AddWithValue("@end_date", endDate);
-
-            using var reader = await cmd.ExecuteReaderAsync();
-
-            // 1. Ride stats
-            while (await reader.ReadAsync())
-            {
-                result.RideStats.Add(new RideStat
+                try
                 {
-                    RideName = reader["ride_name"].ToString(),
-                    RideType = reader["type"].ToString(),
-                    RideCount = Convert.ToInt32(reader["total_ride_count"]),
-                    RideDate = Convert.ToDateTime(reader["ride_date"]),
-                    Temperature = Convert.ToDecimal(reader["temperature"]),
-                    RainOut = Convert.ToBoolean(reader["rainOut"])
-                });
-            }
+                    // Call the stored procedure using FromSqlRaw
+                    var rideStats = await _context.Set<RideStuff>()
+                        .FromSqlRaw("CALL GetRideCountsByDateRange({0}, {1})", startDate, endDate)
+                        .ToListAsync();
 
-            // 2. Top 3 rides
-            await reader.NextResultAsync();
-            while (await reader.ReadAsync())
-            {
-                result.TopRides.Add(new TopRide
+                    if (rideStats == null || !rideStats.Any())
+                    {
+                        return NotFound("No ride data found for the given date range.");
+                    }
+
+                    return Ok(rideStats);
+                }
+                catch (Exception ex)
                 {
-                    RideName = reader["ride_name"].ToString(),
-                    TotalRideCount = Convert.ToInt32(reader["total_ride_count"])
-                });
+                    // Log the exception (this is just a simple example, in a real app you would log this)
+                    return StatusCode(500, $"Internal server error: {ex.Message}");
+                }
             }
-
-            // 3. Most popular ride type
-            await reader.NextResultAsync();
-            if (await reader.ReadAsync())
-            {
-                result.MostPopularType = reader["type"].ToString();
-                result.MostPopularTypeCount = Convert.ToInt32(reader["total_ride_count"]); // Add this line
-            }
-
-            // 4. Average temperature
-            await reader.NextResultAsync();
-            if (await reader.ReadAsync())
-            {
-                result.AvgTemp = Convert.ToDouble(reader["avg_temperature"]);
-            }
-
-            // 5. Total rainouts
-            await reader.NextResultAsync();
-            if (await reader.ReadAsync())
-            {
-                result.TotalRainouts = Convert.ToInt32(reader["total_rainouts"]);
-            }
-
-            return Ok(result);
-        }
-
-
-
 
 
     }
