@@ -18,7 +18,7 @@ namespace BackendGroup.Controllers
             _configuration = configuration;
         }
 
-        // ✅ Get Rainouts and Temperature for All Months
+        //  Get Rainouts and Temperature for All Months
         [HttpGet("monthly-report")]
         public async Task<ActionResult<IEnumerable<MonthlyWeatherReport>>> GetMonthlyReport()
         {
@@ -29,7 +29,7 @@ namespace BackendGroup.Controllers
             return Ok(report);
         }
 
-        // ✅ Get Average Rainouts and Temperature for All Months
+        //  Get Average Rainouts and Temperature for All Months
         [HttpGet("monthly-averages")]
         public async Task<ActionResult<IEnumerable<WeatherAverages>>> GetMonthlyAverages()
         {
@@ -40,7 +40,7 @@ namespace BackendGroup.Controllers
             return Ok(averages);
         }
 
-        // ✅ Get Rainouts and Temperature Within a Date Range
+        //  Get Rainouts and Temperature Within a Date Range
         [HttpGet("date-range")]
         public async Task<ActionResult<IEnumerable<DailyWeatherReport>>> GetWeatherByDateRange(
             [FromQuery] DateTime start, [FromQuery] DateTime end)
@@ -57,7 +57,7 @@ namespace BackendGroup.Controllers
             return Ok(report);
         }
 
-        // ✅ Get Average Rainouts and Temperature for a Date Range
+        // Get Average Rainouts and Temperature for a Date Range
         [HttpGet("date-range-averages")]
         public async Task<ActionResult<IEnumerable<WeatherAverages>>> GetDateRangeAverages(
             [FromQuery] DateTime start, [FromQuery] DateTime end)
@@ -74,7 +74,7 @@ namespace BackendGroup.Controllers
             return Ok(averages);
         }
 
-        // ✅ Add New Weather Data
+        //  Add New Weather Data
         [HttpPost]
         public async Task<ActionResult<Weather>> PostWeatherData(Weather weather)
         {
@@ -84,7 +84,7 @@ namespace BackendGroup.Controllers
             return CreatedAtAction(nameof(GetWeatherByDateRange), new { id = weather.weather_id }, weather);
         }
 
-        // ✅ Update Weather Data by ID
+        // Update Weather Data by ID
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateWeather(int id, Weather updatedWeather)
         {
@@ -115,7 +115,7 @@ namespace BackendGroup.Controllers
             return NoContent();
         }
 
-        // ✅ Delete Weather Data by ID
+        // Delete Weather Data by ID
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeather(int id)
         {
