@@ -134,6 +134,7 @@ const TicketReport = () => {
             ))}
             */}
             {/* Top Rides Section */}
+            {/*
             {topRides && topRides.length > 0 && (
               <>
                 <h3>Most Popular Rides</h3>
@@ -144,6 +145,7 @@ const TicketReport = () => {
                 ))}
               </>
             )}
+            */}
           </div>
         )}
 
@@ -153,7 +155,7 @@ const TicketReport = () => {
               <tr>
                 {/*<th>Ticket ID</th> */}
                 <th>User Name</th>
-                <th>Ride Name</th>
+                {/*<th>Ride Name</th>*/}
                 <th>Purchase Date</th>
                 <th>Ticket Type</th>
                 <th>Price</th>
@@ -164,7 +166,7 @@ const TicketReport = () => {
                 <tr key={ticket.ticketId}>
                   {/*<td>{ticket.ticketId}</td>*/}
                   <td>{ticket.userName}</td>
-                  <td>{ticket.rideName}</td>
+                  {/*<td>{ticket.rideName}</td>*/}
                   <td>{new Date(ticket.purchaseDate).toLocaleDateString()}</td>
                   <td>{ticket.ticketType}</td>
                   <td>${ticket.price.toFixed(2)}</td>
